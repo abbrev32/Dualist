@@ -8,13 +8,19 @@ public class PlayerController : NetworkBehaviour
     public float dashSpeed = 15.0f;
     public float jumpHeight = 5.0f;
     private int extJumps = 0;
-
+    private Animator anim;
+    
+         
     //Dash forward
     private bool isDashing = false;
     private readonly float dashCoolDown = 1;
     float dashCoolDownTimer = 0;
     float dashTimer = 0;
     private readonly float dashTime = 0.25f;
+    private void Awake()
+    {
+        anim = GetComponent<Animator>();
+    }
 
     void Update()
     {
@@ -44,6 +50,14 @@ public class PlayerController : NetworkBehaviour
         }
         //add final velocity for clearity
         float finalVelocityX = moveX * movementSpeed;
+
+        //turning character
+        float inputMovValue = Input.GetAxis("Horizontal");
+
+        if (inputMovValue > 0.01f)
+            transform.localScale = new Vector3(0.15039f, 0.3f, 0.3f);
+        else if (inputMovValue < -0.01f)
+            transform.localScale = new Vector3 (-0.15039f, 0.3f, 0.3f);
 
         //dash logic... long ahh and boring but i made it by myself :D
         if (!isDashing)
