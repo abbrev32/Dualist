@@ -16,9 +16,7 @@ public class PlayerController : NetworkBehaviour
     [SyncVar]
     private bool isRunning = false;
     [SyncVar]
-    private bool isJumping = false;
-    
-         
+
     //Dash forward
     private bool isDashing = false;
     private readonly float dashCoolDown = 1;
@@ -46,8 +44,8 @@ public class PlayerController : NetworkBehaviour
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
                     velocityY = jumpHeight;
-                    isJumping = true;
                     grounded = false;
+                    CmdJump();
                 }
             }
             //on-air jump
@@ -57,8 +55,8 @@ public class PlayerController : NetworkBehaviour
                 {
                     velocityY = jumpHeight;
                     extJumps--;
-                    isJumping = true;
                     grounded = false;
+                    CmdJump();
                 }
             }
             //add final velocity for clearity
@@ -112,18 +110,23 @@ public class PlayerController : NetworkBehaviour
             //Assign velocities
             playerBody.linearVelocity = new Vector2(finalVelocityX, velocityY);
         }
-        if(anim != null)
+        if (anim != null)
         {
             anim.SetBool("run", isRunning);
             anim.SetBool("grounded", grounded);
-            if(isJumping)
-            {
-                anim.SetTrigger("jump");
-                if(isLocalPlayer) isJumping = false;
-            }
         }
     }
 
+    [Command]
+    void CmdJump()
+    {
+        RpcTriggerJump();
+    }
+    [ClientRpc]
+    void RpcTriggerJump()
+    {
+        if (anim != null) anim.SetTrigger("jump");
+    }
     bool IsOnGround()
     {
         Vector2 position = transform.position;
