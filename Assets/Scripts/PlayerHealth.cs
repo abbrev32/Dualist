@@ -1,7 +1,6 @@
 using UnityEngine;
 using Mirror;
 using TMPro;
-using TMPro.Examples;
 using System;
 public class PlayerHealth : NetworkBehaviour
 {

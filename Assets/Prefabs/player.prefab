@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 5504737776217372897}
   - component: {fileID: 962597600270359677}
   - component: {fileID: 7944501990596515411}
+  - component: {fileID: -7695068531444932793}
   m_Layer: 0
   m_Name: player
   m_TagString: Untagged
@@ -264,3 +265,21 @@ MonoBehaviour:
   movementSpeed: 5
   dashSpeed: 15
   jumpHeight: 12
+--- !u!114 &-7695068531444932793
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6685621595264563326}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6a7705fecff3b84d82c7c93d518862e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  maxHealth: 10
+  currentHealth: 1
+  healthText: {fileID: 0}
