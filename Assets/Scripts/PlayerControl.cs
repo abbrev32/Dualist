@@ -43,11 +43,10 @@ public class PlayerController : NetworkBehaviour
             {
                 extJumps = 1;
                 grounded = true;
-                isJumping = false;
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
-                    isJumping = true;
                     velocityY = jumpHeight;
+                    isJumping = true;
                     grounded = false;
                 }
             }
@@ -120,6 +119,7 @@ public class PlayerController : NetworkBehaviour
             if(isJumping)
             {
                 anim.SetTrigger("jump");
+                if(isLocalPlayer) isJumping = false;
             }
         }
     }
