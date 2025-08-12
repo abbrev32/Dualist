@@ -12,12 +12,12 @@ public class PlayerController : NetworkBehaviour
 
     private Animator anim;
     private NetworkAnimator netAnimator;
-    [SyncVar]
-    private bool grounded = true;
-    [SyncVar]
-    private bool isRunning = false;
-    [SyncVar]
-    private bool isJumping = false;
+    //[SyncVar]
+    //private bool grounded = true;
+    //[SyncVar]
+    //private bool isRunning = false;
+    //[SyncVar]
+    //private bool isJumping = false;
 
     //Dash forward
     private bool isDashing = false;
@@ -33,94 +33,79 @@ public class PlayerController : NetworkBehaviour
 
     void Update()
     {
-        if (isLocalPlayer)
+        if (!isLocalPlayer) return;
+        //Linear Movement + Double Jumping
+        float moveX = Input.GetAxis("Horizontal");
+        float velocityY = playerBody.linearVelocityY;
+
+        //jump + double jump logic
+        if (IsOnGround())
         {
-            //Linear Movement + Double Jumping
-            float moveX = Input.GetAxis("Horizontal");
-            float velocityY = playerBody.linearVelocityY;
-
-            //jump + double jump logic
-            if (IsOnGround())
+            extJumps = 1;
+            if (Input.GetKeyDown(KeyCode.Space))
             {
-                extJumps = 1;
-                grounded = true;
-                if (Input.GetKeyDown(KeyCode.Space))
+                velocityY = jumpHeight;
+                netAnimator.SetTrigger("jump");
+            }
+        }
+        //on-air jump
+        if (!IsOnGround() && extJumps > 0)
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                velocityY = jumpHeight;
+                extJumps--;
+                netAnimator.SetTrigger("jump");
+            }
+        }
+        //add final velocity for clearity
+        float finalVelocityX = moveX * movementSpeed;
+
+        bool isRunning = Math.Abs(moveX) > 0.01f;
+
+        //dash logic... long ahh and boring but i made it by myself :D
+        if (!isDashing)
+        {
+            dashCoolDownTimer += Time.deltaTime;
+            if (dashCoolDownTimer > dashCoolDown)
+            {
+                if (Input.GetKeyDown(KeyCode.LeftShift))
                 {
-                    velocityY = jumpHeight;
-                    grounded = false;
-                    isJumping = true;
+                    isDashing = true;
                 }
             }
-            //on-air jump
-            if (!IsOnGround() && extJumps > 0)
+        }
+        else
+        {
+            dashTimer += Time.deltaTime;
+            if (dashTimer > dashTime)
             {
-                if (Input.GetKeyDown(KeyCode.Space))
-                {
-                    velocityY = jumpHeight;
-                    extJumps--;
-                    grounded = false;
-                    isJumping = true;
-                }
-            }
-            //add final velocity for clearity
-            float finalVelocityX = moveX * movementSpeed;
-
-
-            //turning character
-            float inputMovValue = Input.GetAxis("Horizontal");
-
-            if (inputMovValue > 0.01f)
-                transform.localScale = new Vector3(.2f, 0.2f, 0.2f);
-            else if (inputMovValue < -0.01f)
-                transform.localScale = new Vector3(-0.2f, 0.2f, 0.2f);
-            //set animinator parameter
-            isRunning = (inputMovValue != 0);
-            anim.SetBool("run", isRunning);
-
-
-
-            //dash logic... long ahh and boring but i made it by myself :D
-            if (!isDashing)
-            {
-                dashCoolDownTimer += Time.deltaTime;
-                if (dashCoolDownTimer > dashCoolDown)
-                {
-                    if (Input.GetKeyDown(KeyCode.LeftShift))
-                    {
-                        isDashing = true;
-                    }
-                }
+                isDashing = false;
+                dashCoolDownTimer = 0;
+                dashTimer = 0;
             }
             else
             {
-                dashTimer += Time.deltaTime;
-                if (dashTimer > dashTime)
-                {
-                    isDashing = false;
-                    dashCoolDownTimer = 0;
-                    dashTimer = 0;
-                }
-                else
-                {
-                    //dash to last faced direction if not moving
-                    float dashDirection = (moveX != 0) ? moveX : transform.localScale.x > 0 ? 1 : -1;
-                    //add dash to final velocity
-                    finalVelocityX += dashSpeed * dashDirection;
-                }
+                //dash to last faced direction if not moving
+                float dashDirection = (moveX != 0) ? moveX : transform.localScale.x > 0 ? 1 : -1;
+                //add dash to final velocity
+                finalVelocityX += dashSpeed * dashDirection;
             }
-
-
-            //Assign velocities
-            playerBody.linearVelocity = new Vector2(finalVelocityX, velocityY);
         }
+
+
+        //Assign velocities
+        playerBody.linearVelocity = new Vector2(finalVelocityX, velocityY);
+
+        if (moveX > 0.01f)
+            transform.localScale = new Vector3(.2f, 0.2f, 0.2f);
+        else if (moveX < -0.01f)
+            transform.localScale = new Vector3(-0.2f, 0.2f, 0.2f);
+
         if (anim != null)
         {
             anim.SetBool("run", isRunning);
-            anim.SetBool("grounded", grounded);
-            if(isJumping)
-            {
-                netAnimator.SetTrigger("jump");
-            }
+            anim.SetBool("grounded", IsOnGround());
         }
     }
     bool IsOnGround()
@@ -134,10 +119,5 @@ public class PlayerController : NetworkBehaviour
         RaycastHit2D hit = Physics2D.Raycast(position, direction, length, groundLayer);
 
         return (hit.collider != null);
-    }
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Ground"))
-            grounded = true;
     }
 }
