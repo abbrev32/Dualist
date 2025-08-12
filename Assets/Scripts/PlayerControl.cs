@@ -9,8 +9,14 @@ public class PlayerController : NetworkBehaviour
     public float dashSpeed = 15.0f;
     public float jumpHeight = 5.0f;
     private int extJumps = 0;
+
     private Animator anim;
+    [SyncVar]
     private bool grounded = true;
+    [SyncVar]
+    private bool isRunning = false;
+    [SyncVar]
+    private bool isJumping = false;
     
          
     //Dash forward
@@ -26,86 +32,97 @@ public class PlayerController : NetworkBehaviour
 
     void Update()
     {
-        if (!isLocalPlayer) return;
-
-
-        //Linear Movement + Double Jumping
-        float moveX = Input.GetAxis("Horizontal");
-        float velocityY = playerBody.linearVelocityY;
-
-        //jump + double jump logic
-        if (IsOnGround())
+        if (isLocalPlayer)
         {
-            extJumps = 1;
-            anim.SetBool("grounded", grounded);
-            if (Input.GetKeyDown(KeyCode.Space))
+            //Linear Movement + Double Jumping
+            float moveX = Input.GetAxis("Horizontal");
+            float velocityY = playerBody.linearVelocityY;
+
+            //jump + double jump logic
+            if (IsOnGround())
             {
-                velocityY = jumpHeight;
-                anim.SetTrigger("jump");
-                grounded = false;
-            }
-        }
-        //on-air jump
-        if (!IsOnGround() && extJumps > 0)
-        {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                velocityY = jumpHeight;
-                extJumps--;
-                anim.SetTrigger("jump");
-                grounded = false;
-            }
-        }
-        //add final velocity for clearity
-        float finalVelocityX = moveX * movementSpeed;
-
-
-        //turning character
-        float inputMovValue = Input.GetAxis("Horizontal");
-
-        if (inputMovValue > 0.01f)
-            transform.localScale = new Vector3(.2f, 0.2f, 0.2f);
-        else if (inputMovValue < -0.01f)
-            transform.localScale = new Vector3 (-0.2f, 0.2f, 0.2f);
-        //set animinator parameter
-        anim.SetBool("run",inputMovValue != 0);
-        anim.SetBool("grounded", grounded);
-
-
-
-        //dash logic... long ahh and boring but i made it by myself :D
-        if (!isDashing)
-        {
-            dashCoolDownTimer += Time.deltaTime;
-            if (dashCoolDownTimer > dashCoolDown)
-            {
-                if (Input.GetKeyDown(KeyCode.LeftShift))
+                extJumps = 1;
+                grounded = true;
+                isJumping = false;
+                if (Input.GetKeyDown(KeyCode.Space))
                 {
-                    isDashing = true;
+                    isJumping = true;
+                    velocityY = jumpHeight;
+                    grounded = false;
                 }
             }
-        }
-        else
-        {
-            dashTimer += Time.deltaTime;
-            if (dashTimer > dashTime)
+            //on-air jump
+            if (!IsOnGround() && extJumps > 0)
             {
-                isDashing = false;
-                dashCoolDownTimer = 0;
-                dashTimer = 0;
+                if (Input.GetKeyDown(KeyCode.Space))
+                {
+                    velocityY = jumpHeight;
+                    extJumps--;
+                    isJumping = true;
+                    grounded = false;
+                }
+            }
+            //add final velocity for clearity
+            float finalVelocityX = moveX * movementSpeed;
+
+
+            //turning character
+            float inputMovValue = Input.GetAxis("Horizontal");
+
+            if (inputMovValue > 0.01f)
+                transform.localScale = new Vector3(.2f, 0.2f, 0.2f);
+            else if (inputMovValue < -0.01f)
+                transform.localScale = new Vector3(-0.2f, 0.2f, 0.2f);
+            //set animinator parameter
+            isRunning = (inputMovValue != 0);
+            anim.SetBool("run", isRunning);
+
+
+
+            //dash logic... long ahh and boring but i made it by myself :D
+            if (!isDashing)
+            {
+                dashCoolDownTimer += Time.deltaTime;
+                if (dashCoolDownTimer > dashCoolDown)
+                {
+                    if (Input.GetKeyDown(KeyCode.LeftShift))
+                    {
+                        isDashing = true;
+                    }
+                }
             }
             else
             {
-                //dash to last faced direction if not moving
-                float dashDirection = (moveX != 0) ? moveX : transform.localScale.x > 0 ? 1 : -1;
-                //add dash to final velocity
-                finalVelocityX += dashSpeed * dashDirection;
+                dashTimer += Time.deltaTime;
+                if (dashTimer > dashTime)
+                {
+                    isDashing = false;
+                    dashCoolDownTimer = 0;
+                    dashTimer = 0;
+                }
+                else
+                {
+                    //dash to last faced direction if not moving
+                    float dashDirection = (moveX != 0) ? moveX : transform.localScale.x > 0 ? 1 : -1;
+                    //add dash to final velocity
+                    finalVelocityX += dashSpeed * dashDirection;
+                }
+            }
+
+
+            //Assign velocities
+            playerBody.linearVelocity = new Vector2(finalVelocityX, velocityY);
+        }
+        if(anim != null)
+        {
+            anim.SetBool("run", isRunning);
+            anim.SetBool("grounded", grounded);
+            if(isJumping)
+            {
+                anim.SetTrigger("jump");
+                isJumping = false;
             }
         }
-
-
-        //Assign velocities
-        playerBody.linearVelocity = new Vector2(finalVelocityX, velocityY);
     }
 
     bool IsOnGround()
