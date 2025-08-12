@@ -48,7 +48,7 @@ public class PlayerHealth : NetworkBehaviour
     }
     public void TakeDamage(float damage)
     {
-        if (isLocalPlayer && currentHealth > 0)
+        if (currentHealth > 0)
             currentHealth -= damage;
     }
     public void OnHealthChange(float oldHealth, float newHealth)

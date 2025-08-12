@@ -9,10 +9,16 @@ public class PlayerController : NetworkBehaviour
     public float dashSpeed = 15.0f;
     public float jumpHeight = 5.0f;
     private int extJumps = 0;
+
     private Animator anim;
-    private bool grounded = true;
-    
-         
+    private NetworkAnimator netAnimator;
+    //[SyncVar]
+    //private bool grounded = true;
+    //[SyncVar]
+    //private bool isRunning = false;
+    //[SyncVar]
+    //private bool isJumping = false;
+
     //Dash forward
     private bool isDashing = false;
     private readonly float dashCoolDown = 1;
@@ -22,13 +28,12 @@ public class PlayerController : NetworkBehaviour
     private void Awake()
     {
         anim = GetComponent<Animator>();
+        netAnimator = GetComponent<NetworkAnimator>();
     }
 
     void Update()
     {
         if (!isLocalPlayer) return;
-
-
         //Linear Movement + Double Jumping
         float moveX = Input.GetAxis("Horizontal");
         float velocityY = playerBody.linearVelocityY;
@@ -37,12 +42,10 @@ public class PlayerController : NetworkBehaviour
         if (IsOnGround())
         {
             extJumps = 1;
-            anim.SetBool("grounded", grounded);
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 velocityY = jumpHeight;
-                anim.SetTrigger("jump");
-                grounded = false;
+                netAnimator.SetTrigger("jump");
             }
         }
         //on-air jump
@@ -52,26 +55,13 @@ public class PlayerController : NetworkBehaviour
             {
                 velocityY = jumpHeight;
                 extJumps--;
-                anim.SetTrigger("jump");
-                grounded = false;
+                netAnimator.SetTrigger("jump");
             }
         }
         //add final velocity for clearity
         float finalVelocityX = moveX * movementSpeed;
 
-
-        //turning character
-        float inputMovValue = Input.GetAxis("Horizontal");
-
-        if (inputMovValue > 0.01f)
-            transform.localScale = new Vector3(.2f, 0.2f, 0.2f);
-        else if (inputMovValue < -0.01f)
-            transform.localScale = new Vector3 (-0.2f, 0.2f, 0.2f);
-        //set animinator parameter
-        anim.SetBool("run",inputMovValue != 0);
-        anim.SetBool("grounded", grounded);
-
-
+        bool isRunning = Math.Abs(moveX) > 0.01f;
 
         //dash logic... long ahh and boring but i made it by myself :D
         if (!isDashing)
@@ -106,8 +96,18 @@ public class PlayerController : NetworkBehaviour
 
         //Assign velocities
         playerBody.linearVelocity = new Vector2(finalVelocityX, velocityY);
-    }
 
+        if (moveX > 0.01f)
+            transform.localScale = new Vector3(.2f, 0.2f, 0.2f);
+        else if (moveX < -0.01f)
+            transform.localScale = new Vector3(-0.2f, 0.2f, 0.2f);
+
+        if (anim != null)
+        {
+            anim.SetBool("run", isRunning);
+            anim.SetBool("grounded", IsOnGround());
+        }
+    }
     bool IsOnGround()
     {
         Vector2 position = transform.position;
@@ -120,10 +120,4 @@ public class PlayerController : NetworkBehaviour
 
         return (hit.collider != null);
     }
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Ground"))
-            grounded = true;
-    }
 }
-
