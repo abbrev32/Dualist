@@ -120,7 +120,6 @@ public class PlayerController : NetworkBehaviour
             if(isJumping)
             {
                 anim.SetTrigger("jump");
-                isJumping = false;
             }
         }
     }
@@ -143,4 +142,3 @@ public class PlayerController : NetworkBehaviour
             grounded = true;
     }
 }
-
