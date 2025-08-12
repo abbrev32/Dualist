@@ -11,11 +11,13 @@ public class PlayerController : NetworkBehaviour
     private int extJumps = 0;
 
     private Animator anim;
+    private NetworkAnimator netAnimator;
     [SyncVar]
     private bool grounded = true;
     [SyncVar]
     private bool isRunning = false;
     [SyncVar]
+    private bool isJumping = false;
 
     //Dash forward
     private bool isDashing = false;
@@ -26,6 +28,7 @@ public class PlayerController : NetworkBehaviour
     private void Awake()
     {
         anim = GetComponent<Animator>();
+        netAnimator = GetComponent<NetworkAnimator>();
     }
 
     void Update()
@@ -45,7 +48,7 @@ public class PlayerController : NetworkBehaviour
                 {
                     velocityY = jumpHeight;
                     grounded = false;
-                    Jump();
+                    isJumping = true;
                 }
             }
             //on-air jump
@@ -56,7 +59,7 @@ public class PlayerController : NetworkBehaviour
                     velocityY = jumpHeight;
                     extJumps--;
                     grounded = false;
-                    Jump();
+                    isJumping = true;
                 }
             }
             //add final velocity for clearity
@@ -114,18 +117,11 @@ public class PlayerController : NetworkBehaviour
         {
             anim.SetBool("run", isRunning);
             anim.SetBool("grounded", grounded);
+            if(isJumping)
+            {
+                netAnimator.SetTrigger("jump");
+            }
         }
-    }
-
-    
-    void Jump()
-    {
-        RpcTriggerJump();
-    }
-    [ClientRpc]
-    void RpcTriggerJump()
-    {
-        if (anim != null) anim.SetTrigger("jump");
     }
     bool IsOnGround()
     {
