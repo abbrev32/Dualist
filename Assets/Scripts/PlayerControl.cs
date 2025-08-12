@@ -28,10 +28,10 @@ public class PlayerController : NetworkBehaviour
         //jump + double jump logic
         if (IsOnGround())
         {
+            extJumps = 1;
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 velocityY = jumpHeight;
-                extJumps = 1;
             }
         }
         if (!IsOnGround() && extJumps > 0)
