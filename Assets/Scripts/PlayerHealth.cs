@@ -44,7 +44,11 @@ public class PlayerHealth : NetworkBehaviour
     [Command]
     public void CmdTakeDamage(float damage) //testing functionality
     {
-        if(isLocalPlayer && currentHealth > 0)
+        TakeDamage(damage);
+    }
+    public void TakeDamage(float damage)
+    {
+        if (isLocalPlayer && currentHealth > 0)
             currentHealth -= damage;
     }
     public void OnHealthChange(float oldHealth, float newHealth)
