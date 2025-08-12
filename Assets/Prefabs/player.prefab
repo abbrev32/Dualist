@@ -19,7 +19,7 @@ GameObject:
   - component: {fileID: -7695068531444932793}
   m_Layer: 0
   m_Name: player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -282,4 +282,3 @@ MonoBehaviour:
   syncInterval: 0
   maxHealth: 10
   currentHealth: 1
-  healthText: {fileID: 0}
