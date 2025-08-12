@@ -10,7 +10,7 @@ public class PlayerController : NetworkBehaviour
     public float jumpHeight = 5.0f;
     private int extJumps = 0;
     private Animator anim;
-    private bool grounded;
+    private bool grounded = true;
     
          
     //Dash forward
@@ -37,6 +37,7 @@ public class PlayerController : NetworkBehaviour
         if (IsOnGround())
         {
             extJumps = 1;
+            anim.SetBool("grounded", grounded);
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 velocityY = jumpHeight;
@@ -44,6 +45,7 @@ public class PlayerController : NetworkBehaviour
                 grounded = false;
             }
         }
+        //on-air jump
         if (!IsOnGround() && extJumps > 0)
         {
             if (Input.GetKeyDown(KeyCode.Space))
@@ -57,17 +59,19 @@ public class PlayerController : NetworkBehaviour
         //add final velocity for clearity
         float finalVelocityX = moveX * movementSpeed;
 
+
         //turning character
         float inputMovValue = Input.GetAxis("Horizontal");
 
         if (inputMovValue > 0.01f)
-            transform.localScale = new Vector3(0.15039f, 0.3f, 0.3f);
+            transform.localScale = new Vector3(.2f, 0.2f, 0.2f);
         else if (inputMovValue < -0.01f)
-            transform.localScale = new Vector3 (-0.15039f, 0.3f, 0.3f);
+            transform.localScale = new Vector3 (-0.2f, 0.2f, 0.2f);
         //set animinator parameter
         anim.SetBool("run",inputMovValue != 0);
+        anim.SetBool("grounded", grounded);
 
-       
+
 
         //dash logic... long ahh and boring but i made it by myself :D
         if (!isDashing)
@@ -99,6 +103,7 @@ public class PlayerController : NetworkBehaviour
             }
         }
 
+
         //Assign velocities
         playerBody.linearVelocity = new Vector2(finalVelocityX, velocityY);
     }
@@ -107,7 +112,7 @@ public class PlayerController : NetworkBehaviour
     {
         Vector2 position = transform.position;
         Vector2 direction = Vector2.down;
-        float length = 1f;
+        float length = 0.5f;
 
         LayerMask groundLayer = LayerMask.GetMask("Platform");
 
@@ -117,7 +122,7 @@ public class PlayerController : NetworkBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Ground")
+        if (collision.gameObject.CompareTag("Ground"))
             grounded = true;
     }
 }

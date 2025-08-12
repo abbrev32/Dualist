@@ -8,12 +8,14 @@ public class PlayerHealth : NetworkBehaviour
 
     [SyncVar(hook=nameof(OnHealthChange))]
     public float currentHealth = 1;
-    [SerializeField]
-    private TextMeshProUGUI healthText;
+    public static TextMeshProUGUI healthText;
+    public static TextMeshProUGUI healthTextOther;
+
 
     private void Awake()
     {
         healthText = GameObject.Find("HealthText").GetComponent<TextMeshProUGUI>();
+        healthTextOther = GameObject.Find("HealthTextOther").GetComponent<TextMeshProUGUI>();
     }
     public override void OnStartLocalPlayer()
     {
@@ -40,15 +42,19 @@ public class PlayerHealth : NetworkBehaviour
         currentHealth = health;
     }
     [Command]
-    public void CmdTakeDamage(float damage)
+    public void CmdTakeDamage(float damage) //testing functionality
     {
         currentHealth -= damage;
     }
     public void OnHealthChange(float oldHealth, float newHealth)
     {
-        if (healthText != null)
+        if (isLocalPlayer && healthText != null)
         {
             healthText.text = newHealth.ToString();
+        }
+        if (!isLocalPlayer && healthTextOther != null)
+        {
+            healthTextOther.text = newHealth.ToString();
         }
     }
 }
