@@ -1,19 +1,16 @@
 fileFormatVersion: 2
-guid: a9b44f9a2d758964b8f45bab2a2c69c6
+guid: c0f8b820c2957e649b84455578d7b59c
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1817425458613548953
-    second: dark 2Asset 2_0
+      213: -8478852553708728750
+    second: dark idle 1.5Asset 5_0
   - first:
-      213: -8747828673460010842
-    second: dark 2Asset 2_1
+      213: 7332639688295728663
+    second: dark idle 1.5Asset 5_1
   - first:
-      213: 4616671121257705476
-    second: dark 2Asset 2_2
-  - first:
-      213: 566883368045114391
-    second: dark 2Asset 2_3
+      213: -3915846309897922353
+    second: dark idle 1.5Asset 5_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -109,34 +106,12 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: dark 2Asset 2_0
+      name: dark idle 1.5Asset 5_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 353
+        x: 94
+        y: 475
         width: 193
-        height: 51
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 768869dac2537c6e0800000000000000
-      internalID: -1817425458613548953
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: dark 2Asset 2_1
-      rect:
-        serializedVersion: 2
-        x: 45
-        y: 311
-        width: 89
         height: 50
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -146,20 +121,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 6a080726b28799680800000000000000
-      internalID: -8747828673460010842
+      spriteID: 25e07497680155a80800000000000000
+      internalID: -8478852553708728750
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: dark 2Asset 2_2
+      name: dark idle 1.5Asset 5_1
       rect:
         serializedVersion: 2
-        x: 16
-        y: 164
-        width: 142
-        height: 154
+        x: 140
+        y: 433
+        width: 89
+        height: 49
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -168,20 +143,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 400be53bce5b11040800000000000000
-      internalID: 4616671121257705476
+      spriteID: 7164cce42f4c2c560800000000000000
+      internalID: 7332639688295728663
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: dark 2Asset 2_3
+      name: dark idle 1.5Asset 5_2
       rect:
         serializedVersion: 2
-        x: 22
-        y: 0
-        width: 95
-        height: 146
+        x: 84
+        y: 86
+        width: 169
+        height: 353
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -190,8 +165,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 714f7657b69fdd700800000000000000
-      internalID: 566883368045114391
+      spriteID: fc89287378e18a9c0800000000000000
+      internalID: -3915846309897922353
       vertices: []
       indices: 
       edges: []
@@ -210,10 +185,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      dark 2Asset 2_0: -1817425458613548953
-      dark 2Asset 2_1: -8747828673460010842
-      dark 2Asset 2_2: 4616671121257705476
-      dark 2Asset 2_3: 566883368045114391
+      dark idle 1.5Asset 5_0: -8478852553708728750
+      dark idle 1.5Asset 5_1: 7332639688295728663
+      dark idle 1.5Asset 5_2: -3915846309897922353
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

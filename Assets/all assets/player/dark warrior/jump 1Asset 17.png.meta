@@ -1,19 +1,22 @@
 fileFormatVersion: 2
-guid: a9b44f9a2d758964b8f45bab2a2c69c6
+guid: 7f31d9ae53877bb49927e3e45151fca6
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1817425458613548953
-    second: dark 2Asset 2_0
+      213: 2772638828833763462
+    second: jump 1Asset 17_0
   - first:
-      213: -8747828673460010842
-    second: dark 2Asset 2_1
+      213: -1246187781244944414
+    second: jump 1Asset 17_1
   - first:
-      213: 4616671121257705476
-    second: dark 2Asset 2_2
+      213: 6573346321346578000
+    second: jump 1Asset 17_2
   - first:
-      213: 566883368045114391
-    second: dark 2Asset 2_3
+      213: 856027785135845531
+    second: jump 1Asset 17_3
+  - first:
+      213: 3562094766004134040
+    second: jump 1Asset 17_4
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -109,13 +112,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: dark 2Asset 2_0
+      name: jump 1Asset 17_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 353
-        width: 193
-        height: 51
+        y: 345
+        width: 201
+        height: 52
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -124,20 +127,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 768869dac2537c6e0800000000000000
-      internalID: -1817425458613548953
+      spriteID: 680771323546a7620800000000000000
+      internalID: 2772638828833763462
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: dark 2Asset 2_1
+      name: jump 1Asset 17_1
       rect:
         serializedVersion: 2
-        x: 45
-        y: 311
-        width: 89
-        height: 50
+        x: 47
+        y: 301
+        width: 93
+        height: 52
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -146,20 +149,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 6a080726b28799680800000000000000
-      internalID: -8747828673460010842
+      spriteID: 2ef7677c0d6a4bee0800000000000000
+      internalID: -1246187781244944414
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: dark 2Asset 2_2
+      name: jump 1Asset 17_2
       rect:
         serializedVersion: 2
-        x: 16
-        y: 164
-        width: 142
-        height: 154
+        x: 17
+        y: 148
+        width: 148
+        height: 159
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -168,20 +171,42 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 400be53bce5b11040800000000000000
-      internalID: 4616671121257705476
+      spriteID: 056cb75f6a7393b50800000000000000
+      internalID: 6573346321346578000
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: dark 2Asset 2_3
+      name: jump 1Asset 17_3
       rect:
         serializedVersion: 2
-        x: 22
+        x: 10
+        y: 0
+        width: 61
+        height: 142
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b90f2e23cb831eb00800000000000000
+      internalID: 856027785135845531
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: jump 1Asset 17_4
+      rect:
+        serializedVersion: 2
+        x: 70
         y: 0
         width: 95
-        height: 146
+        height: 142
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -190,8 +215,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 714f7657b69fdd700800000000000000
-      internalID: 566883368045114391
+      spriteID: 89064ff115a1f6130800000000000000
+      internalID: 3562094766004134040
       vertices: []
       indices: 
       edges: []
@@ -210,10 +235,11 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      dark 2Asset 2_0: -1817425458613548953
-      dark 2Asset 2_1: -8747828673460010842
-      dark 2Asset 2_2: 4616671121257705476
-      dark 2Asset 2_3: 566883368045114391
+      jump 1Asset 17_0: 2772638828833763462
+      jump 1Asset 17_1: -1246187781244944414
+      jump 1Asset 17_2: 6573346321346578000
+      jump 1Asset 17_3: 856027785135845531
+      jump 1Asset 17_4: 3562094766004134040
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

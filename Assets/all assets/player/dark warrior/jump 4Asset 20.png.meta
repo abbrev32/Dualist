@@ -1,19 +1,22 @@
 fileFormatVersion: 2
-guid: a9b44f9a2d758964b8f45bab2a2c69c6
+guid: 84e79ce0d2a7a6d4b82058f83b41d6d4
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1817425458613548953
-    second: dark 2Asset 2_0
+      213: -6533602794118423858
+    second: jump 4Asset 20_0
   - first:
-      213: -8747828673460010842
-    second: dark 2Asset 2_1
+      213: 4953602348042968979
+    second: jump 4Asset 20_1
   - first:
-      213: 4616671121257705476
-    second: dark 2Asset 2_2
+      213: -1641641173129967702
+    second: jump 4Asset 20_2
   - first:
-      213: 566883368045114391
-    second: dark 2Asset 2_3
+      213: -8571918312150090138
+    second: jump 4Asset 20_3
+  - first:
+      213: 7292240315521954173
+    second: jump 4Asset 20_4
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -109,79 +112,79 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: dark 2Asset 2_0
+      name: jump 4Asset 20_0
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 324
+        width: 201
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eca521110eaf355a0800000000000000
+      internalID: -6533602794118423858
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: jump 4Asset 20_1
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 280
+        width: 92
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 39f54a9171bbeb440800000000000000
+      internalID: 4953602348042968979
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: jump 4Asset 20_2
+      rect:
+        serializedVersion: 2
+        x: 20
+        y: 127
+        width: 148
+        height: 160
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aa7cee20d08b739e0800000000000000
+      internalID: -1641641173129967702
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: jump 4Asset 20_3
       rect:
         serializedVersion: 2
         x: 0
-        y: 353
-        width: 193
-        height: 51
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 768869dac2537c6e0800000000000000
-      internalID: -1817425458613548953
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: dark 2Asset 2_1
-      rect:
-        serializedVersion: 2
-        x: 45
-        y: 311
-        width: 89
-        height: 50
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 6a080726b28799680800000000000000
-      internalID: -8747828673460010842
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: dark 2Asset 2_2
-      rect:
-        serializedVersion: 2
-        x: 16
-        y: 164
-        width: 142
-        height: 154
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 400be53bce5b11040800000000000000
-      internalID: 4616671121257705476
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: dark 2Asset 2_3
-      rect:
-        serializedVersion: 2
-        x: 22
         y: 0
-        width: 95
-        height: 146
+        width: 75
+        height: 125
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -190,8 +193,30 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 714f7657b69fdd700800000000000000
-      internalID: 566883368045114391
+      spriteID: 66eb0a806bd6a0980800000000000000
+      internalID: -8571918312150090138
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: jump 4Asset 20_4
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 0
+        width: 97
+        height: 125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d71f7775eed333560800000000000000
+      internalID: 7292240315521954173
       vertices: []
       indices: 
       edges: []
@@ -210,10 +235,11 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      dark 2Asset 2_0: -1817425458613548953
-      dark 2Asset 2_1: -8747828673460010842
-      dark 2Asset 2_2: 4616671121257705476
-      dark 2Asset 2_3: 566883368045114391
+      jump 4Asset 20_0: -6533602794118423858
+      jump 4Asset 20_1: 4953602348042968979
+      jump 4Asset 20_2: -1641641173129967702
+      jump 4Asset 20_3: -8571918312150090138
+      jump 4Asset 20_4: 7292240315521954173
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
