@@ -45,7 +45,7 @@ public class PlayerController : NetworkBehaviour
                 {
                     velocityY = jumpHeight;
                     grounded = false;
-                    CmdJump();
+                    Jump();
                 }
             }
             //on-air jump
@@ -56,7 +56,7 @@ public class PlayerController : NetworkBehaviour
                     velocityY = jumpHeight;
                     extJumps--;
                     grounded = false;
-                    CmdJump();
+                    Jump();
                 }
             }
             //add final velocity for clearity
@@ -117,8 +117,8 @@ public class PlayerController : NetworkBehaviour
         }
     }
 
-    [Command]
-    void CmdJump()
+    
+    void Jump()
     {
         RpcTriggerJump();
     }
