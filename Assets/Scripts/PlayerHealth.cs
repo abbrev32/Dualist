@@ -2,20 +2,24 @@ using UnityEngine;
 using Mirror;
 using TMPro;
 using System;
+using UnityEngine.UI;
 public class PlayerHealth : NetworkBehaviour
 {
     public float maxHealth = 10;
 
     [SyncVar(hook=nameof(OnHealthChange))]
     public float currentHealth = 1;
-    public static TextMeshProUGUI healthText;
-    public static TextMeshProUGUI healthTextOther;
+    public static Slider healthBarSelf;
+    public static Slider healthBarOther;
 
 
     private void Awake()
     {
-        healthText = GameObject.Find("HealthText").GetComponent<TextMeshProUGUI>();
-        healthTextOther = GameObject.Find("HealthTextOther").GetComponent<TextMeshProUGUI>();
+        healthBarSelf = GameObject.Find("HealthBarSelf").GetComponent<Slider>();
+        healthBarOther = GameObject.Find("HealthBarOther").GetComponent<Slider>();
+
+        if(healthBarSelf != null) healthBarSelf.maxValue = maxHealth;
+        if(healthBarOther != null) healthBarOther.maxValue = maxHealth;
     }
     public override void OnStartLocalPlayer()
     {
@@ -32,7 +36,6 @@ public class PlayerHealth : NetworkBehaviour
         if (Input.GetKeyDown(KeyCode.R))
         {
             CmdTakeDamage(1);
-            Console.WriteLine("Damage Taken \n");
         }
     }
 
@@ -53,13 +56,13 @@ public class PlayerHealth : NetworkBehaviour
     }
     public void OnHealthChange(float oldHealth, float newHealth)
     {
-        if (isLocalPlayer && healthText != null)
+        if (isLocalPlayer && healthBarSelf != null)
         {
-            healthText.text = newHealth.ToString();
+            healthBarSelf.value = newHealth;
         }
-        if (!isLocalPlayer && healthTextOther != null)
+        if (!isLocalPlayer && healthBarOther != null)
         {
-            healthTextOther.text = newHealth.ToString();
+            healthBarOther.value = newHealth;
         }
     }
 }
