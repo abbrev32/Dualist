@@ -13,8 +13,8 @@ public class PlayerController : NetworkBehaviour
     private Animator anim;
     private NetworkAnimator netAnimator;
 
-    [SyncVar]
-    private float moveX = 0;
+    [SyncVar(hook = nameof(OnFlipChanged))]
+    private float flipX = 0;
     //[SyncVar]
     //private bool grounded = true;
     //[SyncVar]
@@ -38,7 +38,7 @@ public class PlayerController : NetworkBehaviour
     {
         if (!isLocalPlayer) return;
         //Linear Movement + Double Jumping
-        moveX = Input.GetAxis("Horizontal");
+        float moveX = Input.GetAxis("Horizontal");
         float velocityY = playerBody.linearVelocityY;
 
         //jump + double jump logic
@@ -100,10 +100,18 @@ public class PlayerController : NetworkBehaviour
         //Assign velocities
         playerBody.linearVelocity = new Vector2(finalVelocityX, velocityY);
 
-        if (moveX > 0.01f)
-            transform.localScale = new Vector3(.2f, 0.2f, 0.2f);
-        else if (moveX < -0.01f)
-            transform.localScale = new Vector3(-0.2f, 0.2f, 0.2f);
+        float newFlipX = flipX;
+
+        newFlipX = (moveX > 0) ? 0.2f : -0.2f;
+
+        if(newFlipX != flipX)
+        {
+            CmdSetFlip(newFlipX);
+        }
+        //if (moveX > 0.01f)
+        //    transform.localScale = new Vector3(.2f, 0.2f, 0.2f);
+        //else if (moveX < -0.01f)
+        //    transform.localScale = new Vector3(-0.2f, 0.2f, 0.2f);
 
         if (netAnimator != null)
         {
@@ -124,6 +132,15 @@ public class PlayerController : NetworkBehaviour
         netAnimator.SetTrigger(param);
     }
 
+    [Command]
+    void CmdSetFlip(float value)
+    {
+        flipX = value;
+    }
+    void OnFlipChanged(float oldValue, float newValue)
+    {
+        transform.localScale = new Vector3(newValue, 0.2f, 0.2f);
+    }
 
     bool IsOnGround()
     {
