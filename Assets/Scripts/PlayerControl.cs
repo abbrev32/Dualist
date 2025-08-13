@@ -102,10 +102,10 @@ public class PlayerController : NetworkBehaviour
         else if (moveX < -0.01f)
             transform.localScale = new Vector3(-0.2f, 0.2f, 0.2f);
 
-        if (anim != null)
+        if (netAnimator != null)
         {
-            anim.SetBool("run", isRunning);
-            anim.SetBool("grounded", IsOnGround());
+            netAnimator.animator.SetBool("run", isRunning);
+            netAnimator.animator.SetBool("grounded", IsOnGround());
         }
     }
     bool IsOnGround()
