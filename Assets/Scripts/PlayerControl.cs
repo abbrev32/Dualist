@@ -45,7 +45,7 @@ public class PlayerController : NetworkBehaviour
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 velocityY = jumpHeight;
-                netAnimator.SetTrigger("jump");
+                CmdSetAnimTrigger("jump");
             }
         }
         //on-air jump
@@ -55,7 +55,7 @@ public class PlayerController : NetworkBehaviour
             {
                 velocityY = jumpHeight;
                 extJumps--;
-                netAnimator.SetTrigger("jump");
+                CmdSetAnimTrigger("jump");
             }
         }
         //add final velocity for clearity
@@ -104,10 +104,24 @@ public class PlayerController : NetworkBehaviour
 
         if (netAnimator != null)
         {
-            netAnimator.animator.SetBool("run", isRunning);
-            netAnimator.animator.SetBool("grounded", IsOnGround());
+            CmdSetAnimationState("run", isRunning);
+            CmdSetAnimationState("grounded", IsOnGround());
         }
     }
+
+    [Command]
+    public void CmdSetAnimationState(string param, bool value)
+    {
+        netAnimator.animator.SetBool(param, value);
+    }
+
+    [Command]
+    void CmdSetAnimTrigger(string param)
+    {
+        netAnimator.SetTrigger(param);
+    }
+
+
     bool IsOnGround()
     {
         Vector2 position = transform.position;
