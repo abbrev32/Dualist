@@ -12,6 +12,9 @@ public class PlayerController : NetworkBehaviour
 
     private Animator anim;
     private NetworkAnimator netAnimator;
+
+    [SyncVar]
+    private float moveX = 0;
     //[SyncVar]
     //private bool grounded = true;
     //[SyncVar]
@@ -35,7 +38,7 @@ public class PlayerController : NetworkBehaviour
     {
         if (!isLocalPlayer) return;
         //Linear Movement + Double Jumping
-        float moveX = Input.GetAxis("Horizontal");
+        moveX = Input.GetAxis("Horizontal");
         float velocityY = playerBody.linearVelocityY;
 
         //jump + double jump logic
