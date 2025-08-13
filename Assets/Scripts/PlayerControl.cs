@@ -99,12 +99,16 @@ public class PlayerController : NetworkBehaviour
 
         //Assign velocities
         playerBody.linearVelocity = new Vector2(finalVelocityX, velocityY);
-
-        float newFlipX = flipX;
-
-        newFlipX = (moveX > 0) ? 0.2f : -0.2f;
-
-        if(newFlipX != flipX)
+        float newFlipX = 0;
+        if (moveX != 0)
+        {
+            newFlipX = moveX > 0 ? 0.2f : -0.2f;
+        }
+        else
+        {
+            newFlipX = transform.localScale.x > 0 ? 0.2f : -0.2f;
+        }
+        if (newFlipX != flipX)
         {
             CmdSetFlip(newFlipX);
         }
