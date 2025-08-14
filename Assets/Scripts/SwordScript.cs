@@ -6,15 +6,20 @@ public class SwordScript : MonoBehaviour
         if (!Mirror.NetworkServer.active) return;
         if (collision.CompareTag("Player"))
         {
+            Debug.Log("Monster Hit");
             PlayerHealth playerHealth = collision.GetComponent<PlayerHealth>();
             if (playerHealth != null)
             {
                 playerHealth.TakeDamage(1);
             }
         }
-    }
-    void Update()
-    {
-        
+        if (collision.CompareTag("Monster"))
+        {
+            Monster monster = collision.GetComponent<Monster>();
+            if (monster != null)
+            {
+                monster.Kill();
+            }
+        }
     }
 }
