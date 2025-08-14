@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7110306779543423897}
   - component: {fileID: 9175102306359243477}
   - component: {fileID: 1175858073631189803}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -150,7 +150,7 @@ GameObject:
   - component: {fileID: 144196790258546888}
   - component: {fileID: 6367497276959037523}
   - component: {fileID: 8482729165005162940}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Sword
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -305,7 +305,7 @@ GameObject:
   - component: {fileID: 7944501990596515411}
   - component: {fileID: -7695068531444932793}
   - component: {fileID: 3359627312813826923}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: player
   m_TagString: Player
   m_Icon: {fileID: 0}
