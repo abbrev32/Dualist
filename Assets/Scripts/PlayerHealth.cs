@@ -57,6 +57,16 @@ public class PlayerHealth : NetworkBehaviour
             currentHealth -= damage;
             TriggerFlash();
         }
+        else
+        {
+            Destroy();
+        }
+    }
+
+    [Server]
+    public void Destroy()
+    {
+        NetworkServer.Destroy(gameObject);
     }
     public void OnHealthChange(float oldHealth, float newHealth)
     {
