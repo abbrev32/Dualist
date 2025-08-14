@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Grounded
   - Ground
+  - Monster
   layers:
   - Default
   - TransparentFX
