@@ -1,7 +1,8 @@
+using Mirror;
 using Mirror.Examples.CCU;
 using UnityEngine;
 
-public class MonsterMovement : MonoBehaviour
+public class MonsterMovement : NetworkBehaviour
 {
     public float speed = 3f;  // Movement speed
     public float leftBound = -10f;  // Left edge X position
@@ -11,6 +12,8 @@ public class MonsterMovement : MonoBehaviour
 
     void Update()
     {
+        if(!isServer) return;
+
         if (movingLeft)
         {
             transform.Translate(Vector3.left * speed * Time.deltaTime);

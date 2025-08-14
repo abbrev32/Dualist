@@ -1,9 +1,10 @@
+using Mirror;
 using UnityEngine;
-public class Monster : MonoBehaviour
+public class Monster : NetworkBehaviour
 {
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!Mirror.NetworkServer.active) return;
+        if (!NetworkServer.active) return;
         if (collision.CompareTag("Player"))
         {
             PlayerHealth playerHealth = collision.GetComponent<PlayerHealth>();
@@ -13,10 +14,10 @@ public class Monster : MonoBehaviour
             }
         }
     }
-
+    [Server]
     public void Kill()
     {
         // Called when ninja kills the monster
-        Destroy(gameObject);
+        NetworkServer.Destroy(gameObject);
     }
 }

@@ -1,18 +1,21 @@
+using Mirror;
 using UnityEngine;
 
-public class MonsterSpawner : MonoBehaviour
+public class MonsterSpawner : NetworkBehaviour
 {
     public GameObject monsterPrefab; // Assign your Monster prefab in Inspector
     public float spawnInterval = 3f; // Time between spawns
 
-    private void Start()
+    public override void OnStartServer()
     {
         SpawnMonster();
     }
 
+    [Server]
     public void SpawnMonster()
     {
-        Instantiate(monsterPrefab, transform.position, Quaternion.identity);
+        GameObject monster = Instantiate(monsterPrefab, transform.position, Quaternion.identity);
+        NetworkServer.Spawn(monster);
         Invoke(nameof(SpawnMonster), spawnInterval);
     }
 }
