@@ -1,7 +1,8 @@
+using Mirror;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MonsterSpawner : MonoBehaviour
+public class MonsterSpawner : NetworkBehaviour
 {
     public GameObject monsterPrefab;   // Your monster prefab
     public int monstersPerWave = 5;
@@ -11,13 +12,15 @@ public class MonsterSpawner : MonoBehaviour
 
     private List<GameObject> currentMonsters = new List<GameObject>();
 
-    void Start()
+    public override void OnStartServer()
     {
         SpawnWave();
     }
 
     void Update()
     {
+        if(!isServer) return;
+
         // Remove destroyed monsters from the list
         currentMonsters.RemoveAll(monster => monster == null);
 
@@ -50,6 +53,7 @@ public class MonsterSpawner : MonoBehaviour
                 moveScript.speed = Random.Range(speedRange.x, speedRange.y);
             }
 
+            NetworkServer.Spawn(newMonster);
             currentMonsters.Add(newMonster);
 
             yield return new WaitForSeconds(spawnDelay);

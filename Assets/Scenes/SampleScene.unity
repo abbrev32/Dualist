@@ -1475,6 +1475,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 621376f96c7f61843bafda4eb3693c81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   monsterPrefab: {fileID: 3831856357126718768, guid: b26e0e2d2b1fbb944842d626e6774813, type: 3}
   monstersPerWave: 5
   spawnDelay: 2
