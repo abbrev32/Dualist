@@ -1480,9 +1480,9 @@ MonoBehaviour:
   syncInterval: 0
   monsterPrefab: {fileID: 3831856357126718768, guid: b26e0e2d2b1fbb944842d626e6774813, type: 3}
   monstersPerWave: 5
-  spawnDelay: 2
+  spawnDelay: 0.5
   speedRange: {x: 2, y: 5}
-  positionOffset: 1
+  positionOffset: 1.5
 --- !u!4 &1144863383
 Transform:
   m_ObjectHideFlags: 0
