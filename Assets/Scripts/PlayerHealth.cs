@@ -3,6 +3,7 @@ using Mirror;
 using TMPro;
 using System;
 using UnityEngine.UI;
+using System.Collections;
 public class PlayerHealth : NetworkBehaviour
 {
     public float maxHealth = 10;
@@ -11,7 +12,7 @@ public class PlayerHealth : NetworkBehaviour
     public float currentHealth = 1;
     public static Slider healthBarSelf;
     public static Slider healthBarOther;
-
+   
 
     private void Awake()
     {
@@ -52,7 +53,10 @@ public class PlayerHealth : NetworkBehaviour
     public void TakeDamage(float damage)
     {
         if (currentHealth > 0)
+        {
             currentHealth -= damage;
+            TriggerFlash();
+        }
     }
     public void OnHealthChange(float oldHealth, float newHealth)
     {
@@ -64,5 +68,52 @@ public class PlayerHealth : NetworkBehaviour
         {
             healthBarOther.value = newHealth;
         }
+    }
+
+    //damage taken indicator
+    public SpriteRenderer playerSprite; 
+    public Color flashColor = new Color(1f, 0f, 0f, 0.5f);
+    public float flashDuration = 0.2f; 
+
+    private Color originalColor;
+
+    void Start()
+    {
+        if (playerSprite == null)
+            playerSprite = GetComponent<SpriteRenderer>();
+
+        originalColor = playerSprite.color;
+    }
+
+  
+    [Client]
+    public void TriggerFlash()
+    {
+        if (isLocalPlayer) 
+        {
+            CmdFlashRed();
+        }
+    }
+
+   
+    [Command]
+    void CmdFlashRed()
+    {
+        RpcFlashRed();
+    }
+
+   
+    [ClientRpc]
+    void RpcFlashRed()
+    {
+        StopAllCoroutines();
+        StartCoroutine(FlashRedEffect());
+    }
+
+    IEnumerator FlashRedEffect()
+    {
+        playerSprite.color = flashColor;
+        yield return new WaitForSeconds(flashDuration);
+        playerSprite.color = originalColor;
     }
 }
