@@ -53,6 +53,16 @@ public class PlayerHealth : NetworkBehaviour
     {
         if (currentHealth > 0)
             currentHealth -= damage;
+        else
+        {
+            Destroy();
+        }
+    }
+
+    [Server]
+    public void Destroy()
+    {
+        NetworkServer.Destroy(gameObject);
     }
     public void OnHealthChange(float oldHealth, float newHealth)
     {
