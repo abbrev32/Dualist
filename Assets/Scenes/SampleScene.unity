@@ -2794,7 +2794,7 @@ GameObject:
   - component: {fileID: 2122992011}
   m_Layer: 3
   m_Name: borderAsset 2_0
-  m_TagString: Ground
+  m_TagString: Border
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2849,10 +2849,10 @@ PolygonCollider2D:
       - {x: 2.4099998, y: -1.515}
       - {x: 2.4099998, y: 1.515}
       - {x: -2.3999999, y: 1.515}
-    - - {x: -2.26, y: -1.355}
-      - {x: 2.27, y: -1.375}
-      - {x: 2.28, y: 1.375}
-      - {x: -2.26, y: 1.365}
+    - - {x: -2.2910516, y: -1.4005773}
+      - {x: 2.290701, y: -1.4129807}
+      - {x: 2.3007011, y: 1.4129808}
+      - {x: -2.2962272, y: 1.4105768}
   m_UseDelaunayMesh: 0
 --- !u!212 &2122992012
 SpriteRenderer:
