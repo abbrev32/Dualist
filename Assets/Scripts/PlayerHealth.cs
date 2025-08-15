@@ -62,6 +62,10 @@ public class PlayerHealth : NetworkBehaviour
             Destroy();
         }
     }
+    public void HealthReset()
+    {
+        currentHealth = maxHealth;
+    }
 
     [Server]
     public void Destroy()
@@ -99,10 +103,10 @@ public class PlayerHealth : NetworkBehaviour
     [Client]
     public void TriggerFlash()
     {
-        if (isLocalPlayer) 
-        {
+      
+        
             CmdFlashRed();
-        }
+        
     }
 
    
