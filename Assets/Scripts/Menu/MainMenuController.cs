@@ -99,6 +99,10 @@ public class MainMenuController : MonoBehaviour
             playerTwoName.text = player2.isLocalPlayer ? "You" : "Player 2";
             playerTwoStatus.color = player2.readyToBegin ? Color.green : Color.gray;
         }
+        else
+        {
+            playerTwoStatus.color = Color.yellow;
+        }
 
         if (readyButton != null)
         {
