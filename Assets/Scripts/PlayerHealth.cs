@@ -52,13 +52,14 @@ public class PlayerHealth : NetworkBehaviour
     }
     public void TakeDamage(float damage)
     {
-        if (currentHealth > 0)
+        if (currentHealth > 1)
         {
             currentHealth -= damage;
             TriggerFlash();
         }
         else
         {
+            currentHealth -= damage;
             Destroy();
         }
     }
