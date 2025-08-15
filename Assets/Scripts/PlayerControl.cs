@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using Mirror;
 using System;
 using Mirror.BouncyCastle.Security;
@@ -12,6 +12,15 @@ public class PlayerController : NetworkBehaviour
 
     private Animator anim;
     private NetworkAnimator netAnimator;
+
+    SoundEFX soundEFX;
+    private void Awake()
+    {
+        soundEFX = GetComponent<SoundEFX>();
+        anim = GetComponent<Animator>();
+        netAnimator = GetComponent<NetworkAnimator>();
+
+    }
 
     [SyncVar(hook = nameof(OnFlipChanged))]
     private float flipX = 0;
@@ -28,11 +37,7 @@ public class PlayerController : NetworkBehaviour
     float dashCoolDownTimer = 0;
     float dashTimer = 0;
     private readonly float dashTime = 0.25f;
-    private void Awake()
-    {
-        anim = GetComponent<Animator>();
-        netAnimator = GetComponent<NetworkAnimator>();
-    }
+    
 
     void Update()
     {
@@ -49,6 +54,7 @@ public class PlayerController : NetworkBehaviour
             {
                 velocityY = jumpHeight;
                 CmdSetAnimTrigger("jump");
+                soundEFX.PlaySFX(soundEFX.jump);
             }
         }
         //on-air jump
@@ -59,6 +65,7 @@ public class PlayerController : NetworkBehaviour
                 velocityY = jumpHeight;
                 extJumps--;
                 CmdSetAnimTrigger("jump");
+                soundEFX.PlaySFX(soundEFX.jump);
             }
         }
         //add final velocity for clearity
