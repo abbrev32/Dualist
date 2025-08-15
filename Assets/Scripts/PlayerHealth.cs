@@ -59,6 +59,7 @@ public class PlayerHealth : NetworkBehaviour
         }
         else
         {
+            currentHealth -= damage;
             Destroy();
         }
     }

@@ -16,6 +16,7 @@ public class TurretHealth : NetworkBehaviour
             currentHealth -= damage;
         else
         {
+            currentHealth -= damage;
             Kill();
         }
     }
