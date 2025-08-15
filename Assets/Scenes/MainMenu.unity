@@ -1154,7 +1154,7 @@ MonoBehaviour:
   offlineSceneLoadDelay: 0
   transport: {fileID: 1114316987730878007, guid: 3017f63422b9ea0408414337e2e17a6d, type: 3}
   networkAddress: localhost
-  maxConnections: 100
+  maxConnections: 2
   disconnectInactiveConnections: 0
   disconnectInactiveTimeout: 60
   authenticator: {fileID: 0}
@@ -1180,7 +1180,7 @@ MonoBehaviour:
   evaluationInterval: 3
   timeInterpolationGui: 0
   showRoomGUI: 0
-  minPlayers: 2
+  minPlayers: 1
   roomPlayerPrefab: {fileID: 8782294551432012290, guid: 8866e93de5265864f9f77ccef2097a9b, type: 3}
   RoomScene: Assets/Scenes/MainMenu.unity
   GameplayScene: Assets/Scenes/SampleScene.unity

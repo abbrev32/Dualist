@@ -8,6 +8,7 @@ TagManager:
   - Ground
   - Monster
   - Border
+  - Turret
   layers:
   - Default
   - TransparentFX
