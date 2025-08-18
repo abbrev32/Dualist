@@ -5,7 +5,8 @@ public class Bullet : NetworkBehaviour
 {
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(!NetworkServer.active) return;
+        if (!NetworkServer.active) return;
+
         if (collision.collider.CompareTag("Player"))
         {
             Debug.Log("Player Hit!");
@@ -16,6 +17,7 @@ public class Bullet : NetworkBehaviour
                 Kill();
             }
         }
+
         if (collision.collider.CompareTag("Border"))
         {
             Debug.Log("Wall Hit!");
@@ -23,9 +25,20 @@ public class Bullet : NetworkBehaviour
         }
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (!NetworkServer.active) return;
+
+        if (collision.CompareTag("Sword"))
+        {
+            Debug.Log("Sword Blocked!");
+            Kill();
+        }
+    }
+
     [Server]
     void Kill()
     {
-        NetworkServer.Destroy(gameObject);
+        NetworkServer.Destroy(gameObject); // destroys across all clients
     }
 }
