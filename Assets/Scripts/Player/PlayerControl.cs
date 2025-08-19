@@ -15,12 +15,6 @@ public class PlayerController : NetworkBehaviour
 
     [SyncVar(hook = nameof(OnFlipChanged))]
     private float flipX = 0;
-    //[SyncVar]
-    //private bool grounded = true;
-    //[SyncVar]
-    //private bool isRunning = false;
-    //[SyncVar]
-    //private bool isJumping = false;
 
     //Dash forward
     private bool isDashing = false;
@@ -112,10 +106,6 @@ public class PlayerController : NetworkBehaviour
         {
             CmdSetFlip(newFlipX);
         }
-        //if (moveX > 0.01f)
-        //    transform.localScale = new Vector3(.2f, 0.2f, 0.2f);
-        //else if (moveX < -0.01f)
-        //    transform.localScale = new Vector3(-0.2f, 0.2f, 0.2f);
 
         if (netAnimator != null)
         {

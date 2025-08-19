@@ -309,6 +309,7 @@ GameObject:
   - component: {fileID: 7944501990596515411}
   - component: {fileID: -7695068531444932793}
   - component: {fileID: 3359627312813826923}
+  - component: {fileID: -6905769070635649525}
   m_Layer: 7
   m_Name: player
   m_TagString: Player
@@ -557,6 +558,8 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
+  faction: 0
+  playerRender: {fileID: 0}
   playerBody: {fileID: 1061430734723763729}
   movementSpeed: 5
   dashSpeed: 15
@@ -598,3 +601,16 @@ MonoBehaviour:
   syncInterval: 0
   clientAuthority: 0
   animator: {fileID: 5832499521776686045}
+--- !u!114 &-6905769070635649525
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6685621595264563326}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1ee8d48f156c5d49a089ff27cb8c03e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  visibleTo: 0
