@@ -804,8 +804,6 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  faction: 0
-  playerRender: {fileID: 0}
   playerBody: {fileID: 1061430734723763729}
   movementSpeed: 5
   dashSpeed: 15
