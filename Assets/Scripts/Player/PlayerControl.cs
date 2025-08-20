@@ -1,41 +1,64 @@
 using UnityEngine;
 using Mirror;
 using System;
-using Mirror.BouncyCastle.Security;
+
+// This script controls player movement and networking.
 public class PlayerController : NetworkBehaviour
 {
+    // A reference to the Rigidbody2D component for physics-based movement.
     public Rigidbody2D playerBody;
+    // Public variables to control movement and jump properties in the Inspector.
     public float movementSpeed = 1.0f;
     public float dashSpeed = 15.0f;
     public float jumpHeight = 5.0f;
+
+    // Public variable for the jump sound.
+    public AudioClip jumpSound;
+
+    // The audio source component.
+    private AudioSource audioSource;
+
     private int extJumps = 0;
 
+    // References for animations.
     private Animator anim;
     private NetworkAnimator netAnimator;
 
+    // A networked variable to sync the player's flip direction.
     [SyncVar(hook = nameof(OnFlipChanged))]
     private float flipX = 0;
 
-    //Dash forward
+    // Dash forward variables.
     private bool isDashing = false;
     private readonly float dashCoolDown = 1;
     float dashCoolDownTimer = 0;
     float dashTimer = 0;
     private readonly float dashTime = 0.25f;
+
     private void Awake()
     {
+        // Get references to all necessary components on this GameObject.
         anim = GetComponent<Animator>();
         netAnimator = GetComponent<NetworkAnimator>();
+
+        // Get or add the AudioSource component.
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
     }
 
     void Update()
     {
+        // Only allow the local player to control the character.
         if (!isLocalPlayer) return;
-        //Linear Movement + Double Jumping
-        float moveX = Input.GetAxis("Horizontal");
-        float velocityY = playerBody.linearVelocityY;
 
-        //jump + double jump logic
+        // Linear Movement + Double Jumping logic.
+        float moveX = Input.GetAxis("Horizontal");
+        float velocityY = playerBody.linearVelocity.y; // Correctly get y velocity.
+
+        // Jump + double jump logic.
         if (IsOnGround())
         {
             extJumps = 1;
@@ -43,24 +66,28 @@ public class PlayerController : NetworkBehaviour
             {
                 velocityY = jumpHeight;
                 CmdSetAnimTrigger("jump");
+                // Play the jump sound locally for the jumping player.
+                PlayJumpSound();
             }
         }
-        //on-air jump
-        if (!IsOnGround() && extJumps > 0)
+        // On-air jump logic.
+        else if (!IsOnGround() && extJumps > 0)
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 velocityY = jumpHeight;
                 extJumps--;
                 CmdSetAnimTrigger("jump");
+                // Play the double jump sound locally.
+                PlayJumpSound();
             }
         }
-        //add final velocity for clearity
-        float finalVelocityX = moveX * movementSpeed;
 
+        // Add final velocity for clarity.
+        float finalVelocityX = moveX * movementSpeed;
         bool isRunning = Math.Abs(moveX) > 0.01f;
 
-        //dash logic... long ahh and boring but i made it by myself :D
+        // Dash logic.
         if (!isDashing)
         {
             dashCoolDownTimer += Time.deltaTime;
@@ -83,16 +110,17 @@ public class PlayerController : NetworkBehaviour
             }
             else
             {
-                //dash to last faced direction if not moving
+                // Dash to last faced direction if not moving.
                 float dashDirection = (moveX != 0) ? moveX : transform.localScale.x > 0 ? 1 : -1;
-                //add dash to final velocity
+                // Add dash to final velocity.
                 finalVelocityX += dashSpeed * dashDirection;
             }
         }
 
-
-        //Assign velocities
+        // Assign velocities.
         playerBody.linearVelocity = new Vector2(finalVelocityX, velocityY);
+
+        // Handle player facing direction.
         float newFlipX = 0;
         if (moveX != 0)
         {
@@ -134,6 +162,15 @@ public class PlayerController : NetworkBehaviour
     void OnFlipChanged(float oldValue, float newValue)
     {
         transform.localScale = new Vector3(newValue, 0.2f, 0.2f);
+    }
+
+    // Method to play the jump sound.
+    private void PlayJumpSound()
+    {
+        if (audioSource != null && jumpSound != null)
+        {
+            audioSource.PlayOneShot(jumpSound);
+        }
     }
 
     bool IsOnGround()
