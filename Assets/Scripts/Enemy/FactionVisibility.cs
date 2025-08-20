@@ -28,10 +28,7 @@ public class FactionVisibility : NetworkBehaviour
         var localPlayer = NetworkClient.localPlayer?.GetComponent<PlayerFaction>();
         if (localPlayer == null) return;
 
-        Debug.Log($"[FactionVisibility] Local player faction: {localPlayer.faction}, " +
-              $"Enemy visibleTo: {visibleTo}");
         bool visible = (localPlayer.faction == visibleTo);
         sprite.enabled = visible;
-        hitbox.enabled = visible;
     }
 }
