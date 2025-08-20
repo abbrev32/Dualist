@@ -556,6 +556,7 @@ GameObject:
   - component: {fileID: 3359627312813826923}
   - component: {fileID: 2087029540268202565}
   - component: {fileID: 3130081457927342225}
+  - component: {fileID: 3204920501826344576}
   m_Layer: 7
   m_Name: player
   m_TagString: Player
@@ -804,8 +805,6 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  faction: 0
-  playerRender: {fileID: 0}
   playerBody: {fileID: 1061430734723763729}
   movementSpeed: 5
   dashSpeed: 15
@@ -958,3 +957,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &3204920501826344576
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6685621595264563326}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1ee8d48f156c5d49a089ff27cb8c03e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerFaction
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  faction: 0
