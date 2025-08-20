@@ -3,7 +3,9 @@ using UnityEngine;
 
 public class TurretSpawner : NetworkBehaviour
 {
-    public Transform spawnPoint;
+    public Transform spawnPoint0;
+    public Transform spawnPoint1;
+    public Transform spawnPoint2;
     public GameObject turretPrefab;
     private void Start()
     {
@@ -13,7 +15,11 @@ public class TurretSpawner : NetworkBehaviour
     [Server]
     void Spawn()
     {
-        GameObject turret = Instantiate(turretPrefab, spawnPoint.position, Quaternion.identity);
-        NetworkServer.Spawn(turret);
+        GameObject turret0 = Instantiate(turretPrefab, spawnPoint0.position, Quaternion.identity);
+        GameObject turret1 = Instantiate(turretPrefab, spawnPoint1.position, Quaternion.identity);
+        GameObject turret2 = Instantiate(turretPrefab, spawnPoint2.position, Quaternion.identity);
+        NetworkServer.Spawn(turret0);
+        NetworkServer.Spawn(turret1);
+        NetworkServer.Spawn(turret2);
     }
 }

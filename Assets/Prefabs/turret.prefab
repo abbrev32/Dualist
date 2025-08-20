@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 3654703360192482015}
   - component: {fileID: 3323923312765614272}
   - component: {fileID: 3181868947270162011}
-  - component: {fileID: 3097967820611998326}
   m_Layer: 0
   m_Name: turret
   m_TagString: Turret
@@ -198,24 +197,6 @@ MonoBehaviour:
   syncInterval: 0
   maxHealth: 3
   currentHealth: 3
---- !u!114 &3097967820611998326
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6325461954183053233}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 301d1e2a904bb0a4a8d170a93dbcefdd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::FactionVisibility
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0
-  visibleTo: 1
-  sprite: {fileID: 1390367360693604304}
-  hitbox: {fileID: 8137209485214203687}
 --- !u!1 &6866467144168329792
 GameObject:
   m_ObjectHideFlags: 0
