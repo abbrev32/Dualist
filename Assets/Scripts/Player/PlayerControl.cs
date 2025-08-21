@@ -53,8 +53,17 @@ public class PlayerController : NetworkBehaviour
     }
     public override void OnStartLocalPlayer()
     {
-       GameObject.Find("PlayerCamera").GetComponent<CameraBehavior>().playerPos = transform;        
+        Camera mainCam = Camera.main;
+        if (mainCam != null)
+        {
+            CameraBehavior camScript = mainCam.GetComponent<CameraBehavior>();
+            if (camScript != null)
+            {
+                camScript.playerPos = transform;   // assign THIS player to camera
+            }
+        }
     }
+
 
     void Update()
     {
@@ -71,9 +80,8 @@ public class PlayerController : NetworkBehaviour
             extJumps = 1;
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                Debug.Log("Juump");
                 velocityY = jumpHeight;
-                CmdSetAnimTrigger("jump");
+                //CmdSetAnimTrigger("jump");
                 // Play the jump sound locally for the jumping player.
                 PlayJumpSound();
             }
@@ -81,12 +89,11 @@ public class PlayerController : NetworkBehaviour
         // On-air jump logic.
         else if (!IsOnGround() && extJumps > 0)
         {
-            Debug.Log("On air!");
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 velocityY = jumpHeight;
                 extJumps--;
-                CmdSetAnimTrigger("jump");
+                //CmdSetAnimTrigger("jump");
                 // Play the double jump sound locally.
                 PlayJumpSound();
             }

@@ -14,9 +14,11 @@ GameObject:
   - component: {fileID: 3068911133089115264}
   - component: {fileID: 4068013501314847354}
   - component: {fileID: 4491107146695348216}
+  - component: {fileID: 6566882048528832175}
+  - component: {fileID: 6492758978559496332}
   m_Layer: 0
   m_Name: RealPlayer
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -193,6 +195,44 @@ MonoBehaviour:
   dashSpeed: 10
   jumpHeight: 12
   jumpSound: {fileID: 0}
+--- !u!114 &6566882048528832175
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 729317249368588371}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6a7705fecff3b84d82c7c93d518862e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  maxHealth: 10
+  currentHealth: 1
+  playerSprite: {fileID: 0}
+  flashColor: {r: 1, g: 0, b: 0, a: 0.5}
+  flashDuration: 0.2
+--- !u!114 &6492758978559496332
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 729317249368588371}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01d0b7fbcc1e9054ba87f2cb44bd9883, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  knifePrefab: {fileID: 8423889677385526762, guid: 4b4f8a76ed168be4aafc171c298dd57e, type: 3}
+  throwPoint: {fileID: 5963856648674041933}
+  cooldown: 0.3
 --- !u!1001 &8709541893161468420
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -204,6 +244,10 @@ PrefabInstance:
     - target: {fileID: -8653719598885068355, guid: 53c103aad56a66748800fcdd65bc9407, type: 3}
       propertyPath: m_Name
       value: white final character
+      objectReference: {fileID: 0}
+    - target: {fileID: -8653719598885068355, guid: 53c103aad56a66748800fcdd65bc9407, type: 3}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: -7552582706839291426, guid: 53c103aad56a66748800fcdd65bc9407, type: 3}
       propertyPath: m_LocalScale.x

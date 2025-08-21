@@ -2,7 +2,7 @@ using Mirror;
 using Mirror.Examples.Basic;
 using UnityEngine;
 
-public class CameraBehavior : NetworkBehaviour
+public class CameraBehavior : MonoBehaviour
 {
     public Transform playerPos;
     private readonly float smoothing = 1f;
@@ -13,6 +13,7 @@ public class CameraBehavior : NetworkBehaviour
 
     void LateUpdate()
     {
+        if (playerPos == null) return;
         //transform.position = Vector3.Lerp(transform.position, playerPos.position + offset, smoothing);
         float newX = Mathf.Lerp(transform.position.x, playerPos.position.x, smoothing);
         float newY = Mathf.Lerp(transform.position.y, playerPos.position.y + offset.y, jumpSmoothing);
