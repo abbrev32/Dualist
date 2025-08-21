@@ -43,12 +43,17 @@ public class PlayerController : NetworkBehaviour
         anim = GetComponent<Animator>();
         netAnimator = GetComponent<NetworkAnimator>();
 
+
         // Get or add the AudioSource component.
         audioSource = GetComponent<AudioSource>();
         if (audioSource == null)
         {
             audioSource = gameObject.AddComponent<AudioSource>();
         }
+    }
+    public override void OnStartLocalPlayer()
+    {
+       GameObject.Find("PlayerCamera").GetComponent<CameraBehavior>().playerPos = transform;        
     }
 
     void Update()
