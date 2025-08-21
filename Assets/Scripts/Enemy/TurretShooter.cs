@@ -1,8 +1,19 @@
 using Mirror;
 using UnityEngine;
 
+/// <summary>
+/// This script handles the turret's shooting logic and plays a sound directly.
+/// It requires an AudioSource component on the same GameObject.
+/// </summary>
+[RequireComponent(typeof(AudioSource))]
 public class TurretShooter : NetworkBehaviour
 {
+    // A reference to the AudioSource component that will play the sound.
+    private AudioSource audioSource;
+
+    [Tooltip("The audio clip to play when the turret fires.")]
+    public AudioClip shootSoundClip;
+
     public GameObject bulletPrefab;
     public float shootInterval = 3f;
     public float bulletSpeed = 5f;
@@ -12,6 +23,9 @@ public class TurretShooter : NetworkBehaviour
 
     void Start()
     {
+        // Get the AudioSource component on the same GameObject.
+        audioSource = GetComponent<AudioSource>();
+
         timer = shootInterval;
     }
 
@@ -29,6 +43,17 @@ public class TurretShooter : NetworkBehaviour
 
     void ShootInAngles()
     {
+        // Play the sound directly before creating the bullets.
+        if (shootSoundClip != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(shootSoundClip);
+        }
+        else
+        {
+            // A warning to remind the user to assign the clip in the Inspector.
+            Debug.LogWarning("No shoot sound clip or AudioSource found!");
+        }
+
         foreach (float angle in shootAngles)
         {
             // Create bullet

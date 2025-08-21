@@ -48,8 +48,11 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  spawnPoint: {fileID: 0}
+  spawnPoint0: {fileID: 0}
+  spawnPoint1: {fileID: 0}
+  spawnPoint2: {fileID: 0}
   turretPrefab: {fileID: 6325461954183053233, guid: ecb0d185bc0af0a45bac88a740f2abc5, type: 3}
+  turretPrefab2: {fileID: 559164485504519838, guid: 42a9f83b0b45a364b930a7e414ee1cc1, type: 3}
 --- !u!114 &7179867317008711988
 MonoBehaviour:
   m_ObjectHideFlags: 0
