@@ -51,9 +51,10 @@ public class PlayerController : NetworkBehaviour
             audioSource = gameObject.AddComponent<AudioSource>();
         }
     }
-    public override void OnStartLocalPlayer()
+    public void Start()
     {
-       GameObject.Find("PlayerCamera").GetComponent<CameraBehavior>().playerPos = transform;        
+        if (!isLocalPlayer) return;
+        GameObject.Find("PlayerCamera").GetComponent<CameraBehavior>().playerPos = transform;        
     }
 
     void Update()
