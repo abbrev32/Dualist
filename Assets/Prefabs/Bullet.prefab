@@ -234,5 +234,5 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  canDamageTo: 1
+  canDamageTo: 0
   sprite: {fileID: 5590503112633245528}
