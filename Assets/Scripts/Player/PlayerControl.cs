@@ -25,8 +25,10 @@ public class PlayerController : NetworkBehaviour
     private NetworkAnimator netAnimator;
 
     // A networked variable to sync the player's flip direction.
+    //[SyncVar(hook = nameof(OnFlipChanged))]
+    //private float flipX = 0;
     [SyncVar(hook = nameof(OnFlipChanged))]
-    private float flipX = 0;
+    private bool flipRight = true;
 
     // Dash forward variables.
     private bool isDashing = false;
@@ -64,6 +66,7 @@ public class PlayerController : NetworkBehaviour
             extJumps = 1;
             if (Input.GetKeyDown(KeyCode.Space))
             {
+                Debug.Log("Juump");
                 velocityY = jumpHeight;
                 CmdSetAnimTrigger("jump");
                 // Play the jump sound locally for the jumping player.
@@ -73,6 +76,7 @@ public class PlayerController : NetworkBehaviour
         // On-air jump logic.
         else if (!IsOnGround() && extJumps > 0)
         {
+            Debug.Log("On air!");
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 velocityY = jumpHeight;
@@ -121,19 +125,27 @@ public class PlayerController : NetworkBehaviour
         playerBody.linearVelocity = new Vector2(finalVelocityX, velocityY);
 
         // Handle player facing direction.
-        float newFlipX = 0;
-        if (moveX != 0)
+        //float newFlipX = 0;
+        //if (moveX != 0)
+        //{
+        //    newFlipX = moveX > 0 ? 0.2f : -0.2f;
+        //}
+        //else
+        //{
+        //    newFlipX = transform.localScale.x > 0 ? 0.2f : -0.2f;
+        //}
+        //if (newFlipX != flipX)
+        //{
+        //    CmdSetFlip(newFlipX);
+        //}
+        if(moveX != 0)
         {
-            newFlipX = moveX > 0 ? 0.2f : -0.2f;
+            flipRight = moveX > 0;
         }
-        else
-        {
-            newFlipX = transform.localScale.x > 0 ? 0.2f : -0.2f;
-        }
-        if (newFlipX != flipX)
-        {
-            CmdSetFlip(newFlipX);
-        }
+        //else
+        //{
+        //    flipRight = transform.localScale.x > 0;
+        //}
 
         if (netAnimator != null)
         {
@@ -154,14 +166,23 @@ public class PlayerController : NetworkBehaviour
         netAnimator.SetTrigger(param);
     }
 
-    [Command]
-    void CmdSetFlip(float value)
+    //[Command]
+    //void CmdSetFlip(float value)
+    //{
+    //    flipX = value;
+    //}
+    //void OnFlipChanged(float oldValue, float newValue)
+    //{
+    //    transform.localScale = new Vector3(newValue, 0.2f, 0.2f);
+    //}
+    void OnFlipChanged(bool oldValue, bool newValue)
     {
-        flipX = value;
-    }
-    void OnFlipChanged(float oldValue, float newValue)
-    {
-        transform.localScale = new Vector3(newValue, 0.2f, 0.2f);
+        if(oldValue != newValue)
+        {
+            Vector3 scale = transform.localScale;
+            scale.x *= -1;
+            transform.localScale = scale;
+        }
     }
 
     // Method to play the jump sound.
@@ -177,7 +198,7 @@ public class PlayerController : NetworkBehaviour
     {
         Vector2 position = transform.position;
         Vector2 direction = Vector2.down;
-        float length = 0.5f;
+        float length = 0.8f;
 
         LayerMask groundLayer = LayerMask.GetMask("Platform");
 
