@@ -80,7 +80,6 @@ public class PlayerController : NetworkBehaviour
             extJumps = 1;
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                Debug.Log("Juump");
                 velocityY = jumpHeight;
                 //CmdSetAnimTrigger("jump");
                 // Play the jump sound locally for the jumping player.
@@ -90,7 +89,6 @@ public class PlayerController : NetworkBehaviour
         // On-air jump logic.
         else if (!IsOnGround() && extJumps > 0)
         {
-            Debug.Log("On air!");
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 velocityY = jumpHeight;
