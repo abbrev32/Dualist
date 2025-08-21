@@ -82,7 +82,7 @@ public class PlayerController : NetworkBehaviour
             {
                 Debug.Log("Juump");
                 velocityY = jumpHeight;
-                CmdSetAnimTrigger("jump");
+                //CmdSetAnimTrigger("jump");
                 // Play the jump sound locally for the jumping player.
                 PlayJumpSound();
             }
@@ -95,7 +95,7 @@ public class PlayerController : NetworkBehaviour
             {
                 velocityY = jumpHeight;
                 extJumps--;
-                CmdSetAnimTrigger("jump");
+                //CmdSetAnimTrigger("jump");
                 // Play the double jump sound locally.
                 PlayJumpSound();
             }

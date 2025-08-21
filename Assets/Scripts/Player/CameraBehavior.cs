@@ -14,6 +14,7 @@ public class CameraBehavior : MonoBehaviour
     void LateUpdate()
     {
         if (playerPos == null) return;
+        Debug.Log("Camera Active: " + gameObject.activeSelf + " | Enabled: " + enabled);
         //transform.position = Vector3.Lerp(transform.position, playerPos.position + offset, smoothing);
         float newX = Mathf.Lerp(transform.position.x, playerPos.position.x, smoothing);
         float newY = Mathf.Lerp(transform.position.y, playerPos.position.y + offset.y, jumpSmoothing);
