@@ -1,54 +1,54 @@
 using UnityEngine;
 using Mirror;
 
+[RequireComponent(typeof(NetworkIdentity))]
 public class CoopSwitch : NetworkBehaviour
 {
-    [SerializeField] private Elevator2 elevator;  // Reference to Elevator2
-    [SerializeField] private float sinkSpeed = 1f;
+    [SerializeField] private Elevator2 elevator;  // Drag Elevator2 here in Inspector
+    [SerializeField] private float sinkDistance = 0.2f; // how far switch sinks
+    [SerializeField] private float sinkSpeed = 1f;      // speed of sinking
 
     private int playersOnSwitch = 0;
     private bool activated = false;
 
     private Vector3 initialPosition;
-    private Vector3 sunkPosition;
+    private Vector3 targetSinkPosition;
 
     private void Start()
     {
         initialPosition = transform.position;
-        sunkPosition = initialPosition + Vector3.down * 0.2f; // how far it sinks
+        targetSinkPosition = initialPosition + Vector3.down * sinkDistance;
     }
 
+    [ServerCallback] // Only server counts players
     private void OnTriggerEnter(Collider other)
     {
-        if (!isServer) return; // only server checks
-        if (other.CompareTag("Player"))
-        {
-            playersOnSwitch++;
-            CheckActivation();
-        }
+        if (!other.CompareTag("Player") || activated) return;
+
+        playersOnSwitch++;
+        CheckActivation();
     }
 
+    [ServerCallback]
     private void OnTriggerExit(Collider other)
     {
-        if (!isServer) return;
-        if (other.CompareTag("Player"))
-        {
-            playersOnSwitch--;
-        }
+        if (!other.CompareTag("Player") || activated) return;
+
+        playersOnSwitch = Mathf.Max(playersOnSwitch - 1, 0);
     }
 
     [Server]
     private void CheckActivation()
     {
+        Debug.Log($"Players on switch: {playersOnSwitch}");
+
         if (playersOnSwitch >= 2 && !activated)
         {
+            Debug.Log("Switch activated!");
             activated = true;
 
-            // Only server tells elevator to activate
             if (elevator != null)
-            {
                 elevator.ActivateElevator();
-            }
 
             RpcSinkSwitch();
         }
@@ -62,12 +62,11 @@ public class CoopSwitch : NetworkBehaviour
 
     private System.Collections.IEnumerator SinkRoutine()
     {
-        while (Vector3.Distance(transform.position, sunkPosition) > 0.01f)
+        while (Vector3.Distance(transform.position, targetSinkPosition) > 0.01f)
         {
-            transform.position = Vector3.MoveTowards(transform.position, sunkPosition, sinkSpeed * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, targetSinkPosition, sinkSpeed * Time.deltaTime);
             yield return null;
         }
-        // switch disappears into ground
-        gameObject.SetActive(false);
+        gameObject.SetActive(false); // disappear after sinking
     }
 }

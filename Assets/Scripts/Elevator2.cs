@@ -9,7 +9,7 @@ public class Elevator2 : NetworkBehaviour
 
     private bool activated = false;
 
-    [Server] // Only server should trigger this
+    [Server] // Only server can activate elevator
     public void ActivateElevator()
     {
         if (!activated)
@@ -28,10 +28,8 @@ public class Elevator2 : NetworkBehaviour
     private System.Collections.IEnumerator MoveElevatorRoutine()
     {
         Vector3 start = transform.position;
-
-        // Decide if we should go up or down
         Vector3 target = (Vector3.Distance(start, startPoint.position) < Vector3.Distance(start, endPoint.position))
-                         ? endPoint.position : startPoint.position;
+                         ? startPoint.position : endPoint.position;
 
         while (Vector3.Distance(transform.position, target) > 0.05f)
         {
