@@ -1,5 +1,6 @@
 using UnityEngine;
 using Mirror;
+using System.Collections;
 
 public class Elevator2 : NetworkBehaviour
 {
@@ -9,7 +10,7 @@ public class Elevator2 : NetworkBehaviour
 
     private bool activated = false;
 
-    [Server] // Only server can activate elevator
+    [Server]
     public void ActivateElevator()
     {
         if (!activated)
@@ -25,11 +26,11 @@ public class Elevator2 : NetworkBehaviour
         StartCoroutine(MoveElevatorRoutine());
     }
 
-    private System.Collections.IEnumerator MoveElevatorRoutine()
+    private IEnumerator MoveElevatorRoutine()
     {
         Vector3 start = transform.position;
         Vector3 target = (Vector3.Distance(start, startPoint.position) < Vector3.Distance(start, endPoint.position))
-                         ? startPoint.position : endPoint.position;
+                         ? endPoint.position : startPoint.position;
 
         while (Vector3.Distance(transform.position, target) > 0.05f)
         {
