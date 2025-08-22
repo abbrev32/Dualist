@@ -12,21 +12,23 @@ public class Bullet : NetworkBehaviour
         if (collision.collider.CompareTag("Player"))
         {
             //Visibility&Damage link
-            var localPlayer = NetworkClient.localPlayer?.GetComponent<PlayerFaction>();
+            var localPlayer = collision.collider.GetComponent<PlayerFaction>();
             if (localPlayer.faction != canDamageTo) return;
 
             Debug.Log("Player Hit!");
-            PlayerHealth playerHealth = collision.collider.GetComponent<PlayerHealth>();
-            if (playerHealth != null)
+            if (collision.collider.TryGetComponent<PlayerHealth>(out var playerHealth))
             {
                 playerHealth.TakeDamage(1);
                 Kill();
+            }
+            else
+            {
+                Debug.Log("Not Found Player!");
             }
         }
 
         if (collision.collider.CompareTag("Border"))
         {
-            Debug.Log("Wall Hit!");
             Kill();
         }
     }

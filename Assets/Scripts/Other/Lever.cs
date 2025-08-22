@@ -15,5 +15,6 @@ public class Lever : NetworkBehaviour
             // Any player or monster toggles the elevator
             elevator.ToggleElevator();
         }
+        
     }
 }

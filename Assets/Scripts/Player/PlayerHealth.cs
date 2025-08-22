@@ -55,7 +55,7 @@ public class PlayerHealth : NetworkBehaviour
         if (currentHealth > 1)
         {
             currentHealth -= damage;
-            TriggerFlash();
+            //TriggerFlash();
         }
         else
         {
