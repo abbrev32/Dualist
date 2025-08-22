@@ -8,12 +8,15 @@ public class PlayerHealth : NetworkBehaviour
 {
     public float maxHealth = 10;
 
-    [SyncVar(hook=nameof(OnHealthChange))]
+    [SyncVar(hook = nameof(OnHealthChange))]
     public float currentHealth = 1;
     public static Slider healthBarSelf;
     public static Slider healthBarOther;
-   
 
+    [SyncVar]
+    public bool isDead = false;
+
+    public Transform spawnPoint;
     private void Awake()
     {
         healthBarSelf = GameObject.Find("HealthBarSelf").GetComponent<Slider>();
@@ -60,8 +63,19 @@ public class PlayerHealth : NetworkBehaviour
         if (currentHealth <= 0)
         {
             RpcOnPlayerDeath();
-            StartCoroutine(ServerDestroyAfterDelay());
+            isDead = true;
+            //StartCoroutine(ServerDestroyAfterDelay());
         }
+    }
+
+    public void Respawn()
+    {
+        HealthReset();
+        isDead = false;
+
+        transform.position = spawnPoint.position;
+
+        //if (movement != null) movement.enabled = true;
     }
     public void HealthReset()
     {

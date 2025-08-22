@@ -1,82 +1,38 @@
-using Mirror;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using Mirror;
 
 public class GameManager : NetworkBehaviour
 {
-    [SyncVar(hook = nameof(OnRetryVoteChanged))] private bool player1RetryVote;
-    [SyncVar(hook = nameof(OnRetryVoteChanged))] private bool player2RetryVote;
-
-    [SyncVar(hook = nameof(OnQuitVoteChanged))] private bool player1QuitVote;
-    [SyncVar(hook = nameof(OnQuitVoteChanged))] private bool player2QuitVote;
-
-    // Assign these from inspector or find them dynamically on clients
-    public GameOverUI ui;
-
-    public GameObject gameOverPanel;
+    public GameObject gameOverUI; // assign in inspector
 
     public void ShowGameOverScreen()
     {
-        gameOverPanel.SetActive(true);
-    }
-    [Command(requiresAuthority = false)]
-    public void CmdVoteRetry(NetworkConnectionToClient sender = null)
-    {
-        if (sender.identity == null) return;
-        if (sender.identity.netId == NetworkServer.connections[0].identity.netId)
-            player1RetryVote = !player1RetryVote;
-        else
-            player2RetryVote = !player2RetryVote;
-
-        CheckForFullVote();
+        gameOverUI.SetActive(true);
+        Time.timeScale = 0f; // optional: pause the game
     }
 
-    [Command(requiresAuthority = false)]
-    public void CmdVoteQuit(NetworkConnectionToClient sender = null)
+    // Host calls these buttons
+    public void OnRetryButton()
     {
-        if (sender.identity == null) return;
-        if (sender.identity.netId == NetworkServer.connections[0].identity.netId)
-            player1QuitVote = !player1QuitVote;
-        else
-            player2QuitVote = !player2QuitVote;
+        if (!isServer) return;
 
-        CheckForFullVote();
-    }
+        Time.timeScale = 1f;
+        gameOverUI.SetActive(false);
 
-    void CheckForFullVote()
-    {
-        // if both voted Retry
-        if (player1RetryVote && player2RetryVote)
+        foreach (NetworkConnection conn in NetworkServer.connections.Values)
         {
-            RpcRestartMatch();
-        }
-        // if both voted Quit
-        if (player1QuitVote && player2QuitVote)
-        {
-            RpcQuitMatch();
+            PlayerHealth player = conn.identity.GetComponent<PlayerHealth>();
+            if (player != null)
+                player.Respawn();
         }
     }
 
-    [ClientRpc]
-    void RpcRestartMatch()
+    public void OnQuitButton()
     {
-        Debug.Log("Reastart");
-        // logic to restart
-    }
-
-    [ClientRpc]
-    void RpcQuitMatch()
-    {
-        Debug.Log("Quit");
-        // logic to quit
-    }
-
-    void OnRetryVoteChanged(bool oldValue, bool newValue)
-    {
-        ui.UpdateRetryUI(player1RetryVote, player2RetryVote);
-    }
-
-    void OnQuitVoteChanged(bool oldValue, bool newValue)
-    {
-        ui.UpdateQuitUI(player1QuitVote, player2QuitVote);
+        if (!isServer) return;
+        Time.timeScale = 1f;
+        // return to lobby/main menu
+        NetworkManager.singleton.ServerChangeScene("MainMenu");
     }
 }
