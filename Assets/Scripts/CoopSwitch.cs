@@ -1,18 +1,17 @@
 using UnityEngine;
 using Mirror;
+using System.Collections;
 
 [RequireComponent(typeof(NetworkIdentity))]
 public class CoopSwitch : NetworkBehaviour
 {
-    [SerializeField] private Elevator2 elevator;  // Drag Elevator2 here in Inspector
-    [SerializeField] private float sinkDistance = 0.2f; // how far switch sinks
-    [SerializeField] private float sinkSpeed = 1f;      // speed of sinking
-
-    private int playersOnSwitch = 0;
-    private bool activated = false;
+    [SerializeField] private Elevator2 elevator;  // assign Elevator2
+    [SerializeField] private float sinkDistance = 0.2f;
+    [SerializeField] private float sinkSpeed = 1f;
 
     private Vector3 initialPosition;
     private Vector3 targetSinkPosition;
+    private bool activated = false;
 
     private void Start()
     {
@@ -20,31 +19,34 @@ public class CoopSwitch : NetworkBehaviour
         targetSinkPosition = initialPosition + Vector3.down * sinkDistance;
     }
 
-    [ServerCallback] // Only server counts players
     private void OnTriggerEnter(Collider other)
     {
         if (!other.CompareTag("Player") || activated) return;
 
-        playersOnSwitch++;
-        CheckActivation();
-    }
-
-    [ServerCallback]
-    private void OnTriggerExit(Collider other)
-    {
-        if (!other.CompareTag("Player") || activated) return;
-
-        playersOnSwitch = Mathf.Max(playersOnSwitch - 1, 0);
-    }
-
-    [Server]
-    private void CheckActivation()
-    {
-        Debug.Log($"Players on switch: {playersOnSwitch}");
-
-        if (playersOnSwitch >= 2 && !activated)
+        if (isServer)
         {
-            Debug.Log("Switch activated!");
+            PlayerSteppedOn();
+        }
+        else
+        {
+            CmdPlayerSteppedOn();
+        }
+    }
+
+    [Command]
+    private void CmdPlayerSteppedOn(NetworkConnectionToClient sender = null)
+    {
+        PlayerSteppedOn();
+    }
+
+    private void PlayerSteppedOn()
+    {
+        if (activated) return;
+
+        int playersOnSwitch = CountPlayersOnSwitch();
+
+        if (playersOnSwitch >= 2)
+        {
             activated = true;
 
             if (elevator != null)
@@ -54,19 +56,31 @@ public class CoopSwitch : NetworkBehaviour
         }
     }
 
+    private int CountPlayersOnSwitch()
+    {
+        Collider[] hits = Physics.OverlapBox(transform.position, GetComponent<Collider>().bounds.extents);
+        int count = 0;
+        foreach (var hit in hits)
+        {
+            if (hit.CompareTag("Player"))
+                count++;
+        }
+        return count;
+    }
+
     [ClientRpc]
     private void RpcSinkSwitch()
     {
         StartCoroutine(SinkRoutine());
     }
 
-    private System.Collections.IEnumerator SinkRoutine()
+    private IEnumerator SinkRoutine()
     {
         while (Vector3.Distance(transform.position, targetSinkPosition) > 0.01f)
         {
             transform.position = Vector3.MoveTowards(transform.position, targetSinkPosition, sinkSpeed * Time.deltaTime);
             yield return null;
         }
-        gameObject.SetActive(false); // disappear after sinking
+        gameObject.SetActive(false);
     }
 }
