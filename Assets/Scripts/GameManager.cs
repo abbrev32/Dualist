@@ -20,11 +20,12 @@ public class GameManager : NetworkBehaviour
         Time.timeScale = 1f;
         gameOverUI.SetActive(false);
 
-        foreach (NetworkConnection conn in NetworkServer.connections.Values)
+        // Find every active player in the scene on the server
+        PlayerHealth[] players = FindObjectsOfType<PlayerHealth>();
+        foreach (PlayerHealth player in players)
         {
-            PlayerHealth player = conn.identity.GetComponent<PlayerHealth>();
-            if (player != null)
-                player.Respawn();
+            // Call a new server-authoritative respawn function
+            player.ServerRespawn();
         }
     }
 
