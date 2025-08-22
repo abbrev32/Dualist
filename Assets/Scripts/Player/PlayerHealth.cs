@@ -50,17 +50,17 @@ public class PlayerHealth : NetworkBehaviour
     {
         TakeDamage(damage);
     }
+
+    [Server]
     public void TakeDamage(float damage)
     {
-        if (currentHealth > 1)
+        // Apply damage first
+        currentHealth -= damage;
+
+        if (currentHealth <= 0)
         {
-            currentHealth -= damage;
-            //TriggerFlash();
-        }
-        else
-        {
-            currentHealth -= damage;
-            Destroy();
+            RpcOnPlayerDeath();
+            StartCoroutine(ServerDestroyAfterDelay());
         }
     }
     public void HealthReset()
@@ -68,9 +68,18 @@ public class PlayerHealth : NetworkBehaviour
         currentHealth = maxHealth;
     }
 
-    [Server]
-    public void Destroy()
+    [ClientRpc]
+    void RpcOnPlayerDeath()
     {
+        Debug.Log("Player Died!");
+        FindAnyObjectByType<GameManager>().ShowGameOverScreen();
+    }
+
+    [Server]
+    private IEnumerator ServerDestroyAfterDelay()
+    {
+        // Wait for a fraction of a second to ensure the RPC is sent and processed
+        yield return new WaitForSeconds(0.2f);
         NetworkServer.Destroy(gameObject);
     }
     public void OnHealthChange(float oldHealth, float newHealth)

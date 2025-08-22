@@ -18,7 +18,7 @@ public class Bullet : NetworkBehaviour
             Debug.Log("Player Hit!");
             if (collision.collider.TryGetComponent<PlayerHealth>(out var playerHealth))
             {
-                playerHealth.TakeDamage(1);
+                playerHealth.CmdTakeDamage(1);
                 Kill();
             }
             else
