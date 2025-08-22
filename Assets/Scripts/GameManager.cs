@@ -14,38 +14,56 @@ public class GameManager : NetworkBehaviour
         Time.timeScale = 0f; // optional: pause the game
     }
 
-    private void Awake()
+    public override void OnStartServer()
     {
+        // On the server, ensure the button is visible.
+        retryButton.gameObject.SetActive(true);
+        quitButton.gameObject.SetActive(true);
+    }
+    public override void OnStartClient()
+    {
+        // On clients that are not the server, hide the retry button.
         if (!isServer)
         {
             retryButton.gameObject.SetActive(false);
         }
-        else
-        {
-            retryButton.gameObject.SetActive(true);
-        }
         quitButton.gameObject.SetActive(true);
     }
 
-    // Host calls these buttons
+
+    // This function is only called by the Host's button.
     public void OnRetryButton()
     {
-        Time.timeScale = 1f;
-        gameOverUI.SetActive(false);
+        // 1. Make sure only the server can run this.
+        if (!isServer) return;
 
-        // Find every active player in the scene on the server
+        // 2. Respawn all players (this logic is server-authoritative and correct).
         PlayerHealth[] players = FindObjectsOfType<PlayerHealth>();
         foreach (PlayerHealth player in players)
         {
-            // Call a new server-authoritative respawn function
             player.ServerRespawn();
         }
+
+        // 3. Instead of hiding the UI here, call the ClientRpc for all clients.
+        RpcHideGameOverScreen();
+    }
+
+    [ClientRpc]
+    private void RpcHideGameOverScreen()
+    {
+        // 4. This code now runs on the Host AND all Clients.
+        Debug.Log("Hiding Game Over screen for all clients.");
+        gameOverUI.SetActive(false);
+        Time.timeScale = 1f;
     }
 
     public void OnQuitButton()
     {
-        Time.timeScale = 1f;
-        // return to lobby/main menu
-        NetworkManager.singleton.ServerChangeScene("MainMenu");
+        // This logic correctly sends everyone back to the main menu.
+        if (isServer)
+        {
+            Time.timeScale = 1f;
+            NetworkManager.singleton.ServerChangeScene("MainMenu");
+        }
     }
 }
