@@ -1064,6 +1064,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MonsterSpawner (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 6360102480001590568, guid: 6abc5e42500bda945a37b98d66f14802, type: 3}
+      propertyPath: monsterPrefab
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2942,3 +2946,6 @@ SceneRoots:
   - {fileID: 1353180538}
   - {fileID: 1125203969}
   - {fileID: 1113888122}
+  - {fileID: 5470892473905392931}
+  - {fileID: 583355470}
+  - {fileID: 689364352}
