@@ -3293,8 +3293,8 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   gameOverUI: {fileID: 491169823}
-  retryButton: {fileID: 0}
-  quitButton: {fileID: 0}
+  retryButton: {fileID: 1425359095}
+  quitButton: {fileID: 251256088}
 --- !u!4 &1546330370
 Transform:
   m_ObjectHideFlags: 0
