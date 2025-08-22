@@ -10,7 +10,7 @@ public class Monster : NetworkBehaviour
             PlayerHealth playerHealth = collision.GetComponent<PlayerHealth>();
             if (playerHealth != null)
             {
-                playerHealth.TakeDamage(1);
+                playerHealth.CmdTakeDamage(1);
             }
         }
     }

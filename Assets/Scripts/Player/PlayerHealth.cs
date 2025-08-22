@@ -8,12 +8,15 @@ public class PlayerHealth : NetworkBehaviour
 {
     public float maxHealth = 10;
 
-    [SyncVar(hook=nameof(OnHealthChange))]
+    [SyncVar(hook = nameof(OnHealthChange))]
     public float currentHealth = 1;
     public static Slider healthBarSelf;
     public static Slider healthBarOther;
-   
 
+    [SyncVar]
+    public bool isDead = false;
+
+    public Transform spawnPoint;
     private void Awake()
     {
         healthBarSelf = GameObject.Find("HealthBarSelf").GetComponent<Slider>();
@@ -50,27 +53,56 @@ public class PlayerHealth : NetworkBehaviour
     {
         TakeDamage(damage);
     }
+
+    [Server]
     public void TakeDamage(float damage)
     {
-        if (currentHealth > 1)
+        // Apply damage first
+        currentHealth -= damage;
+
+        if (currentHealth <= 0)
         {
-            currentHealth -= damage;
-            //TriggerFlash();
+            RpcOnPlayerDeath();
+            isDead = true;
+            //StartCoroutine(ServerDestroyAfterDelay());
         }
-        else
-        {
-            currentHealth -= damage;
-            Destroy();
-        }
+    }
+
+    [Server]
+    public void ServerRespawn()
+    {
+        currentHealth = maxHealth;
+        isDead = false;
+
+        Transform startPos = NetworkManager.singleton.GetStartPosition();
+        Vector3 spawnPosition = startPos != null ? startPos.position : Vector3.zero;
+
+        RpcRespawn(spawnPosition);
+    }
+
+    [ClientRpc]
+    public void RpcRespawn(Vector3 position)
+    {
+        transform.position = position;
+        // GetComponent<PlayerMovement>().enabled = true;
     }
     public void HealthReset()
     {
         currentHealth = maxHealth;
     }
 
-    [Server]
-    public void Destroy()
+    [ClientRpc]
+    void RpcOnPlayerDeath()
     {
+        Debug.Log("Player Died!");
+        FindAnyObjectByType<GameManager>().ShowGameOverScreen();
+    }
+
+    [Server]
+    private IEnumerator ServerDestroyAfterDelay()
+    {
+        // Wait for a fraction of a second to ensure the RPC is sent and processed
+        yield return new WaitForSeconds(0.2f);
         NetworkServer.Destroy(gameObject);
     }
     public void OnHealthChange(float oldHealth, float newHealth)

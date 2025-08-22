@@ -122,7 +122,7 @@ Rigidbody2D:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
@@ -214,6 +214,8 @@ MonoBehaviour:
   syncInterval: 0
   maxHealth: 10
   currentHealth: 1
+  isDead: 0
+  spawnPoint: {fileID: 4908736327452825590, guid: cafcbedf715843c48b6c73cbe2a4f73f, type: 3}
   playerSprite: {fileID: 0}
   flashColor: {r: 1, g: 0, b: 0, a: 0.5}
   flashDuration: 0.2
