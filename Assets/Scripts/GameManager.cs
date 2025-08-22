@@ -1,22 +1,35 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Mirror;
+using UnityEngine.UI;
 
 public class GameManager : NetworkBehaviour
 {
     public GameObject gameOverUI; // assign in inspector
-
+    public Button retryButton;
+    public Button quitButton;
     public void ShowGameOverScreen()
     {
         gameOverUI.SetActive(true);
         Time.timeScale = 0f; // optional: pause the game
     }
 
+    private void Awake()
+    {
+        if (!isServer)
+        {
+            retryButton.gameObject.SetActive(false);
+        }
+        else
+        {
+            retryButton.gameObject.SetActive(true);
+        }
+        quitButton.gameObject.SetActive(true);
+    }
+
     // Host calls these buttons
     public void OnRetryButton()
     {
-        if (!isServer) return;
-
         Time.timeScale = 1f;
         gameOverUI.SetActive(false);
 
@@ -31,7 +44,6 @@ public class GameManager : NetworkBehaviour
 
     public void OnQuitButton()
     {
-        if (!isServer) return;
         Time.timeScale = 1f;
         // return to lobby/main menu
         NetworkManager.singleton.ServerChangeScene("MainMenu");
