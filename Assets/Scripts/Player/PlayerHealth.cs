@@ -68,14 +68,23 @@ public class PlayerHealth : NetworkBehaviour
         }
     }
 
-    public void Respawn()
+    [Server]
+    public void ServerRespawn()
     {
-        HealthReset();
+        currentHealth = maxHealth;
         isDead = false;
 
-        transform.position = spawnPoint.position;
+        Transform startPos = NetworkManager.singleton.GetStartPosition();
+        Vector3 spawnPosition = startPos != null ? startPos.position : Vector3.zero;
 
-        //if (movement != null) movement.enabled = true;
+        RpcRespawn(spawnPosition);
+    }
+
+    [ClientRpc]
+    public void RpcRespawn(Vector3 position)
+    {
+        transform.position = position;
+        // GetComponent<PlayerMovement>().enabled = true;
     }
     public void HealthReset()
     {
