@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1175858073631189803}
   - component: {fileID: 2127587432290391599}
   - component: {fileID: 8278078772360699840}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -271,7 +271,7 @@ GameObject:
   - component: {fileID: 5821902233083973851}
   - component: {fileID: 4423648589388712214}
   - component: {fileID: 3443979275941465652}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Sword
   m_TagString: Sword
   m_Icon: {fileID: 0}
@@ -557,9 +557,9 @@ GameObject:
   - component: {fileID: 2087029540268202565}
   - component: {fileID: 3130081457927342225}
   - component: {fileID: 3204920501826344576}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: player
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
