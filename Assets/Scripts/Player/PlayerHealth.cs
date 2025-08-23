@@ -122,7 +122,7 @@ public class PlayerHealth : NetworkBehaviour
         }
 
         // Wait for a few seconds before showing the game over screen
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(3f);
 
         // Show the game over screen
         FindAnyObjectByType<GameManager>().ShowGameOverScreen();
