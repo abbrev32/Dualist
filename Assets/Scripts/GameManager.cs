@@ -13,6 +13,8 @@ public class GameManager : NetworkBehaviour
     public Button retryButton;
     public Button quitButton;
 
+    public NetworkRoomManager roomManager;
+
     public void LevelClear()
     {
         levelClearUI.SetActive(true);
@@ -26,11 +28,11 @@ public class GameManager : NetworkBehaviour
             waitText.gameObject.SetActive(true);
         }
     }
+    //TODO HERE
     public void OnNextLevel()
     {
         Time.timeScale = 1.0f;
         levelClearUI.SetActive(false);
-        NetworkManager.singleton.ServerChangeScene("Level2");
     }
     public void ShowGameOverScreen()
     {

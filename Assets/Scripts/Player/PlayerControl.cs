@@ -135,6 +135,15 @@ public class PlayerController : NetworkBehaviour
             CmdSetAnimationState("run", isRunning);
             CmdSetAnimationState("grounded", IsOnGround());
         }
+        
+        //swing sword
+        if(Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            if (netAnimator != null)
+            {
+                netAnimator.SetTrigger("idle swing");
+            }
+        }
     }
 
     // ===== Commands and hooks =====

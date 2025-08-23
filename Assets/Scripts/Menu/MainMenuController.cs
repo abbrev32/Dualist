@@ -30,6 +30,8 @@ public class MainMenuController : MonoBehaviour
     public GameObject serverListPanel;
     public Transform serverListParent; // A vertical layout group
     public GameObject serverButtonPrefab;
+    private HashSet<string> discoveredServers = new HashSet<string>();
+
     private void Awake()
     {
         roomManager = FindAnyObjectByType<NetworkRoomManager>();
@@ -74,12 +76,17 @@ public class MainMenuController : MonoBehaviour
 
     void OnServerFound(ServerResponse info)
     {
+        string addr = info.EndPoint != null ? info.EndPoint.Address.ToString() : info.uri.ToString();
+        if (discoveredServers.Contains(addr))
+            return;
+
+        discoveredServers.Add(addr);
+        
         Debug.Log("Found server: " + info.uri);
 
         var btnObj = Instantiate(serverButtonPrefab, serverListParent);
 
         // Use a safe address string
-        string addr = info.EndPoint != null ? info.EndPoint.Address.ToString() : info.uri.ToString();
 
         // Get TMP_Text safely (or use legacy Text if that's what your prefab has)
         var label = btnObj.GetComponentInChildren<TMPro.TMP_Text>();
