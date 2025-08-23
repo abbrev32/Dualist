@@ -2,13 +2,12 @@ using Mirror;
 using UnityEngine;
 
 [RequireComponent(typeof(AudioSource))]
-public class TurretShooter3 : NetworkBehaviour
+public class TurretShooter4 : NetworkBehaviour
 {
-    [Header("Shooting Settings")]
     public GameObject bulletPrefab;
     public float shootInterval = 3f;
     public float bulletSpeed = 5f;
-    public float verticalSpacing = 0.2f; // spacing between bullets vertically
+    public float verticalSpacing = 0.2f; // horizontal spacing between bullets
     public AudioClip shootSoundClip;
 
     private float timer;
@@ -28,28 +27,28 @@ public class TurretShooter3 : NetworkBehaviour
 
         if (timer <= 0f)
         {
-            ShootTriple();
+            ShootTripleDown();
             timer = shootInterval;
         }
     }
 
-    void ShootTriple()
+    void ShootTripleDown()
     {
         if (audioSource != null && shootSoundClip != null)
             audioSource.PlayOneShot(shootSoundClip);
 
-        // Spawn 3 bullets stacked vertically, shooting to the right
+        // Spawn 3 bullets in a horizontal spread while moving downward
         for (int i = -1; i <= 1; i++)
         {
-            Vector3 spawnPos = transform.position + new Vector3(0, i * verticalSpacing, 0);
+            Vector3 spawnPos = transform.position + new Vector3(i * verticalSpacing, 0, 0);
 
             GameObject bullet = Instantiate(bulletPrefab, spawnPos, Quaternion.identity);
 
             Rigidbody2D bulletRb = bullet.GetComponent<Rigidbody2D>();
-            bulletRb.linearVelocity = Vector2.right * bulletSpeed;
+            bulletRb.linearVelocity = Vector2.down * bulletSpeed; // move downward
 
-            // Bullet faces right
-            bullet.transform.rotation = Quaternion.Euler(0, 0, 0);
+            // Rotate bullet to face downward
+            bullet.transform.rotation = Quaternion.Euler(0, 0, -90f);
 
             NetworkServer.Spawn(bullet);
         }
