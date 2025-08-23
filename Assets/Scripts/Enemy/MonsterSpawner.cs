@@ -9,12 +9,16 @@ public class MonsterSpawner : NetworkBehaviour
     public float spawnDelay = 0.5f;
     public Vector2 speedRange = new Vector2(2f, 5f);
     public float positionOffset = 1.5f;
-    public int numWave = 0; 
+    public int numWave = 0;
     public beACollectable collectable;
+
+    // 👇 New variables for audio
+    public AudioSource audioSource;
+    public AudioClip destroySoundClip;
 
     private List<GameObject> currentMonsters = new List<GameObject>();
 
-    [SyncVar] 
+    [SyncVar]
     public int health = 10; // spawner health
 
     public override void OnStartServer()
@@ -75,7 +79,7 @@ public class MonsterSpawner : NetworkBehaviour
         }
     }
 
-    // 👇 New Damage System
+    // 👇 Updated Damage System with sound
     [Server]
     public void TakeDamage(int damage)
     {
@@ -83,7 +87,28 @@ public class MonsterSpawner : NetworkBehaviour
 
         if (health <= 0)
         {
-            NetworkServer.Destroy(gameObject); // destroy spawner across network
+            // Call the RPC to play the sound on all clients
+            RpcPlayDestroySound();
+
+            // Wait a moment for the sound to play before destroying the object
+            // You can adjust the delay based on the length of your sound clip
+            Invoke(nameof(DelayedDestroy), 1.0f);
         }
+    }
+
+    [ClientRpc]
+    void RpcPlayDestroySound()
+    {
+        // Play the sound if the audio source and clip are set
+        if (audioSource != null && destroySoundClip != null)
+        {
+            audioSource.PlayOneShot(destroySoundClip);
+        }
+    }
+
+    [Server]
+    void DelayedDestroy()
+    {
+        NetworkServer.Destroy(gameObject); // destroy spawner across network
     }
 }
