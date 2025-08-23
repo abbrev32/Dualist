@@ -2141,7 +2141,7 @@ MonoBehaviour:
   syncInterval: 0
   elevator: {fileID: 665411441}
   audioSource: {fileID: 0}
-  switchActivationSound: {fileID: 8300000, guid: 9fe90b72c7f15427d9c496803ca7b3f0, type: 3}
+  switchActivationSound: {fileID: 8300000, guid: f58b89ea4f81e41fcb5c5bec6d134986, type: 3}
   switchActivationMusic: {fileID: 8300000, guid: 125675aef854dd14f9371dfe62d8bc8e, type: 3}
 --- !u!114 &854090003
 MonoBehaviour:
@@ -2268,8 +2268,8 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: 9fe90b72c7f15427d9c496803ca7b3f0, type: 3}
-  m_PlayOnAwake: 1
+  m_Resource: {fileID: 8300000, guid: f58b89ea4f81e41fcb5c5bec6d134986, type: 3}
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
