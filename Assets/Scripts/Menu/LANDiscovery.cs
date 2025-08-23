@@ -27,6 +27,9 @@ public class LANDiscovery : NetworkDiscovery
 
     protected override void ProcessResponse(ServerResponse response, IPEndPoint endpoint)
     {
+        // Ensure EndPoint is set on the client side
+        response.EndPoint = endpoint;
         OnServerFoundEvent?.Invoke(response);
     }
+
 }
