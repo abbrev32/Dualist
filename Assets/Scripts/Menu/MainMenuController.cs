@@ -29,7 +29,7 @@ public class MainMenuController : MonoBehaviour
     public LANDiscovery discovery;
     public GameObject serverListPanel;
     public Transform serverListParent; // A vertical layout group
-    public GameObject serverButtonPrefab;
+    public Button serverButtonPrefab;
     private void Awake()
     {
         roomManager = FindAnyObjectByType<NetworkRoomManager>();
