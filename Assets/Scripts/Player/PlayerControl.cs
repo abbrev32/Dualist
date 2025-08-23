@@ -1,31 +1,31 @@
 using UnityEngine;
 using Mirror;
-using System;
 
 public class PlayerController : NetworkBehaviour
 {
+    [Header("Movement Settings")]
     public Rigidbody2D playerBody;
     public float movementSpeed = 1.0f;
     public float dashSpeed = 15.0f;
     public float jumpHeight = 5.0f;
 
+    [Header("Audio")]
     public AudioClip jumpSound;
     public AudioClip dashSound;
-
     private AudioSource audioSource;
 
-    private int extJumps = 0;
-
+    [Header("Components")]
     private Animator anim;
     private NetworkAnimator netAnimator;
 
     [SyncVar(hook = nameof(OnFlipChanged))]
     private bool flipRight = true;
 
+    private int extJumps = 0;
     private bool isDashing = false;
-    private readonly float dashCoolDown = 1;
-    float dashCoolDownTimer = 0;
-    float dashTimer = 0;
+    private readonly float dashCoolDown = 1f;
+    private float dashCoolDownTimer = 0f;
+    private float dashTimer = 0f;
     private readonly float dashTime = 0.25f;
 
     private void Awake()
@@ -35,9 +35,7 @@ public class PlayerController : NetworkBehaviour
 
         audioSource = GetComponent<AudioSource>();
         if (audioSource == null)
-        {
             audioSource = gameObject.AddComponent<AudioSource>();
-        }
     }
 
     public override void OnStartLocalPlayer()
@@ -47,13 +45,11 @@ public class PlayerController : NetworkBehaviour
         {
             CameraBehavior camScript = mainCam.GetComponent<CameraBehavior>();
             if (camScript != null)
-            {
                 camScript.playerPos = transform;
-            }
         }
     }
 
-    void Update()
+    private void Update()
     {
         if (!isLocalPlayer) return;
 
@@ -67,7 +63,7 @@ public class PlayerController : NetworkBehaviour
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 velocityY = jumpHeight;
-                CmdSetAnimTrigger("jump");
+                netAnimator.SetTrigger("jump");
                 PlayJumpSound();
             }
         }
@@ -77,27 +73,23 @@ public class PlayerController : NetworkBehaviour
             {
                 velocityY = jumpHeight;
                 extJumps--;
+                netAnimator.SetTrigger("jump");
                 PlayJumpSound();
             }
         }
 
         float finalVelocityX = moveX * movementSpeed;
-        bool isRunning = Math.Abs(moveX) > 0.01f;
+        bool isRunning = Mathf.Abs(moveX) > 0.01f;
 
-        // Dashing
+        // Dash
         if (!isDashing)
         {
             dashCoolDownTimer += Time.deltaTime;
-            if (dashCoolDownTimer > dashCoolDown)
+            if (dashCoolDownTimer > dashCoolDown && Input.GetKeyDown(KeyCode.LeftShift))
             {
-                if (Input.GetKeyDown(KeyCode.LeftShift))
-                {
-                    isDashing = true;
-                    if (audioSource != null && dashSound != null)
-                    {
-                        audioSource.PlayOneShot(dashSound);
-                    }
-                }
+                isDashing = true;
+                if (audioSource != null && dashSound != null)
+                    audioSource.PlayOneShot(dashSound);
             }
         }
         else
@@ -106,8 +98,8 @@ public class PlayerController : NetworkBehaviour
             if (dashTimer > dashTime)
             {
                 isDashing = false;
-                dashCoolDownTimer = 0;
-                dashTimer = 0;
+                dashCoolDownTimer = 0f;
+                dashTimer = 0f;
             }
             else
             {
@@ -116,48 +108,37 @@ public class PlayerController : NetworkBehaviour
             }
         }
 
-        // Assign velocity
+        // Apply movement
         playerBody.linearVelocity = new Vector2(finalVelocityX, velocityY);
 
-        // Flip handling (only send command when direction changes)
+        // Flip
         if (moveX != 0)
         {
             bool newFlipRight = moveX > 0;
             if (flipRight != newFlipRight)
-            {
                 CmdSetFlip(newFlipRight);
-            }
         }
 
-        // Sync animator states
+        // Animator states
         if (netAnimator != null)
         {
-            CmdSetAnimationState("run", isRunning);
-            CmdSetAnimationState("grounded", IsOnGround());
+            netAnimator.animator.SetBool("run", isRunning);
+            netAnimator.animator.SetBool("grounded", IsOnGround());
         }
-        
-        //swing sword
-        if(Input.GetKeyDown(KeyCode.Mouse0))
+
+        // Swing sword
+        if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             if (netAnimator != null)
             {
-                netAnimator.SetTrigger("idle swing");
+                if (isRunning)
+                    netAnimator.SetTrigger("run swing");
+                else if (!IsOnGround())
+                    netAnimator.SetTrigger("jump swing");
+                else
+                    netAnimator.SetTrigger("idle swing");
             }
         }
-    }
-
-    // ===== Commands and hooks =====
-
-    [Command]
-    public void CmdSetAnimationState(string param, bool value)
-    {
-        netAnimator.animator.SetBool(param, value);
-    }
-
-    [Command]
-    void CmdSetAnimTrigger(string param)
-    {
-        netAnimator.SetTrigger(param);
     }
 
     [Command]
@@ -173,17 +154,13 @@ public class PlayerController : NetworkBehaviour
         transform.localScale = scale;
     }
 
-    // ===== Helpers =====
-
     private void PlayJumpSound()
     {
         if (audioSource != null && jumpSound != null)
-        {
             audioSource.PlayOneShot(jumpSound);
-        }
     }
 
-    bool IsOnGround()
+    private bool IsOnGround()
     {
         Vector2 position = transform.position;
         Vector2 direction = Vector2.down;
@@ -192,6 +169,6 @@ public class PlayerController : NetworkBehaviour
         LayerMask groundLayer = LayerMask.GetMask("Platform");
         RaycastHit2D hit = Physics2D.Raycast(position, direction, length, groundLayer);
 
-        return (hit.collider != null);
+        return hit.collider != null;
     }
 }
