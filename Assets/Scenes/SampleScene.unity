@@ -3912,6 +3912,7 @@ GameObject:
   - component: {fileID: 1546330370}
   - component: {fileID: 1546330369}
   - component: {fileID: 1546330368}
+  - component: {fileID: 1546330371}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -3972,6 +3973,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1546330371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1546330366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4bad008d944c6fe284f8fbc623562fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EntityChecker
 --- !u!1 &1684547022
 GameObject:
   m_ObjectHideFlags: 0
@@ -4071,7 +4084,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1698516557}
-  - component: {fileID: 1698516556}
   m_Layer: 0
   m_Name: EntityChecker
   m_TagString: Untagged
@@ -4079,18 +4091,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1698516556
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1698516555}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b4bad008d944c6fe284f8fbc623562fb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: '::'
 --- !u!4 &1698516557
 Transform:
   m_ObjectHideFlags: 0
