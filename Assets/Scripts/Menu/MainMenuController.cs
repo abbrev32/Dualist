@@ -76,17 +76,26 @@ public class MainMenuController : MonoBehaviour
     {
         Debug.Log("Found server: " + info.uri);
 
-        // Create button for each server
-        Debug.Log($"Prefab reference: {serverButtonPrefab}", this);
-
         var btnObj = Instantiate(serverButtonPrefab, serverListParent);
-        btnObj.GetComponentInChildren<TMP_Text>().text = $"{info.EndPoint.Address}";
-        btnObj.GetComponent<Button>().onClick.AddListener(() =>
+
+        // Use a safe address string
+        string addr = info.EndPoint != null ? info.EndPoint.Address.ToString() : info.uri.ToString();
+
+        // Get TMP_Text safely (or use legacy Text if that's what your prefab has)
+        var label = btnObj.GetComponentInChildren<TMPro.TMP_Text>();
+        if (label != null)
+            label.text = addr;
+
+        var button = btnObj.GetComponent<Button>();
+        if (button != null)
         {
-            discovery.StopDiscovery(); // stop scanning
-            RoomManager.singleton.StartClient(info.uri);
-            SetLobbyActive();
-        });
+            button.onClick.AddListener(() =>
+            {
+                discovery.StopDiscovery();
+                NetworkManager.singleton.StartClient(info.uri); // use the right singleton
+                SetLobbyActive();
+            });
+        }
     }
 
     public void Join()
