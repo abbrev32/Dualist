@@ -10,7 +10,7 @@ public class EnemyShooting : MonoBehaviour
     private GameObject player;
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -20,7 +20,7 @@ public class EnemyShooting : MonoBehaviour
 
 
 
-        if(timer >= 2)
+        if (timer >= 2)
         {
             timer = 0;
             shoot();
