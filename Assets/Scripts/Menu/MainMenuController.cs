@@ -78,7 +78,7 @@ public class MainMenuController : MonoBehaviour
 
         // Create button for each server
         var btnObj = Instantiate(serverButtonPrefab, serverListParent);
-        btnObj.GetComponentInChildren<Text>().text = $"{info.EndPoint.Address}";
+        btnObj.GetComponentInChildren<TMP_Text>().text = $"{info.EndPoint.Address}";
 
         btnObj.GetComponent<Button>().onClick.AddListener(() =>
         {
