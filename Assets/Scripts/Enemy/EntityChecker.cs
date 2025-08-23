@@ -1,14 +1,20 @@
+using Mirror;
 using UnityEngine;
 
 [RequireComponent(typeof(GameManager))]
-public class EntityChecker : MonoBehaviour
+public class EntityChecker : NetworkBehaviour
 {
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.O))
         {
-            GetComponent<GameManager>().LevelClear();
+            RpcLevelClear();
         }
+    }
+    [ClientRpc]
+    public void RpcLevelClear()
+    {
+        GetComponent<GameManager>().LevelClear();
     }
 }
