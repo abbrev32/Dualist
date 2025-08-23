@@ -14,6 +14,7 @@ public class PlatTurretSpawn : NetworkBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if(!Mirror.NetworkServer.active) return;
         if (!isServer) return; // Only server spawns turrets
 
         if (!hasSpawned && collision.CompareTag("Player"))
