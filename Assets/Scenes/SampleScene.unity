@@ -1768,6 +1768,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6566882048528832175, guid: 79c348a6d9260144da8d7095d98cbdb9, type: 3}
+      propertyPath: maxHealth
+      value: 100
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2474,7 +2478,7 @@ PrefabInstance:
     - target: {fileID: 6360102480001590568, guid: 6abc5e42500bda945a37b98d66f14802, type: 3}
       propertyPath: monsterPrefab
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 3831856357126718768, guid: b26e0e2d2b1fbb944842d626e6774813, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4072,6 +4076,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1698516557}
   - component: {fileID: 1698516556}
+  - component: {fileID: 1698516558}
   m_Layer: 0
   m_Name: EntityChecker
   m_TagString: Untagged
@@ -4106,6 +4111,27 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1698516558
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1698516555}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69fff7f4d33a65d48b7c8990ddd5107a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GameManager
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  levelClearUI: {fileID: 0}
+  waitText: {fileID: 0}
+  nextButton: {fileID: 0}
+  gameOverUI: {fileID: 0}
+  retryButton: {fileID: 0}
+  quitButton: {fileID: 0}
 --- !u!1 &1716929395
 GameObject:
   m_ObjectHideFlags: 0

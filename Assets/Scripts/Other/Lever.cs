@@ -10,11 +10,15 @@ public class Lever : NetworkBehaviour
     {
         if (elevator == null) return;
 
-        if (other.CompareTag("Player") || other.CompareTag("Monster"))
+        if (other.CompareTag("Player"))
         {
-            // Any player or monster toggles the elevator
-            elevator.ToggleElevator();
+            // Player moves elevator DOWN
+            elevator.MoveToBottom();
         }
-        
+        else if (other.CompareTag("Monster"))
+        {
+            // Monster moves elevator UP
+            elevator.MoveToTop();
+        }
     }
 }
