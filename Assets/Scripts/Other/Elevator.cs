@@ -10,8 +10,8 @@ public class Elevator : NetworkBehaviour
     [Header("Settings")]
     public float speed = 2f;
 
-    [SyncVar] private bool isMoving = false;    // elevator moving state
-    [SyncVar] private Vector3 targetPos;        // current target
+    [SyncVar] private bool isMoving = false;    
+    [SyncVar] private Vector3 targetPos;        
 
     public override void OnStartServer()
     {
@@ -21,8 +21,9 @@ public class Elevator : NetworkBehaviour
             enabled = false;
             return;
         }
+        transform.position = topPoint.position;
 
-        // Elevator starts wherever it is, no movement until lever is pressed
+        // Start idle
         targetPos = transform.position;
         isMoving = false;
     }
@@ -30,7 +31,6 @@ public class Elevator : NetworkBehaviour
     void Update()
     {
         if (!isServer) return;
-
         if (!isMoving) return;
 
         // Move elevator toward target
@@ -44,24 +44,19 @@ public class Elevator : NetworkBehaviour
         }
     }
 
+    // Player calls this
     [Server]
-    public void ToggleElevator()
+    public void MoveToBottom()
     {
-        // Switch target to opposite point
-        if (Vector3.Distance(transform.position, topPoint.position) < 0.01f)
-        {
-            targetPos = bottomPoint.position; // currently at top, go down
-        }
-        else if (Vector3.Distance(transform.position, bottomPoint.position) < 0.01f)
-        {
-            targetPos = topPoint.position; // currently at bottom, go up
-        }
-        else
-        {
-            // If somewhere in between, move to the opposite of current target
-            targetPos = (targetPos == topPoint.position) ? bottomPoint.position : topPoint.position;
-        }
+        targetPos = bottomPoint.position;
+        isMoving = true;
+    }
 
+    // Monster calls this
+    [Server]
+    public void MoveToTop()
+    {
+        targetPos = topPoint.position;
         isMoving = true;
     }
 
