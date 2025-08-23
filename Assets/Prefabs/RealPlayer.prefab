@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 8362537955189495041}
   - component: {fileID: -2679056677791955347}
   - component: {fileID: 8235901741610698191}
+  - component: {fileID: 7548949531616573500}
   m_Layer: 7
   m_Name: RealPlayer
   m_TagString: Player
@@ -217,7 +218,7 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  maxHealth: 10
+  maxHealth: 100
   currentHealth: 1
   isDead: 0
   spawnPoint: {fileID: 4908736327452825590, guid: cafcbedf715843c48b6c73cbe2a4f73f, type: 3}
@@ -465,6 +466,21 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &7548949531616573500
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 729317249368588371}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16b722efe3394b86e94020826a0f4f3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerColor
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
 --- !u!1001 &8709541893161468420
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -768,6 +784,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8653719598885068355, guid: 53c103aad56a66748800fcdd65bc9407, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2172151788900482601}
+    - targetCorrespondingSourceObject: {fileID: -8653719598885068355, guid: 53c103aad56a66748800fcdd65bc9407, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6611734147303067329}
   m_SourcePrefab: {fileID: 4843985084834002234, guid: 53c103aad56a66748800fcdd65bc9407, type: 3}
 --- !u!4 &8066321041255840730 stripped
 Transform:
@@ -791,3 +810,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16b722efe3394b86e94020826a0f4f3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+--- !u!114 &6611734147303067329
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9167444188753257401}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1ee8d48f156c5d49a089ff27cb8c03e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerFaction
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  faction: 0
