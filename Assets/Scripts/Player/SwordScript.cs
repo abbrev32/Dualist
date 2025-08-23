@@ -37,5 +37,6 @@ public class SwordScript : MonoBehaviour
                 spawnerHealth.TakeDamage(1);
             }
         }
+     
     }
 }

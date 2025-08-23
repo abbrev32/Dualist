@@ -1,89 +1,95 @@
-using Mirror;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
 public class MonsterSpawner : NetworkBehaviour
 {
-    public GameObject monsterPrefab;
-    public int monstersPerWave = 5;
+    [Header("Monster Prefabs")]
+    public GameObject monsterPrefab; // OldMonster
+    public GameObject ghostPrefab;   // Ghost
+
+    [Header("Spawn Settings")]
     public float spawnDelay = 0.5f;
     public Vector2 speedRange = new Vector2(2f, 5f);
     public float positionOffset = 1.5f;
-    public int numWave = 0; 
-    public beACollectable collectable;
+
+    [Header("Spawner Health")]
+    [SyncVar] public int maxHealth = 3;
+    [SyncVar] private int currentHealth;
 
     private List<GameObject> currentMonsters = new List<GameObject>();
 
-    [SyncVar] 
-    public int health = 10; // spawner health
-
     public override void OnStartServer()
     {
-        SpawnWave();
+        currentHealth = maxHealth;
+        SpawnWave(); // Spawn first wave
     }
 
     void Update()
     {
         if (!isServer) return;
 
-        currentMonsters.RemoveAll(monster => monster == null);
+        // Remove destroyed monsters/ghosts
+        currentMonsters.RemoveAll(m => m == null);
 
-        if (currentMonsters.Count == 0 && numWave != 4)
+        // If all dead, spawn next wave
+        if (currentMonsters.Count == 0)
         {
-            numWave++;
-            CheckWave();
-            if (numWave < 3)
-            {
-                SpawnWave();
-            }
+            SpawnWave();
         }
     }
 
     [Server]
-    public void CheckWave()
+    public void TakeDamage(int amount)
     {
-        if (numWave == 3 && collectable != null)
+        currentHealth -= amount;
+
+        if (currentHealth <= 0)
         {
-            collectable.TrySpawnCollectable();
+            NetworkServer.Destroy(gameObject);
         }
     }
 
-    void SpawnWave()
+    [Server]
+    private void SpawnWave()
     {
-        StartCoroutine(SpawnMonsters());
+        StartCoroutine(SpawnMonstersRoutine(6, 4)); // 6 monsters, 4 ghosts
     }
 
-    System.Collections.IEnumerator SpawnMonsters()
+    [Server]
+    private IEnumerator SpawnMonstersRoutine(int numMonsters, int numGhosts)
     {
-        for (int i = 0; i < monstersPerWave; i++)
+        // Spawn monsters
+        for (int i = 0; i < numMonsters; i++)
         {
-            Vector3 spawnPos = transform.position;
-            spawnPos.y += Random.Range(-positionOffset, positionOffset);
+            Vector3 pos = transform.position;
+            pos.y += Random.Range(-positionOffset, positionOffset);
 
-            GameObject newMonster = Instantiate(monsterPrefab, spawnPos, Quaternion.identity);
+            GameObject newMonster = Instantiate(monsterPrefab, pos, Quaternion.identity);
 
             MonsterMovement moveScript = newMonster.GetComponent<MonsterMovement>();
             if (moveScript != null)
-            {
                 moveScript.speed = Random.Range(speedRange.x, speedRange.y);
-            }
 
             NetworkServer.Spawn(newMonster);
             currentMonsters.Add(newMonster);
 
             yield return new WaitForSeconds(spawnDelay);
         }
-    }
 
-    // 👇 New Damage System
-    [Server]
-    public void TakeDamage(int damage)
-    {
-        health -= damage;
-
-        if (health <= 0)
+        // Spawn ghosts
+        for (int i = 0; i < numGhosts; i++)
         {
-            NetworkServer.Destroy(gameObject); // destroy spawner across network
+            Vector3 pos = transform.position;
+            pos.y += Random.Range(-positionOffset, positionOffset);
+
+            GameObject newGhost = Instantiate(ghostPrefab, pos, Quaternion.identity);
+
+            NetworkServer.Spawn(newGhost);
+            currentMonsters.Add(newGhost);
+
+            yield return new WaitForSeconds(spawnDelay);
         }
     }
 }
