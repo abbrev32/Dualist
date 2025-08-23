@@ -314,7 +314,7 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  bulletPrefab: {fileID: 9070579427463045838, guid: db3512a1da26a7144bce4cab586d3fc0, type: 3}
+  bulletPrefab: {fileID: 9070579427463045838, guid: fca940f9dd61595429f313ca342f7c40, type: 3}
   shootInterval: 3
   bulletSpeed: 5
   verticalSpacing: 0.2
