@@ -5,9 +5,11 @@ public class CoopSwitch : NetworkBehaviour
 {
     // A reference to the elevator script.
     [SerializeField] private Elevator2 elevator;
-    // A reference to the AudioSource component that will play the music.
-    [SerializeField] private AudioSource backgroundMusicSource;
+    // The AudioSource component that will play the music and sound effects.
+    [SerializeField] private AudioSource audioSource;
     // The sound file to play when the switch is activated.
+    [SerializeField] private AudioClip switchActivationSound;
+    // The main background music to play after the switch is activated.
     [SerializeField] private AudioClip switchActivationMusic;
 
     // Tracks the number of players on the switch.
@@ -43,11 +45,11 @@ public class CoopSwitch : NetworkBehaviour
             if (elevator != null)
                 elevator.ActivateElevator();
 
-            // Play the background music if the references are set.
-            if (backgroundMusicSource != null && switchActivationMusic != null)
+            // Play the switch activation sound effect and then the music.
+            if (audioSource != null && switchActivationSound != null && switchActivationMusic != null)
             {
-                backgroundMusicSource.clip = switchActivationMusic;
-                backgroundMusicSource.Play();
+                audioSource.PlayOneShot(switchActivationSound);
+                StartCoroutine(PlayMusicAfterDelay(switchActivationSound.length));
             }
 
             // Start the visual routine for the switch.
@@ -64,6 +66,14 @@ public class CoopSwitch : NetworkBehaviour
         // Decrement the player count and log the event.
         playersOnSwitch--;
         Debug.Log("Player left switch: " + other.name + " | Players on switch: " + playersOnSwitch);
+    }
+
+    // A coroutine to play the main music after a delay.
+    private System.Collections.IEnumerator PlayMusicAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        audioSource.clip = switchActivationMusic;
+        audioSource.Play();
     }
 
     // A coroutine to visually "sink" the switch over time.
