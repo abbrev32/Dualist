@@ -202,7 +202,7 @@ MonoBehaviour:
   dashSpeed: 10
   jumpHeight: 12
   jumpSound: {fileID: 0}
-  dashSound: {fileID: 0}
+  dashSound: {fileID: 8300000, guid: 28dcb57505ae7a941a261510763c1b6b, type: 3}
 --- !u!114 &6566882048528832175
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -222,7 +222,7 @@ MonoBehaviour:
   currentHealth: 1
   isDead: 0
   spawnPoint: {fileID: 4908736327452825590, guid: cafcbedf715843c48b6c73cbe2a4f73f, type: 3}
-  deathSound: {fileID: 0}
+  deathSound: {fileID: 8300000, guid: 9524d77f62dc8e345a48775774850ffd, type: 3}
   playerSprite: {fileID: 0}
   flashColor: {r: 1, g: 0, b: 0, a: 0.5}
   flashDuration: 0.2

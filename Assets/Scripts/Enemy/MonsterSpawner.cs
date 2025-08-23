@@ -7,7 +7,7 @@ public class MonsterSpawner : NetworkBehaviour
 {
     [Header("Monster Prefabs")]
     public GameObject monsterPrefab; // OldMonster
-    public GameObject ghostPrefab;   // Ghost
+    public GameObject ghostPrefab;  // Ghost
 
     [Header("Spawn Settings")]
     public float spawnDelay = 0.5f;
@@ -18,12 +18,27 @@ public class MonsterSpawner : NetworkBehaviour
     [SyncVar] public int maxHealth = 3;
     [SyncVar] private int currentHealth;
 
+    // Add a new field for the destruction sound effect
+    [Header("Sound Effects")]
+    [SerializeField] private AudioClip destructionSound;
+    private AudioSource audioSource;
+
     private List<GameObject> currentMonsters = new List<GameObject>();
 
     public override void OnStartServer()
     {
         currentHealth = maxHealth;
         SpawnWave(); // Spawn first wave
+    }
+
+    // Add OnStartClient to get the AudioSource component
+    public override void OnStartClient()
+    {
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            Debug.LogError("AudioSource component is missing on the Spawner.");
+        }
     }
 
     void Update()
@@ -47,7 +62,21 @@ public class MonsterSpawner : NetworkBehaviour
 
         if (currentHealth <= 0)
         {
+            // Call the client RPC to play the sound on all clients
+            RpcPlayDestructionSound();
+
+            // Destroy the spawner on the server, which will then synchronize the destruction to clients
             NetworkServer.Destroy(gameObject);
+        }
+    }
+
+    // Client RPC function to play the sound on all clients
+    [ClientRpc]
+    private void RpcPlayDestructionSound()
+    {
+        if (audioSource != null && destructionSound != null)
+        {
+            audioSource.PlayOneShot(destructionSound);
         }
     }
 
