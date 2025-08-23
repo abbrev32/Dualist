@@ -9,7 +9,7 @@ public class CoopSwitch : NetworkBehaviour
     private bool activated = false;
 
     // Called when a player enters the trigger
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter2D(UnityEngine.Collider2D other)
     {
         if (!other.CompareTag("Player")) return;
 
@@ -27,8 +27,7 @@ public class CoopSwitch : NetworkBehaviour
             StartCoroutine(SinkSwitchRoutine());
         }
     }
-
-    private void OnTriggerExit(Collider other)
+    private void OnTriggerExit2D(UnityEngine.Collider2D other)
     {
         if (!other.CompareTag("Player")) return;
 

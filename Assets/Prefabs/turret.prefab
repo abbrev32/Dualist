@@ -325,7 +325,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TurretSoundController
   playerTransform: {fileID: 5963856648674041933, guid: 79c348a6d9260144da8d7095d98cbdb9, type: 3}
-  maxDistance: 10
+  maxDistance: 20
   minDistance: 2
 --- !u!1 &6866467144168329792
 GameObject:
