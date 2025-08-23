@@ -73,7 +73,6 @@ GameObject:
   - component: {fileID: 4709476227710508807}
   - component: {fileID: 5579091784939416422}
   - component: {fileID: 8701506218014810624}
-  - component: {fileID: 9120957970218310518}
   - component: {fileID: 195711084069914277}
   - component: {fileID: 6611178367963162610}
   - component: {fileID: 1019786704434713488}
@@ -81,7 +80,7 @@ GameObject:
   - component: {fileID: 3462299874720882812}
   - component: {fileID: 5961585746374683767}
   m_Layer: 0
-  m_Name: turret (3)
+  m_Name: towardRightTurret
   m_TagString: Turret
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -176,29 +175,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneId: 0
-  _assetId: 664273024
+  _assetId: 1276926252
   serverOnly: 0
   visibility: 0
   hasSpawned: 0
---- !u!114 &9120957970218310518
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 559164485504519838}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c1f3486303e100e41a446d05fd430146, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TurretHealth
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0
-  maxHealth: 3
-  currentHealth: 3
-  audioSource: {fileID: 5961585746374683767}
-  destroySound: {fileID: 8300000, guid: 8261e605ee8eb514986e304cc100c3bb, type: 3}
 --- !u!82 &195711084069914277
 AudioSource:
   m_ObjectHideFlags: 0
