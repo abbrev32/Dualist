@@ -14,8 +14,8 @@ GameObject:
   - component: {fileID: 978270344625317609}
   - component: {fileID: 7264656889485567404}
   - component: {fileID: 8726881906238378552}
-  - component: {fileID: 8881469903800806069}
   - component: {fileID: -3810171537355327122}
+  - component: {fileID: -1838226154478407923}
   m_Layer: 0
   m_Name: Monster
   m_TagString: Monster
@@ -198,22 +198,6 @@ MonoBehaviour:
   serverOnly: 0
   visibility: 0
   hasSpawned: 0
---- !u!114 &8881469903800806069
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3831856357126718768}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 301d1e2a904bb0a4a8d170a93dbcefdd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::FactionVisibility
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0
-  visibleTo: 0
 --- !u!114 &-3810171537355327122
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -248,3 +232,19 @@ MonoBehaviour:
   rotationSensitivity: 0.01
   positionPrecision: 0.01
   scalePrecision: 0.01
+--- !u!114 &-1838226154478407923
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3831856357126718768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 301d1e2a904bb0a4a8d170a93dbcefdd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FactionVisibility
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  visibleTo: 1

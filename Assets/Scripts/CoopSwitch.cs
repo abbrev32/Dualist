@@ -29,12 +29,12 @@ public class CoopSwitch : NetworkBehaviour
         }
         else
         {
-            CmdPlayerSteppedOn();
+            CmdPlayerStepped();
         }
     }
 
     [Command]
-    private void CmdPlayerSteppedOn(NetworkConnectionToClient sender = null)
+    private void CmdPlayerStepped(NetworkConnectionToClient sender = null)
     {
         PlayerSteppedOn();
     }
@@ -52,7 +52,7 @@ public class CoopSwitch : NetworkBehaviour
             if (elevator != null)
                 elevator.ActivateElevator();
 
-            RpcSinkSwitch();
+            RpcSink();
         }
     }
 
@@ -69,7 +69,7 @@ public class CoopSwitch : NetworkBehaviour
     }
 
     [ClientRpc]
-    private void RpcSinkSwitch()
+    private void RpcSink()
     {
         StartCoroutine(SinkRoutine());
     }
