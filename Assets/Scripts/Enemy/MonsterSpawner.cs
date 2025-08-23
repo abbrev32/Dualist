@@ -5,91 +5,98 @@ using Mirror;
 
 public class MonsterSpawner : NetworkBehaviour
 {
-    [Header("Monster Prefabs")]
-    public GameObject monsterPrefab; // OldMonster
-    public GameObject ghostPrefab;   // Ghost
+    [Header("Prefabs (assign in Inspector)")]
+    public GameObject monsterPrefab; // normal monster
+    public GameObject ghostPrefab;   // ghost
 
-    [Header("Spawn Settings")]
-    public float spawnDelay = 0.5f;
-    public Vector2 speedRange = new Vector2(2f, 5f);
-    public float positionOffset = 1.5f;
+    [Header("Counts per wave")]
+    public int monstersPerWave = 6;
+    public int ghostsPerWave = 4;
+
+    [Header("Delays")]
+    public float monsterSpawnDelay = 0.5f; // between monsters
+    public float ghostSpawnDelay   = 3f;   // between ghosts
+
+    [Header("Spawn variation")]
+    public Vector2 monsterSpeedRange = new Vector2(2f, 5f);
+    public float positionOffsetY = 1.5f;
 
     [Header("Spawner Health")]
     [SyncVar] public int maxHealth = 3;
     [SyncVar] private int currentHealth;
 
-    private List<GameObject> currentMonsters = new List<GameObject>();
+    private readonly List<GameObject> currentMonsters = new List<GameObject>();
 
     public override void OnStartServer()
     {
         currentHealth = maxHealth;
-        SpawnWave(); // Spawn first wave
+        SpawnWave();
     }
 
     void Update()
     {
         if (!isServer) return;
 
-        // Remove destroyed monsters/ghosts
+        // cleanup
         currentMonsters.RemoveAll(m => m == null);
 
-        // If all dead, spawn next wave
+        // auto next wave when all dead
         if (currentMonsters.Count == 0)
-        {
             SpawnWave();
-        }
     }
 
     [Server]
     public void TakeDamage(int amount)
     {
         currentHealth -= amount;
-
         if (currentHealth <= 0)
         {
-            NetworkServer.Destroy(gameObject);
+            // despawn all from this portal
+            foreach (var m in currentMonsters)
+                if (m != null) NetworkServer.Destroy(m);
+
+            currentMonsters.Clear();
+            NetworkServer.Destroy(gameObject); // destroy portal
         }
     }
 
     [Server]
-    private void SpawnWave()
+    void SpawnWave()
     {
-        StartCoroutine(SpawnMonstersRoutine(6, 4)); // 6 monsters, 4 ghosts
+        StartCoroutine(SpawnWaveRoutine());
     }
 
     [Server]
-    private IEnumerator SpawnMonstersRoutine(int numMonsters, int numGhosts)
+    IEnumerator SpawnWaveRoutine()
     {
-        // Spawn monsters
-        for (int i = 0; i < numMonsters; i++)
+        // spawn monsters first (short delay)
+        for (int i = 0; i < monstersPerWave; i++)
         {
-            Vector3 pos = transform.position;
-            pos.y += Random.Range(-positionOffset, positionOffset);
-
-            GameObject newMonster = Instantiate(monsterPrefab, pos, Quaternion.identity);
-
-            MonsterMovement moveScript = newMonster.GetComponent<MonsterMovement>();
-            if (moveScript != null)
-                moveScript.speed = Random.Range(speedRange.x, speedRange.y);
-
-            NetworkServer.Spawn(newMonster);
-            currentMonsters.Add(newMonster);
-
-            yield return new WaitForSeconds(spawnDelay);
+            SpawnOne(monsterPrefab, trySetMonsterSpeed:true);
+            yield return new WaitForSeconds(monsterSpawnDelay);
         }
 
-        // Spawn ghosts
-        for (int i = 0; i < numGhosts; i++)
+        // then ghosts (3s delay each)
+        for (int i = 0; i < ghostsPerWave; i++)
         {
-            Vector3 pos = transform.position;
-            pos.y += Random.Range(-positionOffset, positionOffset);
-
-            GameObject newGhost = Instantiate(ghostPrefab, pos, Quaternion.identity);
-
-            NetworkServer.Spawn(newGhost);
-            currentMonsters.Add(newGhost);
-
-            yield return new WaitForSeconds(spawnDelay);
+            SpawnOne(ghostPrefab, trySetMonsterSpeed:false); // ghosts handle their own movement
+            yield return new WaitForSeconds(ghostSpawnDelay);
         }
+    }
+
+    [Server]
+    void SpawnOne(GameObject prefab, bool trySetMonsterSpeed)
+    {
+        Vector3 pos = transform.position;
+        pos.y += Random.Range(-positionOffsetY, positionOffsetY);
+
+        GameObject go = Instantiate(prefab, pos, Quaternion.identity);
+
+        // only set speed on normal monsters that have MonsterMovement
+        if (trySetMonsterSpeed && go.TryGetComponent<MonsterMovement>(out var mm))
+            mm.speed = Random.Range(monsterSpeedRange.x, monsterSpeedRange.y);
+
+        NetworkServer.Spawn(go);
+        currentMonsters.Add(go);
     }
 }
