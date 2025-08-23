@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 3181868947270162011}
   - component: {fileID: 5813498230674531159}
   - component: {fileID: 306662157847986381}
+  - component: {fileID: 3245885811052576276}
   m_Layer: 0
   m_Name: turret
   m_TagString: Turret
@@ -215,7 +216,7 @@ AudioSource:
   m_PlayOnAwake: 0
   m_Volume: 0.244
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -311,6 +312,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::turretSound
   shootSoundClip: {fileID: 8300000, guid: e71096587a6e5624c8d1675cc55e5c11, type: 3}
   volume: 0.244
+--- !u!114 &3245885811052576276
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6325461954183053233}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6a438cd1e48c7e4294333579e945e59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  playerTransform: {fileID: 5963856648674041933, guid: 79c348a6d9260144da8d7095d98cbdb9, type: 3}
+  maxDistance: 10
+  minDistance: 2
 --- !u!1 &6866467144168329792
 GameObject:
   m_ObjectHideFlags: 0
