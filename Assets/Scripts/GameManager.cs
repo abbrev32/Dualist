@@ -85,11 +85,30 @@ public class GameManager : NetworkBehaviour
 
     public void OnQuitButton()
     {
-        // This logic correctly sends everyone back to the main menu.
-        if (isServer)
+        Time.timeScale = 1f;
+
+        // Properly shut down networking first
+        if (NetworkServer.active && NetworkClient.isConnected)
         {
-            Time.timeScale = 1f;
-            NetworkManager.singleton.ServerChangeScene("MainMenu");
+            NetworkManager.singleton.StopHost();
         }
+        else if (NetworkClient.isConnected)
+        {
+            NetworkManager.singleton.StopClient();
+        }
+        else if (NetworkServer.active)
+        {
+            NetworkManager.singleton.StopServer();
+        }
+
+        // Explicitly destroy the room manager singleton if you want a full reset
+        if (NetworkManager.singleton != null)
+        {
+            Destroy(NetworkManager.singleton.gameObject);
+        }
+
+        // Now load the main menu
+        SceneManager.LoadScene("MainMenu");
     }
+
 }

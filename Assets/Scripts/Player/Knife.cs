@@ -1,6 +1,5 @@
 using UnityEngine;
 using Mirror;
-using UnityEditor.Experimental.GraphView;
 
 [RequireComponent(typeof(Rigidbody2D), typeof(Collider2D), typeof(NetworkIdentity))]
 public class Knife : NetworkBehaviour
