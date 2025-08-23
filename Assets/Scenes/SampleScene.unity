@@ -1573,6 +1573,7 @@ GameObject:
   - component: {fileID: 665411442}
   - component: {fileID: 665411447}
   - component: {fileID: 665411448}
+  - component: {fileID: 665411449}
   m_Layer: 6
   m_Name: Elevator(2)
   m_TagString: Untagged
@@ -1823,6 +1824,25 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 2.84, y: 0.66}
   m_EdgeRadius: 0
+--- !u!114 &665411449
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 665411440}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e66aad4f0f2f13d4db062a8e1f33ab2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlatformTrigger
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  downwardTurrets:
+  - {fileID: 3812434504765640276}
+  rightTurrets:
+  - {fileID: 1767935300}
 --- !u!1 &686614010
 GameObject:
   m_ObjectHideFlags: 0
@@ -2135,6 +2155,7 @@ GameObject:
   - component: {fileID: 831696151}
   - component: {fileID: 831696153}
   - component: {fileID: 831696152}
+  - component: {fileID: 831696154}
   m_Layer: 6
   m_Name: Switch (1)
   m_TagString: Untagged
@@ -2261,6 +2282,23 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &831696154
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 831696150}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e66aad4f0f2f13d4db062a8e1f33ab2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::platTurretSpwan
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  downwardTurrets: []
+  rightTurrets: []
 --- !u!1 &853945106
 GameObject:
   m_ObjectHideFlags: 0
@@ -4802,6 +4840,78 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1716929395}
   m_CullTransparentMesh: 1
+--- !u!1001 &1767935299
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 559164485504519838, guid: 12ebd590e7437df469415093962a53b0, type: 3}
+      propertyPath: m_Name
+      value: towardRightTurret
+      objectReference: {fileID: 0}
+    - target: {fileID: 4709476227710508807, guid: 12ebd590e7437df469415093962a53b0, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -10.52
+      objectReference: {fileID: 0}
+    - target: {fileID: 4709476227710508807, guid: 12ebd590e7437df469415093962a53b0, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.79
+      objectReference: {fileID: 0}
+    - target: {fileID: 4709476227710508807, guid: 12ebd590e7437df469415093962a53b0, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4709476227710508807, guid: 12ebd590e7437df469415093962a53b0, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4709476227710508807, guid: 12ebd590e7437df469415093962a53b0, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4709476227710508807, guid: 12ebd590e7437df469415093962a53b0, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4709476227710508807, guid: 12ebd590e7437df469415093962a53b0, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4709476227710508807, guid: 12ebd590e7437df469415093962a53b0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4709476227710508807, guid: 12ebd590e7437df469415093962a53b0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4709476227710508807, guid: 12ebd590e7437df469415093962a53b0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 8701506218014810624, guid: 12ebd590e7437df469415093962a53b0, type: 3}
+      propertyPath: sceneId
+      value: 3265848703
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 12ebd590e7437df469415093962a53b0, type: 3}
+--- !u!114 &1767935300 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6063069138822849356, guid: 12ebd590e7437df469415093962a53b0, type: 3}
+  m_PrefabInstance: {fileID: 1767935299}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1324a007a3c69ab4a9dd29dd3304ab7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::turretshooter3
 --- !u!1 &1787967115
 GameObject:
   m_ObjectHideFlags: 0
@@ -6137,6 +6247,82 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &3812434504765640275
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 559164485504519838, guid: 8e4e5136a56c4e04bab47a20512df7ba, type: 3}
+      propertyPath: m_Name
+      value: downward
+      objectReference: {fileID: 0}
+    - target: {fileID: 3462299874720882812, guid: 8e4e5136a56c4e04bab47a20512df7ba, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4709476227710508807, guid: 8e4e5136a56c4e04bab47a20512df7ba, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 4.11
+      objectReference: {fileID: 0}
+    - target: {fileID: 4709476227710508807, guid: 8e4e5136a56c4e04bab47a20512df7ba, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 3.64
+      objectReference: {fileID: 0}
+    - target: {fileID: 4709476227710508807, guid: 8e4e5136a56c4e04bab47a20512df7ba, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4709476227710508807, guid: 8e4e5136a56c4e04bab47a20512df7ba, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4709476227710508807, guid: 8e4e5136a56c4e04bab47a20512df7ba, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4709476227710508807, guid: 8e4e5136a56c4e04bab47a20512df7ba, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4709476227710508807, guid: 8e4e5136a56c4e04bab47a20512df7ba, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4709476227710508807, guid: 8e4e5136a56c4e04bab47a20512df7ba, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4709476227710508807, guid: 8e4e5136a56c4e04bab47a20512df7ba, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4709476227710508807, guid: 8e4e5136a56c4e04bab47a20512df7ba, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8701506218014810624, guid: 8e4e5136a56c4e04bab47a20512df7ba, type: 3}
+      propertyPath: sceneId
+      value: 3186033503
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 8e4e5136a56c4e04bab47a20512df7ba, type: 3}
+--- !u!114 &3812434504765640276 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9109816556325757380, guid: 8e4e5136a56c4e04bab47a20512df7ba, type: 3}
+  m_PrefabInstance: {fileID: 3812434504765640275}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccf8b9d9c0c86e4458f0e0f370959bb0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TurretShooter4
 --- !u!1001 &4083874755759027614
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6381,3 +6567,5 @@ SceneRoots:
   - {fileID: 770558884}
   - {fileID: 1602332620}
   - {fileID: 173755548}
+  - {fileID: 1767935299}
+  - {fileID: 3812434504765640275}

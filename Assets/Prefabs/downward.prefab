@@ -78,9 +78,9 @@ GameObject:
   - component: {fileID: 1019786704434713488}
   - component: {fileID: 3462299874720882812}
   - component: {fileID: 5961585746374683767}
-  - component: {fileID: 6063069138822849356}
+  - component: {fileID: 9109816556325757380}
   m_Layer: 0
-  m_Name: towardRightTurret
+  m_Name: downward
   m_TagString: Turret
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -175,7 +175,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneId: 0
-  _assetId: 1276926252
+  _assetId: 1523019185
   serverOnly: 0
   visibility: 0
   hasSpawned: 0
@@ -335,7 +335,7 @@ CircleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -438,7 +438,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &6063069138822849356
+--- !u!114 &9109816556325757380
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -447,16 +447,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 559164485504519838}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1324a007a3c69ab4a9dd29dd3304ab7f, type: 3}
+  m_Script: {fileID: 11500000, guid: ccf8b9d9c0c86e4458f0e0f370959bb0, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::turretshooter3
+  m_EditorClassIdentifier: Assembly-CSharp::TurretShooter4
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
   bulletPrefab: {fileID: 9070579427463045838, guid: db3512a1da26a7144bce4cab586d3fc0, type: 3}
   shootInterval: 3
   bulletSpeed: 5
-  verticalSpacing: 0.2
+  horizontalSpacing: 0.2
   shootSoundClip: {fileID: 0}
 --- !u!1 &2858308748665991087
 GameObject:
