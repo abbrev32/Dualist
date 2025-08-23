@@ -245,7 +245,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: e71096587a6e5624c8d1675cc55e5c11, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.272
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -342,7 +342,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TurretSound
   shootSoundClip: {fileID: 8300000, guid: e71096587a6e5624c8d1675cc55e5c11, type: 3}
-  volume: 1
+  volume: 0.179
 --- !u!114 &1019786704434713488
 MonoBehaviour:
   m_ObjectHideFlags: 0

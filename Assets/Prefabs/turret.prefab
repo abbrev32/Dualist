@@ -311,7 +311,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::turretSound
   shootSoundClip: {fileID: 8300000, guid: e71096587a6e5624c8d1675cc55e5c11, type: 3}
-  volume: 0.224
+  volume: 0.179
 --- !u!114 &6287959534244503059
 MonoBehaviour:
   m_ObjectHideFlags: 0
