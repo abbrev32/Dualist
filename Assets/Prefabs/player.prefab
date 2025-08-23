@@ -559,11 +559,7 @@ GameObject:
   - component: {fileID: 3204920501826344576}
   m_Layer: 0
   m_Name: player
-<<<<<<< HEAD
-  m_TagString: Audio
-=======
   m_TagString: Untagged
->>>>>>> b5c35dc89c5985741738fcea1eab46d1be389082
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
