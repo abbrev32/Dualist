@@ -32,6 +32,13 @@ public class CoopSwitch : NetworkBehaviour
             activated = true;
             Debug.Log("Switch activated!");
 
+            // Find the BackgroundMusic script in the scene and stop its music.
+            BackgroundMusic musicManager = FindObjectOfType<BackgroundMusic>();
+            if (musicManager != null)
+            {
+                musicManager.StopMusic();
+            }
+
             // If the elevator reference is not null, activate it.
             if (elevator != null)
                 elevator.ActivateElevator();
@@ -79,4 +86,5 @@ public class CoopSwitch : NetworkBehaviour
         visual.localPosition = endPos;
         Debug.Log("Switch sunk and finished.");
     }
+
 }
