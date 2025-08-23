@@ -105,6 +105,7 @@ public class PlayerController : NetworkBehaviour
             {
                 float dashDirection = (moveX != 0) ? moveX : transform.localScale.x > 0 ? 1 : -1;
                 finalVelocityX += dashSpeed * dashDirection;
+                netAnimator.SetTrigger("dash");
             }
         }
 
