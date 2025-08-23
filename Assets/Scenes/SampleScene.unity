@@ -2724,7 +2724,7 @@ MonoBehaviour:
   spawnDelay: 0.5
   speedRange: {x: 2, y: 5}
   positionOffset: 1.5
-  maxHealth: 3
+  maxHealth: 5
   destructionSound: {fileID: 8300000, guid: 8721326b0459a804da82623019c70edc, type: 3}
 --- !u!82 &989631342
 AudioSource:
