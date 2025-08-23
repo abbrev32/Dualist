@@ -29,7 +29,7 @@ public class MainMenuController : MonoBehaviour
     public LANDiscovery discovery;
     public GameObject serverListPanel;
     public Transform serverListParent; // A vertical layout group
-    public GameObject serverButtonPrefab;
+    public Button serverButtonPrefab;
     private void Awake()
     {
         roomManager = FindAnyObjectByType<NetworkRoomManager>();
@@ -79,8 +79,7 @@ public class MainMenuController : MonoBehaviour
         // Create button for each server
         var btnObj = Instantiate(serverButtonPrefab, serverListParent);
         btnObj.GetComponentInChildren<TMP_Text>().text = $"{info.EndPoint.Address}";
-
-        btnObj.GetComponent<Button>().onClick.AddListener(() =>
+        btnObj.onClick.AddListener(() =>
         {
             discovery.StopDiscovery(); // stop scanning
             RoomManager.singleton.StartClient(info.uri);

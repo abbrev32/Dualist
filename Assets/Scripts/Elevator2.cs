@@ -1,11 +1,10 @@
 using UnityEngine;
 using Mirror;
-using System.Collections;
 
 public class Elevator2 : NetworkBehaviour
 {
-    [SerializeField] private Transform endPoint;
     [SerializeField] private Transform startPoint;
+    [SerializeField] private Transform endPoint;
     [SerializeField] private float speed = 2f;
 
     private bool activated = false;
@@ -21,14 +20,15 @@ public class Elevator2 : NetworkBehaviour
     }
 
     [ClientRpc]
-    private void RpcMoveElevator()
+    void RpcMoveElevator()
     {
         StartCoroutine(MoveElevatorRoutine());
     }
 
-    private IEnumerator MoveElevatorRoutine()
+    private System.Collections.IEnumerator MoveElevatorRoutine()
     {
         Vector3 start = transform.position;
+        // if elevator is closer to startPoint → move to endPoint, else go back to startPoint
         Vector3 target = (Vector3.Distance(start, startPoint.position) < Vector3.Distance(start, endPoint.position))
                          ? endPoint.position : startPoint.position;
 
