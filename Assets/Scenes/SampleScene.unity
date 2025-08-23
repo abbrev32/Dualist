@@ -2574,7 +2574,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 856020455551302592, guid: 6abc5e42500bda945a37b98d66f14802, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.51
+      value: -2
       objectReference: {fileID: 0}
     - target: {fileID: 856020455551302592, guid: 6abc5e42500bda945a37b98d66f14802, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2744,7 +2744,6 @@ MonoBehaviour:
   speedRange: {x: 2, y: 5}
   positionOffset: 1.5
   maxHealth: 5
-  destructionSound: {fileID: 8300000, guid: 8721326b0459a804da82623019c70edc, type: 3}
 --- !u!82 &989631342
 AudioSource:
   m_ObjectHideFlags: 0
