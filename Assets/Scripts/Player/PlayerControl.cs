@@ -1,107 +1,95 @@
 using UnityEngine;
 using Mirror;
-using System;
 
-// This script controls player movement and networking.
 public class PlayerController : NetworkBehaviour
 {
-    // A reference to the Rigidbody2D component for physics-based movement.
+    [Header("Movement Settings")]
     public Rigidbody2D playerBody;
-    // Public variables to control movement and jump properties in the Inspector.
     public float movementSpeed = 1.0f;
     public float dashSpeed = 15.0f;
     public float jumpHeight = 5.0f;
 
-    const float scale = 0.25f;
-    private Transform playerTransform;
-    // Public variable for the jump sound.
+    [Header("Audio")]
     public AudioClip jumpSound;
-
-    // The audio source component.
+    public AudioClip dashSound;
     private AudioSource audioSource;
 
-    private int extJumps = 0;
-
-    // References for animations.
+    [Header("Components")]
     private Animator anim;
     private NetworkAnimator netAnimator;
 
     [SyncVar(hook = nameof(OnFlipChanged))]
-    private bool facingRight = true;
-    // A networked variable to sync the player's flip direction.
-    //[SyncVar(hook = nameof(OnFlipChanged))]
-    //private float flipX = 0;
+    private bool flipRight = true;
 
-    // Dash forward variables.
+    private int extJumps = 0;
     private bool isDashing = false;
-    private readonly float dashCoolDown = 1;
-    float dashCoolDownTimer = 0;
-    float dashTimer = 0;
+    private readonly float dashCoolDown = 1f;
+    private float dashCoolDownTimer = 0f;
+    private float dashTimer = 0f;
     private readonly float dashTime = 0.25f;
 
     private void Awake()
     {
-        // Get references to all necessary components on this GameObject.
         anim = GetComponent<Animator>();
         netAnimator = GetComponent<NetworkAnimator>();
-        playerTransform = GetComponentInChildren<Transform>();
 
-        // Get or add the AudioSource component.
         audioSource = GetComponent<AudioSource>();
         if (audioSource == null)
-        {
             audioSource = gameObject.AddComponent<AudioSource>();
+    }
+
+    public override void OnStartLocalPlayer()
+    {
+        Camera mainCam = Camera.main;
+        if (mainCam != null)
+        {
+            CameraBehavior camScript = mainCam.GetComponent<CameraBehavior>();
+            if (camScript != null)
+                camScript.playerPos = transform;
         }
     }
 
-    void Update()
+    private void Update()
     {
-        // Only allow the local player to control the character.
         if (!isLocalPlayer) return;
 
-        // Linear Movement + Double Jumping logic.
         float moveX = Input.GetAxis("Horizontal");
-        float velocityY = playerBody.linearVelocity.y; // Correctly get y velocity.
+        float velocityY = playerBody.linearVelocity.y;
 
-        // Jump + double jump logic.
+        // Jump + double jump
         if (IsOnGround())
         {
             extJumps = 1;
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 velocityY = jumpHeight;
-                CmdSetAnimTrigger("jump");
-                // Play the jump sound locally for the jumping player.
+                netAnimator.SetTrigger("jump");
                 PlayJumpSound();
             }
         }
-        // On-air jump logic.
         else if (!IsOnGround() && extJumps > 0)
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 velocityY = jumpHeight;
                 extJumps--;
-                CmdSetAnimTrigger("jump");
-                // Play the double jump sound locally.
+                netAnimator.SetTrigger("jump");
                 PlayJumpSound();
             }
         }
 
-        // Add final velocity for clarity.
         float finalVelocityX = moveX * movementSpeed;
-        bool isRunning = Math.Abs(moveX) > 0.01f;
-
-        // Dash logic.
+        bool isRunning = Mathf.Abs(moveX) > 0.01f;
+        bool isjumping = !IsOnGround();
+        // Dash
         if (!isDashing)
         {
             dashCoolDownTimer += Time.deltaTime;
-            if (dashCoolDownTimer > dashCoolDown)
+            if (dashCoolDownTimer > dashCoolDown && Input.GetKeyDown(KeyCode.LeftShift))
             {
-                if (Input.GetKeyDown(KeyCode.LeftShift))
-                {
-                    isDashing = true;
-                }
+                isDashing = true;
+                if (audioSource != null && dashSound != null)
+                    audioSource.PlayOneShot(dashSound);
             }
         }
         else
@@ -110,102 +98,80 @@ public class PlayerController : NetworkBehaviour
             if (dashTimer > dashTime)
             {
                 isDashing = false;
-                dashCoolDownTimer = 0;
-                dashTimer = 0;
+                dashCoolDownTimer = 0f;
+                dashTimer = 0f;
             }
             else
             {
-                // Dash to last faced direction if not moving.
                 float dashDirection = (moveX != 0) ? moveX : transform.localScale.x > 0 ? 1 : -1;
-                // Add dash to final velocity.
                 finalVelocityX += dashSpeed * dashDirection;
+                netAnimator.SetTrigger("dash");
             }
         }
 
-        // Assign velocities.
+        // Apply movement
         playerBody.linearVelocity = new Vector2(finalVelocityX, velocityY);
 
-        // Handle player facing direction.
-        //float newFlipX = 0;
-        //if (moveX != 0)
-        //{
-        //    newFlipX = moveX > 0 ? scale : -scale;
-        //}
-        //else
-        //{
-        //    newFlipX = transform.localScale.x > 0 ? scale : -scale;
-        //}
-        //if (newFlipX != flipX)
-        //{
-        //    CmdSetFlip(newFlipX);
-        //}
+        // Flip
         if (moveX != 0)
         {
-            facingRight = moveX > 0;
-        }
-        else
-        {
-            facingRight = transform.localScale.x < 0;
+            bool newFlipRight = moveX > 0;
+            if (flipRight != newFlipRight)
+                CmdSetFlip(newFlipRight);
         }
 
+        // Animator states
         if (netAnimator != null)
         {
-            CmdSetAnimationState("run", isRunning);
-            CmdSetAnimationState("grounded", IsOnGround());
+            netAnimator.animator.SetBool("run", isRunning);
+            netAnimator.animator.SetBool("grounded", IsOnGround());
         }
-    }
 
-    [Command]
-    public void CmdSetAnimationState(string param, bool value)
-    {
-        netAnimator.animator.SetBool(param, value);
-    }
-
-    [Command]
-    void CmdSetAnimTrigger(string param)
-    {
-        netAnimator.SetTrigger(param);
-    }
-
-    //[Command]
-    //void CmdSetFlip(float value)
-    //{
-    //    flipX = value;
-    //}
-    //void OnFlipChanged(float oldValue, float newValue)
-    //{
-    //    transform.localScale = new Vector3(newValue, scale, scale);
-    //}
-    void OnFlipChanged(bool oldValue, bool newValue)
-    {
-        if(oldValue != newValue)
+        // Swing sword
+        if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            Vector3 scale = playerTransform.localScale;
-            scale.x *= -1; // Flip horizontally
-            playerTransform.localScale = scale;
+            if (netAnimator != null)
+            {
+                if (isRunning)
+                    netAnimator.SetTrigger("run swing");
+                if (isjumping)
+                    netAnimator.SetTrigger("jump swing");
+                if(!isRunning && IsOnGround())
+                    netAnimator.SetTrigger("idle swing");
 
+
+            }
         }
     }
 
-    // Method to play the jump sound.
+    [Command]
+    private void CmdSetFlip(bool faceRight)
+    {
+        flipRight = faceRight;
+    }
+
+    private void OnFlipChanged(bool oldValue, bool newValue)
+    {
+        Vector3 scale = transform.localScale;
+        scale.x = newValue ? -Mathf.Abs(scale.x) : Mathf.Abs(scale.x);
+        transform.localScale = scale;
+    }
+
     private void PlayJumpSound()
     {
         if (audioSource != null && jumpSound != null)
-        {
             audioSource.PlayOneShot(jumpSound);
-        }
     }
 
-    bool IsOnGround()
+    private bool IsOnGround()
     {
         Vector2 position = transform.position;
         Vector2 direction = Vector2.down;
-        float length = 0.5f;
+        float length = 0.8f;
 
         LayerMask groundLayer = LayerMask.GetMask("Platform");
-
         RaycastHit2D hit = Physics2D.Raycast(position, direction, length, groundLayer);
 
-        return (hit.collider != null);
+        return hit.collider != null;
     }
 }

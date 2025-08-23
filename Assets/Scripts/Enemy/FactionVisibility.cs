@@ -5,8 +5,8 @@ public class FactionVisibility : NetworkBehaviour
 {
     [SerializeField]
     private PlayerFaction.Faction visibleTo;
-    public SpriteRenderer sprite;
-    public Collider2D hitbox;
+    private SpriteRenderer sprite;
+    private Collider2D hitbox;
 
     public override void OnStartClient()
     {
@@ -30,5 +30,6 @@ public class FactionVisibility : NetworkBehaviour
 
         bool visible = (localPlayer.faction == visibleTo);
         sprite.enabled = visible;
+        hitbox.enabled = visible;
     }
 }
