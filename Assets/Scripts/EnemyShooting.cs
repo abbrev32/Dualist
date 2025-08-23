@@ -7,6 +7,7 @@ public class EnemyShooting : MonoBehaviour
     public Transform bulletPos;
 
     private float timer;
+    private GameObject player;
     void Start()
     {
         
@@ -16,6 +17,8 @@ public class EnemyShooting : MonoBehaviour
     void Update()
     {
         timer += Time.deltaTime;
+
+
 
         if(timer >= 2)
         {
