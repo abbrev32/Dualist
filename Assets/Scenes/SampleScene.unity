@@ -2413,8 +2413,9 @@ PrefabInstance:
     - target: {fileID: 6360102480001590568, guid: 6abc5e42500bda945a37b98d66f14802, type: 3}
       propertyPath: monsterPrefab
       value: 
-      objectReference: {fileID: 3831856357126718768, guid: b26e0e2d2b1fbb944842d626e6774813, type: 3}
-    m_RemovedComponents: []
+      objectReference: {fileID: 4414625503378716744, guid: 4ae894e8cdfec9be896cc3b488a5adae, type: 3}
+    m_RemovedComponents:
+    - {fileID: 6360102480001590568, guid: 6abc5e42500bda945a37b98d66f14802, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -2424,6 +2425,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5964450518668494532, guid: 6abc5e42500bda945a37b98d66f14802, type: 3}
       insertIndex: -1
       addedObject: {fileID: 989631340}
+    - targetCorrespondingSourceObject: {fileID: 5964450518668494532, guid: 6abc5e42500bda945a37b98d66f14802, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 989631341}
   m_SourcePrefab: {fileID: 100100000, guid: 6abc5e42500bda945a37b98d66f14802, type: 3}
 --- !u!1 &989631338 stripped
 GameObject:
@@ -2498,6 +2502,27 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.7, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &989631341
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 989631338}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 621376f96c7f61843bafda4eb3693c81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MonsterSpawner
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  monsterPrefab: {fileID: 3831856357126718768, guid: b26e0e2d2b1fbb944842d626e6774813, type: 3}
+  ghostPrefab: {fileID: 4414625503378716744, guid: 4ae894e8cdfec9be896cc3b488a5adae, type: 3}
+  spawnDelay: 0.5
+  speedRange: {x: 2, y: 5}
+  positionOffset: 1.5
+  maxHealth: 3
 --- !u!1 &1113888119
 GameObject:
   m_ObjectHideFlags: 0
