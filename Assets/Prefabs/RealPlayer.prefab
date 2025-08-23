@@ -20,6 +20,7 @@ GameObject:
   - component: {fileID: 9005494079192148058}
   - component: {fileID: 807305903612363502}
   - component: {fileID: 8362537955189495041}
+  - component: {fileID: -8034164216073782639}
   m_Layer: 7
   m_Name: RealPlayer
   m_TagString: Player
@@ -351,6 +352,21 @@ MonoBehaviour:
   syncInterval: 0
   clientAuthority: 0
   animator: {fileID: 807305903612363502}
+--- !u!114 &-8034164216073782639
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 729317249368588371}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 766587230be23e240ac3da67304906c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerManager
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
 --- !u!1001 &8709541893161468420
 PrefabInstance:
   m_ObjectHideFlags: 0
