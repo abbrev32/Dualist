@@ -1,5 +1,6 @@
 using UnityEngine;
 using Mirror;
+using System.Collections;
 
 public class Elevator2 : NetworkBehaviour
 {
@@ -15,20 +16,20 @@ public class Elevator2 : NetworkBehaviour
         if (!activated)
         {
             activated = true;
+            Debug.Log("Elevator activated!");
             RpcMoveElevator();
         }
     }
 
     [ClientRpc]
-    void RpcMoveElevator()
+    private void RpcMoveElevator()
     {
         StartCoroutine(MoveElevatorRoutine());
     }
 
-    private System.Collections.IEnumerator MoveElevatorRoutine()
+    private IEnumerator MoveElevatorRoutine()
     {
         Vector3 start = transform.position;
-        // if elevator is closer to startPoint → move to endPoint, else go back to startPoint
         Vector3 target = (Vector3.Distance(start, startPoint.position) < Vector3.Distance(start, endPoint.position))
                          ? endPoint.position : startPoint.position;
 
@@ -39,5 +40,6 @@ public class Elevator2 : NetworkBehaviour
         }
 
         transform.position = target;
+        Debug.Log("Elevator reached target: " + target);
     }
 }

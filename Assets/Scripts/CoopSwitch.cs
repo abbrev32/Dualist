@@ -1,86 +1,57 @@
 using UnityEngine;
 using Mirror;
-using System.Collections;
 
-[RequireComponent(typeof(NetworkIdentity))]
 public class CoopSwitch : NetworkBehaviour
 {
-    [SerializeField] private Elevator2 elevator;  // assign Elevator2
-    [SerializeField] private float sinkDistance = 0.2f;
-    [SerializeField] private float sinkSpeed = 1f;
+    [SerializeField] private Elevator2 elevator;
 
-    private Vector3 initialPosition;
-    private Vector3 targetSinkPosition;
+    private int playersOnSwitch = 0;
     private bool activated = false;
 
-    private void Start()
-    {
-        initialPosition = transform.position;
-        targetSinkPosition = initialPosition + Vector3.down * sinkDistance;
-    }
-
+    // Called when a player enters the trigger
     private void OnTriggerEnter(Collider other)
     {
-        if (!other.CompareTag("Player") || activated) return;
+        if (!other.CompareTag("Player")) return;
 
-        if (isServer)
-        {
-            PlayerSteppedOn();
-        }
-        else
-        {
-            CmdPlayerStepped();
-        }
-    }
+        playersOnSwitch++;
+        Debug.Log("Player stepped on switch: " + other.name + " | Players on switch: " + playersOnSwitch);
 
-    [Command]
-    private void CmdPlayerStepped(NetworkConnectionToClient sender = null)
-    {
-        PlayerSteppedOn();
-    }
-
-    private void PlayerSteppedOn()
-    {
-        if (activated) return;
-
-        int playersOnSwitch = CountPlayersOnSwitch();
-
-        if (playersOnSwitch >= 2)
+        if (!activated && playersOnSwitch >= 2)  // Change 2 to how many players needed
         {
             activated = true;
-
+            Debug.Log("Switch activated!");
             if (elevator != null)
                 elevator.ActivateElevator();
 
-            RpcSink();
+            // Optional: sink the switch visually
+            StartCoroutine(SinkSwitchRoutine());
         }
     }
 
-    private int CountPlayersOnSwitch()
+    private void OnTriggerExit(Collider other)
     {
-        Collider[] hits = Physics.OverlapBox(transform.position, GetComponent<Collider>().bounds.extents);
-        int count = 0;
-        foreach (var hit in hits)
-        {
-            if (hit.CompareTag("Player"))
-                count++;
-        }
-        return count;
+        if (!other.CompareTag("Player")) return;
+
+        playersOnSwitch--;
+        Debug.Log("Player left switch: " + other.name + " | Players on switch: " + playersOnSwitch);
     }
 
-    [ClientRpc]
-    private void RpcSink()
+    private System.Collections.IEnumerator SinkSwitchRoutine()
     {
-        StartCoroutine(SinkRoutine());
-    }
+        Transform visual = transform.GetChild(0); // assuming first child is the visual
+        Vector3 startPos = visual.localPosition;
+        Vector3 endPos = startPos + Vector3.down * 0.5f; // sink 0.5 units
+        float t = 0f;
+        float duration = 1.5f;
 
-    private IEnumerator SinkRoutine()
-    {
-        while (Vector3.Distance(transform.position, targetSinkPosition) > 0.01f)
+        while (t < duration)
         {
-            transform.position = Vector3.MoveTowards(transform.position, targetSinkPosition, sinkSpeed * Time.deltaTime);
+            t += Time.deltaTime;
+            visual.localPosition = Vector3.Lerp(startPos, endPos, t / duration);
             yield return null;
         }
-        gameObject.SetActive(false);
+
+        visual.localPosition = endPos;
+        Debug.Log("Switch sunk and finished.");
     }
 }
