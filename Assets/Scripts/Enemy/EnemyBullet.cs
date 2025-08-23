@@ -1,5 +1,6 @@
 using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
+using Mirror;
 
 public class EnemyBullet : MonoBehaviour
 {
@@ -9,7 +10,7 @@ public class EnemyBullet : MonoBehaviour
 
     void Start()
     {
-       rb = GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody2D>();
         player = GameObject.FindGameObjectWithTag("Player");
 
         Vector3 direction = player.transform.position - transform.position;
