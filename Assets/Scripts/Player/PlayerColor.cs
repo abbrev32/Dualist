@@ -8,8 +8,8 @@ public class PlayerColor : NetworkBehaviour
     private SpriteRenderer[] allSprites;
 
     // Gray colors for self
-    private static readonly Color DarkSelf = new Color(0.3f, 0.3f, 0.3f, 1f);
-    private static readonly Color LightSelf = new Color(0.8f, 0.8f, 0.8f, 1f);
+    private static readonly Color DarkSelf = new Color(0.1f, 0.1f, 0.1f, 1f);
+    private static readonly Color LightSelf = new Color(0.9f, 0.9f, 0.9f, 1f);
     // Black/white for others
     private static readonly Color DarkOther = Color.black;
     private static readonly Color LightOther = Color.white;
