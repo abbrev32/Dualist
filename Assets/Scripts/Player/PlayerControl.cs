@@ -80,7 +80,7 @@ public class PlayerController : NetworkBehaviour
 
         float finalVelocityX = moveX * movementSpeed;
         bool isRunning = Mathf.Abs(moveX) > 0.01f;
-
+        bool isjumping = !IsOnGround();
         // Dash
         if (!isDashing)
         {
@@ -133,10 +133,12 @@ public class PlayerController : NetworkBehaviour
             {
                 if (isRunning)
                     netAnimator.SetTrigger("run swing");
-                else if (!IsOnGround())
+                if (isjumping)
                     netAnimator.SetTrigger("jump swing");
-                else
+                if(!isRunning && IsOnGround())
                     netAnimator.SetTrigger("idle swing");
+
+
             }
         }
     }

@@ -81,7 +81,7 @@ GameObject:
   - component: {fileID: 3462299874720882812}
   - component: {fileID: 5961585746374683767}
   m_Layer: 0
-  m_Name: turret (3)
+  m_Name: towardRightTurret
   m_TagString: Turret
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
