@@ -5,36 +5,36 @@ using System;
 // This script controls player movement and networking.
 public class PlayerController : NetworkBehaviour
 {
-    // A reference to the Rigidbody2D component for physics-based movement.
-    public Rigidbody2D playerBody;
-    // Public variables to control movement and jump properties in the Inspector.
-    public float movementSpeed = 1.0f;
+Â  Â  // A reference to the Rigidbody2D component for physics-based movement.
+Â  Â  public Rigidbody2D playerBody;
+Â  Â  // Public variables to control movement and jump properties in the Inspector.
+Â  Â  public float movementSpeed = 1.0f;
     public float dashSpeed = 15.0f;
     public float jumpHeight = 5.0f;
 
-    // Public variable for the jump sound.
-    public AudioClip jumpSound;
+Â  Â  // Public variable for the jump sound.
+Â  Â  public AudioClip jumpSound;
 
     // Public variable for the dash sound clip.
     public AudioClip dashSound;
 
-    // The audio source component.
-    private AudioSource audioSource;
+Â  Â  // The audio source component.
+Â  Â  private AudioSource audioSource;
 
     private int extJumps = 0;
 
-    // References for animations.
-    private Animator anim;
+Â  Â  // References for animations.
+Â  Â  private Animator anim;
     private NetworkAnimator netAnimator;
 
-    // A networked variable to sync the player's flip direction.
-    //[SyncVar(hook = nameof(OnFlipChanged))]
-    //private float flipX = 0;
-    [SyncVar(hook = nameof(OnFlipChanged))]
+Â  Â  // A networked variable to sync the player's flip direction.
+Â  Â  //[SyncVar(hook = nameof(OnFlipChanged))]
+Â  Â  //private float flipX = 0;
+Â  Â  [SyncVar(hook = nameof(OnFlipChanged))]
     private bool flipRight = true;
 
-    // Dash forward variables.
-    private bool isDashing = false;
+Â  Â  // Dash forward variables.
+Â  Â  private bool isDashing = false;
     private readonly float dashCoolDown = 1;
     float dashCoolDownTimer = 0;
     float dashTimer = 0;
@@ -42,13 +42,13 @@ public class PlayerController : NetworkBehaviour
 
     private void Awake()
     {
-        // Get references to all necessary components on this GameObject.
-        anim = GetComponent<Animator>();
+Â  Â  Â  Â  // Get references to all necessary components on this GameObject.
+Â  Â  Â  Â  anim = GetComponent<Animator>();
         netAnimator = GetComponent<NetworkAnimator>();
 
 
-        // Get or add the AudioSource component.
-        audioSource = GetComponent<AudioSource>();
+Â  Â  Â  Â  // Get or add the AudioSource component.
+Â  Â  Â  Â  audioSource = GetComponent<AudioSource>();
         if (audioSource == null)
         {
             audioSource = gameObject.AddComponent<AudioSource>();
@@ -63,52 +63,52 @@ public class PlayerController : NetworkBehaviour
             CameraBehavior camScript = mainCam.GetComponent<CameraBehavior>();
             if (camScript != null)
             {
-                camScript.playerPos = transform;   // assign THIS player to camera
-            }
+                camScript.playerPos = transform;Â  Â // assign THIS player to camera
+Â  Â  Â  Â  Â  Â  }
         }
     }
 
 
     void Update()
     {
-        // Only allow the local player to control the character.
-        if (!isLocalPlayer) return;
+Â  Â  Â  Â  // Only allow the local player to control the character.
+Â  Â  Â  Â  if (!isLocalPlayer) return;
 
-        // Linear Movement + Double Jumping logic.
-        float moveX = Input.GetAxis("Horizontal");
+Â  Â  Â  Â  // Linear Movement + Double Jumping logic.
+Â  Â  Â  Â  float moveX = Input.GetAxis("Horizontal");
         float velocityY = playerBody.linearVelocity.y; // Correctly get y velocity.
 
-        // Jump + double jump logic.
-        if (IsOnGround())
+Â  Â  Â  Â  // Jump + double jump logic.
+Â  Â  Â  Â  if (IsOnGround())
         {
             extJumps = 1;
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 velocityY = jumpHeight;
-                //CmdSetAnimTrigger("jump");
-                // Play the jump sound locally for the jumping player.
-                PlayJumpSound();
+Â  Â  Â  Â  Â  Â  Â  Â  //CmdSetAnimTrigger("jump");
+Â  Â  Â  Â  Â  Â  Â  Â  // Play the jump sound locally for the jumping player.
+Â  Â  Â  Â  Â  Â  Â  Â  PlayJumpSound();
             }
         }
-        // On-air jump logic.
-        else if (!IsOnGround() && extJumps > 0)
+Â  Â  Â  Â  // On-air jump logic.
+Â  Â  Â  Â  else if (!IsOnGround() && extJumps > 0)
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 velocityY = jumpHeight;
                 extJumps--;
-                //CmdSetAnimTrigger("jump");
-                // Play the double jump sound locally.
-                PlayJumpSound();
+Â  Â  Â  Â  Â  Â  Â  Â  //CmdSetAnimTrigger("jump");
+Â  Â  Â  Â  Â  Â  Â  Â  // Play the double jump sound locally.
+Â  Â  Â  Â  Â  Â  Â  Â  PlayJumpSound();
             }
         }
 
-        // Add final velocity for clarity.
-        float finalVelocityX = moveX * movementSpeed;
+Â  Â  Â  Â  // Add final velocity for clarity.
+Â  Â  Â  Â  float finalVelocityX = moveX * movementSpeed;
         bool isRunning = Math.Abs(moveX) > 0.01f;
 
-        // Dash logic.
-        if (!isDashing)
+Â  Â  Â  Â  // Dash logic.
+Â  Â  Â  Â  if (!isDashing)
         {
             dashCoolDownTimer += Time.deltaTime;
             if (dashCoolDownTimer > dashCoolDown)
@@ -116,7 +116,6 @@ public class PlayerController : NetworkBehaviour
                 if (Input.GetKeyDown(KeyCode.LeftShift))
                 {
                     isDashing = true;
-
                     // Play the dash sound here.
                     if (audioSource != null && dashSound != null)
                     {
@@ -136,40 +135,40 @@ public class PlayerController : NetworkBehaviour
             }
             else
             {
-                // Dash to last faced direction if not moving.
-                float dashDirection = (moveX != 0) ? moveX : transform.localScale.x > 0 ? 1 : -1;
-                // Add dash to final velocity.
-                finalVelocityX += dashSpeed * dashDirection;
+Â  Â  Â  Â  Â  Â  Â  Â  // Dash to last faced direction if not moving.
+Â  Â  Â  Â  Â  Â  Â  Â  float dashDirection = (moveX != 0) ? moveX : transform.localScale.x > 0 ? 1 : -1;
+Â  Â  Â  Â  Â  Â  Â  Â  // Add dash to final velocity.
+Â  Â  Â  Â  Â  Â  Â  Â  finalVelocityX += dashSpeed * dashDirection;
             }
         }
 
-        // Assign velocities.
-        playerBody.linearVelocity = new Vector2(finalVelocityX, velocityY);
+Â  Â  Â  Â  // Assign velocities.
+Â  Â  Â  Â  playerBody.linearVelocity = new Vector2(finalVelocityX, velocityY);
 
-        // Handle player facing direction.
-        //float newFlipX = 0;
-        //if (moveX != 0)
-        //{
-        //    newFlipX = moveX > 0 ? 0.2f : -0.2f;
-        //}
-        //else
-        //{
-        //    newFlipX = transform.localScale.x > 0 ? 0.2f : -0.2f;
-        //}
-        //if (newFlipX != flipX)
-        //{
-        //    CmdSetFlip(newFlipX);
-        //}
-        if (moveX != 0)
+Â  Â  Â  Â  // Handle player facing direction.
+Â  Â  Â  Â  //float newFlipX = 0;
+Â  Â  Â  Â  //if (moveX != 0)
+Â  Â  Â  Â  //{
+Â  Â  Â  Â  //Â  Â  newFlipX = moveX > 0 ? 0.2f : -0.2f;
+Â  Â  Â  Â  //}
+Â  Â  Â  Â  //else
+Â  Â  Â  Â  //{
+Â  Â  Â  Â  //Â  Â  newFlipX = transform.localScale.x > 0 ? 0.2f : -0.2f;
+Â  Â  Â  Â  //}
+Â  Â  Â  Â  //if (newFlipX != flipX)
+Â  Â  Â  Â  //{
+Â  Â  Â  Â  //Â  Â  CmdSetFlip(newFlipX);
+Â  Â  Â  Â  //}
+Â  Â  Â  Â  if (moveX != 0)
         {
             flipRight = moveX > 0;
         }
-        //else
-        //{
-        //    flipRight = transform.localScale.x > 0;
-        //}
+Â  Â  Â  Â  //else
+Â  Â  Â  Â  //{
+Â  Â  Â  Â  //Â  Â  flipRight = transform.localScale.x > 0;
+Â  Â  Â  Â  //}
 
-        if (netAnimator != null)
+Â  Â  Â  Â  if (netAnimator != null)
         {
             CmdSetAnimationState("run", isRunning);
             CmdSetAnimationState("grounded", IsOnGround());
@@ -188,16 +187,16 @@ public class PlayerController : NetworkBehaviour
         netAnimator.SetTrigger(param);
     }
 
-    //[Command]
-    //void CmdSetFlip(float value)
-    //{
-    //    flipX = value;
-    //}
-    //void OnFlipChanged(float oldValue, float newValue)
-    //{
-    //    transform.localScale = new Vector3(newValue, 0.2f, 0.2f);
-    //}
-    void OnFlipChanged(bool oldValue, bool newValue)
+Â  Â  //[Command]
+Â  Â  //void CmdSetFlip(float value)
+Â  Â  //{
+Â  Â  //Â  Â  flipX = value;
+Â  Â  //}
+Â  Â  //void OnFlipChanged(float oldValue, float newValue)
+Â  Â  //{
+Â  Â  //Â  Â  transform.localScale = new Vector3(newValue, 0.2f, 0.2f);
+Â  Â  //}
+Â  Â  void OnFlipChanged(bool oldValue, bool newValue)
     {
         if (oldValue != newValue)
         {
@@ -207,8 +206,8 @@ public class PlayerController : NetworkBehaviour
         }
     }
 
-    // Method to play the jump sound.
-    private void PlayJumpSound()
+Â  Â  // Method to play the jump sound.
+Â  Â  private void PlayJumpSound()
     {
         if (audioSource != null && jumpSound != null)
         {
@@ -229,4 +228,3 @@ public class PlayerController : NetworkBehaviour
         return (hit.collider != null);
     }
 }
-
