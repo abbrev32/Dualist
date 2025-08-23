@@ -18,6 +18,8 @@ GameObject:
   - component: {fileID: 6492758978559496332}
   - component: {fileID: 5876382791615257648}
   - component: {fileID: 9005494079192148058}
+  - component: {fileID: 807305903612363502}
+  - component: {fileID: 8362537955189495041}
   m_Layer: 7
   m_Name: RealPlayer
   m_TagString: Player
@@ -310,6 +312,45 @@ PolygonCollider2D:
       - {x: 0.77345383, y: -0.1127727}
       - {x: 5.1285195, y: 0.44826788}
   m_UseDelaunayMesh: 0
+--- !u!95 &807305903612363502
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 729317249368588371}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f0daddbf7c2292249bf544ed34d02f0b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &8362537955189495041
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 729317249368588371}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f6f3bf89aa97405989c802ba270f815, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Mirror.Components::Mirror.NetworkAnimator
+  syncDirection: 1
+  syncMode: 0
+  syncInterval: 0
+  clientAuthority: 0
+  animator: {fileID: 807305903612363502}
 --- !u!1001 &8709541893161468420
 PrefabInstance:
   m_ObjectHideFlags: 0
