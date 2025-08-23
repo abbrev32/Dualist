@@ -12,13 +12,27 @@ public class Lever : NetworkBehaviour
 
         if (other.CompareTag("Player"))
         {
-            // Player moves elevator DOWN
+            // Player can only move elevator down
             elevator.MoveToBottom();
+
+            // Enable collider again
+            PolygonCollider2D col = elevator.GetComponent<PolygonCollider2D>();
+            if (col != null)
+            {
+                col.enabled = true;
+            }
         }
         else if (other.CompareTag("Monster"))
         {
-            // Monster moves elevator UP
+            // Monster can only move elevator up
             elevator.MoveToTop();
+
+            // Disable elevator collider
+            PolygonCollider2D col = elevator.GetComponent<PolygonCollider2D>();
+            if (col != null)
+            {
+                col.enabled = false;
+            }
         }
     }
 }
