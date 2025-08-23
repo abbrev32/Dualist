@@ -163,10 +163,10 @@ public class PlayerController : NetworkBehaviour
         {
             flipRight = moveX > 0;
         }
-        //else
-        //{
-        //    flipRight = transform.localScale.x > 0;
-        //}
+        else
+        {
+            flipRight = transform.localScale.x > 0;
+        }
 
         if (netAnimator != null)
         {
