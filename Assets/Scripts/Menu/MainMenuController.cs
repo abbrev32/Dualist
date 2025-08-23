@@ -83,7 +83,8 @@ public class MainMenuController : MonoBehaviour
         btnObj.GetComponent<Button>().onClick.AddListener(() =>
         {
             discovery.StopDiscovery(); // stop scanning
-            NetworkManager.singleton.StartClient(info.uri);
+            RoomManager.singleton.StartClient(info.uri);
+            SetLobbyActive();
         });
     }
 
