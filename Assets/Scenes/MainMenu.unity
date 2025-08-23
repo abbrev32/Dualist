@@ -2243,7 +2243,7 @@ MonoBehaviour:
   discovery: {fileID: 1209407727}
   serverListPanel: {fileID: 1836182410}
   serverListParent: {fileID: 1836182411}
-  serverButtonPrefab: {fileID: 3910581329736289934, guid: fbdb23efe80899748b301b5d0feeacf1, type: 3}
+  serverButtonPrefab: {fileID: 4049820671841945018, guid: fbdb23efe80899748b301b5d0feeacf1, type: 3}
 --- !u!1 &1742967307
 GameObject:
   m_ObjectHideFlags: 0
