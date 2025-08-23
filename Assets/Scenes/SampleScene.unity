@@ -1974,7 +1974,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 1.3}
+  m_Size: {x: 1, y: 1.1}
   m_EdgeRadius: 0
 --- !u!4 &854090000
 Transform:
@@ -2042,8 +2042,6 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   elevator: {fileID: 665411441}
-  sinkDistance: 0.2
-  sinkSpeed: 1
 --- !u!114 &854090003
 MonoBehaviour:
   m_ObjectHideFlags: 0
