@@ -85,9 +85,9 @@ public class PlayerController : NetworkBehaviour
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 velocityY = jumpHeight;
-                //CmdSetAnimTrigger("jump");
-                // Play the jump sound locally for the jumping player.
-                PlayJumpSound();
+                CmdSetAnimTrigger("jump");
+                // Play the jump sound locally for the jumping player.
+                PlayJumpSound();
             }
         }
         // On-air jump logic.
