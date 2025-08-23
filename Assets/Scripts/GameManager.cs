@@ -2,12 +2,36 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Mirror;
 using UnityEngine.UI;
+using TMPro;
 
 public class GameManager : NetworkBehaviour
 {
+    public GameObject levelClearUI;
+    public TMP_Text waitText;
+    public Button nextButton;
     public GameObject gameOverUI; // assign in inspector
     public Button retryButton;
     public Button quitButton;
+
+    public void LevelClear()
+    {
+        levelClearUI.SetActive(true);
+        Time.timeScale = 0;
+        if (isServer)
+        {
+            nextButton.gameObject.SetActive(true);
+        }
+        else
+        {
+            waitText.gameObject.SetActive(true);
+        }
+    }
+    public void OnNextLevel()
+    {
+        Time.timeScale = 1.0f;
+        levelClearUI.SetActive(false);
+        NetworkManager.singleton.ServerChangeScene("Level2");
+    }
     public void ShowGameOverScreen()
     {
         gameOverUI.SetActive(true);
