@@ -92,7 +92,8 @@ public class MainMenuController : MonoBehaviour
             button.onClick.AddListener(() =>
             {
                 discovery.StopDiscovery();
-                roomManager.StartClient(info.uri); // use the right singleton
+                roomManager.networkAddress = addr;
+                roomManager.StartClient(); // use the right singleton
                 SetLobbyActive();
             });
         }
