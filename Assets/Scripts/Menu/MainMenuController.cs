@@ -1,9 +1,10 @@
+using Mirror;
+using Mirror.Discovery;
+using System.Collections.Generic;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
-using Mirror;
-using UnityEditor;
-using System.Collections.Generic;
 
 public class MainMenuController : MonoBehaviour
 {
@@ -24,17 +25,26 @@ public class MainMenuController : MonoBehaviour
     [Header("Lobby Buttons")]
     public Button readyButton;
 
+    [Header("LAN Discovery")]
+    public LANDiscovery discovery;
+    public GameObject serverListPanel;
+    public Transform serverListParent; // A vertical layout group
+    public GameObject serverButtonPrefab;
     private void Awake()
     {
         roomManager = FindAnyObjectByType<NetworkRoomManager>();
-        if (roomManager == null)
-        {
-            Debug.Log("Cannot find Room Manager");
-        }
-        else
-        {
-            Debug.Log("Found!");
-        }
+        //if (roomManager == null)
+        //{
+        //    Debug.Log("Cannot find Room Manager");
+        //}
+        //else
+        //{
+        //    Debug.Log("Found!");
+        //}
+    }
+    void Start()
+    {
+        discovery.OnServerFoundEvent += OnServerFound;
     }
 
     private void Update()
@@ -46,8 +56,35 @@ public class MainMenuController : MonoBehaviour
         if (roomManager != null)
         {
             roomManager.StartHost();
+            discovery.AdvertiseServer();
             SetLobbyActive();
         }
+    }
+
+    public void FindLANGames()
+    {
+        // clear old list
+        foreach (Transform child in serverListParent) Destroy(child.gameObject);
+
+        Debug.Log("Searching for games...");
+        menuPanel.SetActive(false);
+        serverListPanel.SetActive(true);
+        discovery.StartDiscovery();
+    }
+
+    void OnServerFound(ServerResponse info)
+    {
+        Debug.Log("Found server: " + info.uri);
+
+        // Create button for each server
+        var btnObj = Instantiate(serverButtonPrefab, serverListParent);
+        btnObj.GetComponentInChildren<Text>().text = $"{info.EndPoint.Address}";
+
+        btnObj.GetComponent<Button>().onClick.AddListener(() =>
+        {
+            discovery.StopDiscovery(); // stop scanning
+            NetworkManager.singleton.StartClient(info.uri);
+        });
     }
 
     public void Join()
@@ -63,6 +100,7 @@ public class MainMenuController : MonoBehaviour
     private void SetLobbyActive()
     {
         menuPanel.SetActive(false);
+        serverListPanel.SetActive(false);
         lobbyPanel.SetActive(true);
         playerOneName.text = "Waiting for Player...";
         playerTwoName.text = "Waiting for Player...";
