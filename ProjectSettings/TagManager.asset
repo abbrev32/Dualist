@@ -11,6 +11,7 @@ TagManager:
   - Turret
   - Audio
   - Sword
+  - MonsterSpawner
   layers:
   - Default
   - TransparentFX
