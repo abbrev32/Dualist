@@ -3,7 +3,7 @@ using Mirror;
 
 public class TurretHealth : NetworkBehaviour
 {
-    public Sprite fullHealthSprite;
+    public Sprite fullHealthSprite; // make sure this exists
     public Sprite halfHealthSprite;
     public Sprite lowHealthSprite;
 
@@ -16,13 +16,15 @@ public class TurretHealth : NetworkBehaviour
     public AudioSource audioSource;
     public AudioClip destroySound;
 
+    // Cooldown
+    private float lastDamageTime = -Mathf.Infinity;
+    public float damageCooldown = 1.5f;
+
     // Called on ALL clients whenever currentHealth changes
     void OnCurrentHealthChanged(float oldHealth, float newHealth)
     {
-        // Update sprite on all clients
         UpdateSprite(newHealth);
 
-        // Check if destroyed
         if (newHealth <= 0 && oldHealth > 0)
         {
             if (audioSource != null && destroySound != null)
@@ -39,6 +41,11 @@ public class TurretHealth : NetworkBehaviour
     [Server]
     public void TakeDamage(float damage)
     {
+        if (Time.time - lastDamageTime < damageCooldown)
+            return; // still in cooldown
+
+        lastDamageTime = Time.time;
+
         if (currentHealth > 0)
         {
             currentHealth -= damage;

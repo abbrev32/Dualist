@@ -30,7 +30,10 @@ public class MonsterSpawner : NetworkBehaviour
 
     private readonly List<GameObject> currentMonsters = new List<GameObject>();
 
-    // --- Unity lifecycle ---
+    // Damage cooldown
+    private float lastDamageTime = -Mathf.Infinity;
+    public float damageCooldown = 1.5f;
+
     private void Awake()
     {
         anim = GetComponent<Animator>();
@@ -59,6 +62,10 @@ public class MonsterSpawner : NetworkBehaviour
     [Server]
     public void TakeDamage(int amount)
     {
+        // cooldown check
+        if (Time.time - lastDamageTime < damageCooldown) return;
+        lastDamageTime = Time.time;
+
         if (currentHealth <= 0) return;
 
         netAnimator?.SetTrigger("Damage");

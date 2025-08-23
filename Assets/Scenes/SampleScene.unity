@@ -2935,6 +2935,7 @@ MonoBehaviour:
   monsterSpeedRange: {x: 2, y: 5}
   positionOffsetY: 1.5
   maxHealth: 5
+  damageCooldown: 1.5
 --- !u!82 &989631342
 AudioSource:
   m_ObjectHideFlags: 0
