@@ -8,6 +8,12 @@ TagManager:
   - Ground
   - Monster
   - Border
+  - Turret
+  - Audio
+<<<<<<< HEAD
+=======
+  - Sword
+>>>>>>> b5c35dc89c5985741738fcea1eab46d1be389082
   layers:
   - Default
   - TransparentFX
@@ -18,7 +24,7 @@ TagManager:
   - Platform
   - Player
   - Bullet
-  - 
+  - Defense
   - 
   - 
   - 
