@@ -4,11 +4,19 @@ using Mirror;
 public class Lever : NetworkBehaviour
 {
     public Elevator elevator; // assign in Inspector
+    public AudioSource audioSource; // assign in Inspector
+    public AudioClip leverSound; // assign in Inspector
 
     [ServerCallback]
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (elevator == null) return;
+
+        // Play the sound effect regardless of who activated it
+        if (audioSource != null && leverSound != null)
+        {
+            audioSource.PlayOneShot(leverSound);
+        }
 
         if (other.CompareTag("Player"))
         {
