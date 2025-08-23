@@ -6,7 +6,7 @@ public class PlayerFaction : NetworkBehaviour
 {
     public enum Faction { Dark, Light }
 
-    [SyncVar]
+    [SyncVar(hook = nameof(OnFactionChanged))]
     public Faction faction;
 
     public override void OnStartLocalPlayer()
