@@ -1,5 +1,6 @@
 using UnityEngine;
 using Mirror;
+using System.Collections;
 
 public class CoopSwitch : NetworkBehaviour
 {
@@ -9,13 +10,15 @@ public class CoopSwitch : NetworkBehaviour
     [SerializeField] private AudioSource audioSource;
     // The sound file to play when the switch is activated.
     [SerializeField] private AudioClip switchActivationSound;
-    // The main background music to play after the switch is activated.
-    [SerializeField] private AudioClip switchActivationMusic;
+    // The main background music tracks to play after the switch is activated.
+    [SerializeField] private AudioClip[] switchActivationMusicTracks;
 
     // Tracks the number of players on the switch.
     private int playersOnSwitch = 0;
     // A flag to ensure the switch activates only once.
     private bool activated = false;
+    // Index to keep track of the current music track.
+    private int currentMusicIndex = 0;
 
     // Called when a player enters the trigger collider.
     private void OnTriggerEnter2D(UnityEngine.Collider2D other)
@@ -46,7 +49,7 @@ public class CoopSwitch : NetworkBehaviour
                 elevator.ActivateElevator();
 
             // Play the switch activation sound effect and then the music.
-            if (audioSource != null && switchActivationSound != null && switchActivationMusic != null)
+            if (audioSource != null && switchActivationSound != null && switchActivationMusicTracks.Length > 0)
             {
                 audioSource.PlayOneShot(switchActivationSound);
                 StartCoroutine(PlayMusicAfterDelay(switchActivationSound.length));
@@ -68,16 +71,43 @@ public class CoopSwitch : NetworkBehaviour
         Debug.Log("Player left switch: " + other.name + " | Players on switch: " + playersOnSwitch);
     }
 
-    // A coroutine to play the main music after a delay.
-    private System.Collections.IEnumerator PlayMusicAfterDelay(float delay)
+    // A coroutine to play the main music after a delay and then loop through the rest.
+    private IEnumerator PlayMusicAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
-        audioSource.clip = switchActivationMusic;
-        audioSource.Play();
+
+        // Start the music playing coroutine.
+        StartCoroutine(PlayMusicTracks());
+    }
+
+    private IEnumerator PlayMusicTracks()
+    {
+        while (true) // This loop will continue indefinitely, cycling through the tracks.
+        {
+            if (audioSource != null && switchActivationMusicTracks.Length > 0)
+            {
+                // Set the audio clip to the current track.
+                audioSource.clip = switchActivationMusicTracks[currentMusicIndex];
+
+                // Play the music.
+                audioSource.Play();
+
+                // Wait for the current track to finish playing.
+                yield return new WaitForSeconds(audioSource.clip.length);
+
+                // Move to the next track in the array.
+                currentMusicIndex = (currentMusicIndex + 1) % switchActivationMusicTracks.Length;
+            }
+            else
+            {
+                // Break the loop if there are no tracks to play.
+                break;
+            }
+        }
     }
 
     // A coroutine to visually "sink" the switch over time.
-    private System.Collections.IEnumerator SinkSwitchRoutine()
+    private IEnumerator SinkSwitchRoutine()
     {
         Transform visual = transform.GetChild(0); // Assuming the first child is the visual part of the switch.
         Vector3 startPos = visual.localPosition;
@@ -96,5 +126,4 @@ public class CoopSwitch : NetworkBehaviour
         visual.localPosition = endPos;
         Debug.Log("Switch sunk and finished.");
     }
-
 }
