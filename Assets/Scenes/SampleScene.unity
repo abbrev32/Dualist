@@ -1516,7 +1516,6 @@ GameObject:
   - component: {fileID: 665411442}
   - component: {fileID: 665411447}
   - component: {fileID: 665411448}
-  - component: {fileID: 665411449}
   m_Layer: 6
   m_Name: Elevator(2)
   m_TagString: Untagged
@@ -1663,9 +1662,7 @@ Transform:
   m_LocalPosition: {x: 11.94, y: -2.38, z: 0}
   m_LocalScale: {x: 1.1395043, y: 0.5619004, z: 0.8143484}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 820896431}
-  - {fileID: 1210953533}
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!60 &665411447
@@ -1769,25 +1766,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 2.84, y: 0.66}
   m_EdgeRadius: 0
---- !u!114 &665411449
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 665411440}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ada91f5908870e34bbcbf13b46784f8d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: '::'
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0
-  turretPrefab1: {fileID: 559164485504519838, guid: 12ebd590e7437df469415093962a53b0, type: 3}
-  turretPrefab2: {fileID: 5703171395439219910, guid: 115fa202581455f4ba74ed9bad29af34, type: 3}
-  spawnPoint1: {fileID: 820896431}
-  spawnPoint2: {fileID: 1210953533}
 --- !u!1 &686614010
 GameObject:
   m_ObjectHideFlags: 0
@@ -1953,12 +1931,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 820896430}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -19.23, y: 1.41, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -3.22, y: -3.56, z: 0}
+  m_LocalScale: {x: 0.84741515, y: 0.41786844, z: 0.60560644}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 665411446}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &831696150
 GameObject:
@@ -2313,6 +2291,10 @@ MonoBehaviour:
   switchActivationSound: {fileID: 8300000, guid: f58b89ea4f81e41fcb5c5bec6d134986, type: 3}
   switchActivationMusicTracks:
   - {fileID: 8300000, guid: 125675aef854dd14f9371dfe62d8bc8e, type: 3}
+  turretPrefab1: {fileID: 5703171395439219910, guid: 115fa202581455f4ba74ed9bad29af34, type: 3}
+  turretPrefab2: {fileID: 559164485504519838, guid: 12ebd590e7437df469415093962a53b0, type: 3}
+  turretSpawnPoint1: {fileID: 1210953533}
+  turretSpawnPoint2: {fileID: 820896431}
 --- !u!114 &854090003
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3209,12 +3191,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1210953532}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.75, y: 10.78, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 4.2483454, y: 3.6772857, z: 0}
+  m_LocalScale: {x: 1.1395043, y: 0.5619004, z: 0.8143484}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 665411446}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1353180535
 GameObject:
@@ -6157,3 +6139,5 @@ SceneRoots:
   - {fileID: 2115300923}
   - {fileID: 686614011}
   - {fileID: 30403440}
+  - {fileID: 1210953533}
+  - {fileID: 820896431}
