@@ -1715,7 +1715,7 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  turretPrefab1: {fileID: 5570519506368970109, guid: 12ebd590e7437df469415093962a53b0, type: 3}
+  turretPrefab1: {fileID: 559164485504519838, guid: 12ebd590e7437df469415093962a53b0, type: 3}
   turretPrefab2: {fileID: 5703171395439219910, guid: 115fa202581455f4ba74ed9bad29af34, type: 3}
   spawnPoint1: {fileID: 820896431}
   spawnPoint2: {fileID: 1210953533}
