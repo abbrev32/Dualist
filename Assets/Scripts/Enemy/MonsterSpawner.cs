@@ -9,10 +9,13 @@ public class MonsterSpawner : NetworkBehaviour
     public float spawnDelay = 0.5f;
     public Vector2 speedRange = new Vector2(2f, 5f);
     public float positionOffset = 1.5f;
-    public int numWave = 0; // Number of waves
+    public int numWave = 0; 
     public beACollectable collectable;
 
     private List<GameObject> currentMonsters = new List<GameObject>();
+
+    [SyncVar] 
+    public int health = 10; // spawner health
 
     public override void OnStartServer()
     {
@@ -23,15 +26,13 @@ public class MonsterSpawner : NetworkBehaviour
     {
         if (!isServer) return;
 
-        // Clean up destroyed monsters
         currentMonsters.RemoveAll(monster => monster == null);
 
-        // If all monsters are dead, wave is complete
-        if (currentMonsters.Count == 0 && numWave !=4)
+        if (currentMonsters.Count == 0 && numWave != 4)
         {
-            numWave++;       // increment wave count
-            CheckWave();     // spawn collectible if needed
-            if (numWave < 3) // spawn next wave only if not reached max
+            numWave++;
+            CheckWave();
+            if (numWave < 3)
             {
                 SpawnWave();
             }
@@ -71,6 +72,18 @@ public class MonsterSpawner : NetworkBehaviour
             currentMonsters.Add(newMonster);
 
             yield return new WaitForSeconds(spawnDelay);
+        }
+    }
+
+    // 👇 New Damage System
+    [Server]
+    public void TakeDamage(int damage)
+    {
+        health -= damage;
+
+        if (health <= 0)
+        {
+            NetworkServer.Destroy(gameObject); // destroy spawner across network
         }
     }
 }

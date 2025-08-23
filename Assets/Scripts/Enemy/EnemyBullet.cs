@@ -1,30 +1,50 @@
-using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
-using Mirror;
 
 public class EnemyBullet : MonoBehaviour
 {
-    private GameObject player;
-    private Rigidbody2D rb;
-    public float force;
+    [Header("Bullet Settings")]
+    public float force = 10f;
+    public int damage = 1;
 
-    void Start()
+    private Rigidbody2D rb;
+    private Transform target;
+
+    // Public method to receive the target from the turret
+    public void SetTarget(Transform targetTransform)
+    {
+        target = targetTransform;
+        InitializeMovement();
+    }
+
+    void InitializeMovement()
     {
         rb = GetComponent<Rigidbody2D>();
-        player = GameObject.FindGameObjectWithTag("Player");
 
-        Vector3 direction = player.transform.position - transform.position;
-        rb.linearVelocity = new Vector2(direction.x, direction.y).normalized * force;
+        if (target != null)
+        {
+            Vector3 direction = (target.position - transform.position).normalized;
+            rb.linearVelocity = direction * force;
 
-        float rot = Mathf.Atan2(-direction.y, -direction.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(0, 0, rot);
+            // Calculate rotation to point toward target
+            float rot = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            transform.rotation = Quaternion.Euler(0, 0, rot);
+        }
+        else
+        {
+            // If no target, destroy the bullet
+            Destroy(gameObject);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
-            collision.GetComponent<PlayerHealth>().TakeDamage(1);
+            PlayerHealth playerHealth = collision.GetComponent<PlayerHealth>();
+            if (playerHealth != null)
+            {
+                playerHealth.TakeDamage(damage);
+            }
             Destroy(gameObject);
         }
         else if (collision.CompareTag("Border"))
@@ -32,5 +52,4 @@ public class EnemyBullet : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
 }

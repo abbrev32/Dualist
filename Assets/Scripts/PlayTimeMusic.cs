@@ -44,6 +44,17 @@ public class BackgroundMusic : MonoBehaviour
         {
             Debug.LogWarning("No background audio clip assigned!");
         }
+        /// <summary>
+        /// A public method to stop the background music.
+        /// </summary>
+    
+    }
+    public void StopMusic()
+    {
+        if (audioSource != null && audioSource.isPlaying)
+        {
+            audioSource.Stop();
+        }
     }
 }
 

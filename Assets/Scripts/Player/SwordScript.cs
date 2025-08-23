@@ -29,5 +29,13 @@ public class SwordScript : MonoBehaviour
                 turretHealth.TakeDamage(1);
             }
         }
+        if (collision.CompareTag("MonsterSpawner"))
+        {
+            MonsterSpawner spawnerHealth = collision.GetComponent<MonsterSpawner>();
+            if (spawnerHealth != null)
+            {
+                spawnerHealth.TakeDamage(1);
+            }
+        }
     }
 }
