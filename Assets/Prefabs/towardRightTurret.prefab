@@ -79,6 +79,7 @@ GameObject:
   - component: {fileID: 788602460994606984}
   - component: {fileID: 3462299874720882812}
   - component: {fileID: 5961585746374683767}
+  - component: {fileID: 8640951050196020078}
   m_Layer: 0
   m_Name: towardRightTurret
   m_TagString: Turret
@@ -458,6 +459,70 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &8640951050196020078
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 559164485504519838}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8aab4c8111b7c411b9b92cf3dbc5bd4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Mirror::Mirror.NetworkManager
+  dontDestroyOnLoad: 1
+  runInBackground: 1
+  headlessStartMode: 0
+  editorAutoStart: 0
+  sendRate: 60
+  offlineScene: 
+  onlineScene: 
+  offlineSceneLoadDelay: 0
+  transport: {fileID: 0}
+  networkAddress: localhost
+  maxConnections: 100
+  disconnectInactiveConnections: 0
+  disconnectInactiveTimeout: 60
+  authenticator: {fileID: 0}
+  playerPrefab: {fileID: 0}
+  autoCreatePlayer: 1
+  playerSpawnMethod: 0
+  spawnPrefabs:
+  - {fileID: 9070579427463045838, guid: fca940f9dd61595429f313ca342f7c40, type: 3}
+  - {fileID: 9070579427463045838, guid: db3512a1da26a7144bce4cab586d3fc0, type: 3}
+  - {fileID: 5703171395439219910, guid: 115fa202581455f4ba74ed9bad29af34, type: 3}
+  - {fileID: 2654002216940096876, guid: c1392f405b31e994ab73218a766c0eb3, type: 3}
+  - {fileID: 4414625503378716744, guid: 4ae894e8cdfec9be896cc3b488a5adae, type: 3}
+  - {fileID: 7240196281780478522, guid: 590f35499b13a5048a26ccb72f885ae1, type: 3}
+  - {fileID: 8423889677385526762, guid: 4b4f8a76ed168be4aafc171c298dd57e, type: 3}
+  - {fileID: 5517878593112398639, guid: e8b88a10fb14e014a9f2508b9e62ec3b, type: 3}
+  - {fileID: 3831856357126718768, guid: b26e0e2d2b1fbb944842d626e6774813, type: 3}
+  - {fileID: 5964450518668494532, guid: 6abc5e42500bda945a37b98d66f14802, type: 3}
+  - {fileID: 6685621595264563326, guid: b44d105902cde214ca295280032b9ed8, type: 3}
+  - {fileID: 8682638736904422323, guid: ae32ef85cffb3d84c898fad2bd1e361d, type: 3}
+  - {fileID: 729317249368588371, guid: 79c348a6d9260144da8d7095d98cbdb9, type: 3}
+  - {fileID: 5935154059890923619, guid: 8866e93de5265864f9f77ccef2097a9b, type: 3}
+  - {fileID: 559164485504519838}
+  - {fileID: 6325461954183053233, guid: ecb0d185bc0af0a45bac88a740f2abc5, type: 3}
+  - {fileID: 559164485504519838, guid: 42a9f83b0b45a364b930a7e414ee1cc1, type: 3}
+  - {fileID: 5811411156323229411, guid: b06d8932609ca8e4f9f85d411b1b18a0, type: 3}
+  - {fileID: 5703171395439219910, guid: 115fa202581455f4ba74ed9bad29af34, type: 3}
+  exceptionsDisconnect: 1
+  snapshotSettings:
+    bufferTimeMultiplier: 2
+    bufferLimit: 32
+    catchupNegativeThreshold: -1
+    catchupPositiveThreshold: 1
+    catchupSpeed: 0.019999999552965164
+    slowdownSpeed: 0.03999999910593033
+    driftEmaDuration: 1
+    dynamicAdjustment: 1
+    dynamicAdjustmentTolerance: 1
+    deliveryTimeEmaDuration: 2
+  evaluationMethod: 0
+  evaluationInterval: 3
+  timeInterpolationGui: 0
 --- !u!1 &2858308748665991087
 GameObject:
   m_ObjectHideFlags: 0
