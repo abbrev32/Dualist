@@ -247,4 +247,4 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  visibleTo: 0
+  visibleTo: 1
