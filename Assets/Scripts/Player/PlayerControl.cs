@@ -155,8 +155,18 @@ public class PlayerController : NetworkBehaviour
     [Command]
     private void CmdSwing(string triggerName)
     {
+        // The command now calls the ClientRpc method
+        RpcSwing(triggerName);
+    }
+
+    // New ClientRpc method to trigger animation on all clients
+    [ClientRpc]
+    private void RpcSwing(string triggerName)
+    {
         if (netAnimator != null)
-            netAnimator.SetTrigger(triggerName); // Server triggers, NetworkAnimator syncs it
+        {
+            netAnimator.SetTrigger(triggerName);
+        }
     }
 
 
