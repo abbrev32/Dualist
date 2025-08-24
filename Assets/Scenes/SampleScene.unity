@@ -562,7 +562,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: -6
   m_Sprite: {fileID: 1085036923726655618, guid: 4cb51c0c8a6a23344bcc10c6535335c5, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -1248,7 +1248,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraBehavior
   playerPos: {fileID: 0}
-  offset: {x: 0, y: 1.51, z: 0}
+  offset: {x: 0, y: 0, z: 0}
   velocity: {x: 0, y: 0, z: 0}
   minBounds: {x: -11.6, y: -4.86}
   maxBounds: {x: 11.66, y: 4.51}
@@ -1339,7 +1339,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 2.27
+  orthographic size: 3.13
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
@@ -1364,8 +1364,8 @@ Transform:
   m_GameObject: {fileID: 480244850}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.8277362, y: -0.6626749, z: -10}
-  m_LocalScale: {x: -11.6, y: 4.86, z: 0}
+  m_LocalPosition: {x: -0.82774, y: -0.6626749, z: -10}
+  m_LocalScale: {x: -0.054415867, y: 0.019834582, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -2854,10 +2854,6 @@ MonoBehaviour:
   switchActivationSound: {fileID: 8300000, guid: f58b89ea4f81e41fcb5c5bec6d134986, type: 3}
   switchActivationMusicTracks:
   - {fileID: 8300000, guid: 24104fa1535b67f48a4957ecb18bf96e, type: 3}
-  turretPrefab1: {fileID: 5703171395439219910, guid: 115fa202581455f4ba74ed9bad29af34, type: 3}
-  turretPrefab2: {fileID: 559164485504519838, guid: 12ebd590e7437df469415093962a53b0, type: 3}
-  turretSpawnPoint1: {fileID: 1210953533}
-  turretSpawnPoint2: {fileID: 820896431}
 --- !u!114 &854090003
 MonoBehaviour:
   m_ObjectHideFlags: 0
