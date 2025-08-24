@@ -111,7 +111,7 @@ public class CoopSwitch : NetworkBehaviour
     {
         Transform visual = transform.GetChild(0); // Assuming the first child is the visual part of the switch.
         Vector3 startPos = visual.localPosition;
-        Vector3 endPos = startPos + Vector3.down * 0.5f; // Sinks the switch by 0.5 units.
+        Vector3 endPos = startPos + Vector3.down * 0.2f; // Sinks the switch by 0.5 units.
         float t = 0f;
         float duration = 1.5f;
 
