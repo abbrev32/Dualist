@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 306662157847986381}
   - component: {fileID: 6287959534244503059}
   - component: {fileID: -7524688557414716448}
+  - component: {fileID: -2293289748356542687}
   m_Layer: 0
   m_Name: turret
   m_TagString: Turret
@@ -430,6 +431,23 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &-2293289748356542687
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6325461954183053233}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 523cfa3bc5e623743b5bf431f31eaa8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HostClientColor
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  hostColor: {r: 1, g: 1, b: 1, a: 1}
+  clientColor: {r: 0, g: 0, b: 0, a: 1}
 --- !u!1 &6866467144168329792
 GameObject:
   m_ObjectHideFlags: 0
