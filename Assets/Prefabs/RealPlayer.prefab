@@ -15,7 +15,6 @@ GameObject:
   - component: {fileID: 4068013501314847354}
   - component: {fileID: 4491107146695348216}
   - component: {fileID: 6566882048528832175}
-  - component: {fileID: 6492758978559496332}
   - component: {fileID: 5876382791615257648}
   - component: {fileID: 9005494079192148058}
   - component: {fileID: 807305903612363502}
@@ -226,24 +225,6 @@ MonoBehaviour:
   playerSprite: {fileID: 0}
   flashColor: {r: 1, g: 0, b: 0, a: 0.5}
   flashDuration: 0.2
---- !u!114 &6492758978559496332
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 729317249368588371}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01d0b7fbcc1e9054ba87f2cb44bd9883, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: '::'
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0
-  knifePrefab: {fileID: 8423889677385526762, guid: 4b4f8a76ed168be4aafc171c298dd57e, type: 3}
-  throwPoint: {fileID: 5963856648674041933}
-  cooldown: 0.3
 --- !u!114 &5876382791615257648
 MonoBehaviour:
   m_ObjectHideFlags: 0
