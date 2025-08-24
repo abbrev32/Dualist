@@ -31,7 +31,7 @@ public class CoopSwitch : NetworkBehaviour
         Debug.Log("Player stepped on switch: " + other.name + " | Players on switch: " + playersOnSwitch);
 
         // Check if the switch is not yet activated and enough players are on it.
-        if (!activated && playersOnSwitch >= 1) // Change 2 to how many players are needed
+        if (!activated && playersOnSwitch >= 2) // Change 2 to how many players are needed
         {
             // Set the activated flag to true to prevent re-activation.
             activated = true;
