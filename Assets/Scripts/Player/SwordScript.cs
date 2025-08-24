@@ -45,4 +45,16 @@ public class SwordScript : NetworkBehaviour
         }
 
     }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.collider.CompareTag("Monster"))
+        {
+            Debug.Log("Monster Hit");
+            Monster monster = collision.collider.GetComponent<Monster>();
+            if (monster != null)
+            {
+                monster.Kill();
+            }
+        }
+    }
 }
