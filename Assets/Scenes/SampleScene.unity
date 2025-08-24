@@ -5251,8 +5251,8 @@ MonoBehaviour:
   currentHealth: 1
   isDead: 0
   spawnPoint: {fileID: 4908736327452825590, guid: cafcbedf715843c48b6c73cbe2a4f73f, type: 3}
-  deathSound: {fileID: 0}
-  playerSprite: {fileID: 0}
+  deathSound: {fileID: 8300000, guid: 9524d77f62dc8e345a48775774850ffd, type: 3}
+  playerSprite: {fileID: 6416896632436607639, guid: 79c348a6d9260144da8d7095d98cbdb9, type: 3}
   flashColor: {r: 1, g: 0, b: 0, a: 0.5}
   flashDuration: 0.2
 --- !u!1001 &1602332620

@@ -3740,8 +3740,12 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3598237477206954408, guid: 2199f0d64ca081c0e99f8471d5616c24, type: 3}
       propertyPath: spawnPrefabs.Array.size
-      value: 10
+      value: 11
       objectReference: {fileID: 0}
+    - target: {fileID: 3598237477206954408, guid: 2199f0d64ca081c0e99f8471d5616c24, type: 3}
+      propertyPath: 'spawnPrefabs.Array.data[5]'
+      value: 
+      objectReference: {fileID: 3814887314967841980, guid: 2f4a051ca8b846246925201d88f697e0, type: 3}
     - target: {fileID: 3598237477206954408, guid: 2199f0d64ca081c0e99f8471d5616c24, type: 3}
       propertyPath: 'spawnPrefabs.Array.data[8]'
       value: 
@@ -3750,6 +3754,10 @@ PrefabInstance:
       propertyPath: 'spawnPrefabs.Array.data[9]'
       value: 
       objectReference: {fileID: 2654002216940096876, guid: c1392f405b31e994ab73218a766c0eb3, type: 3}
+    - target: {fileID: 3598237477206954408, guid: 2199f0d64ca081c0e99f8471d5616c24, type: 3}
+      propertyPath: 'spawnPrefabs.Array.data[10]'
+      value: 
+      objectReference: {fileID: 3814887314967841980, guid: c67e42de87faf9449bbd8fd96a7e4950, type: 3}
     - target: {fileID: 5842446843154731138, guid: 2199f0d64ca081c0e99f8471d5616c24, type: 3}
       propertyPath: m_Name
       value: RoomManager
