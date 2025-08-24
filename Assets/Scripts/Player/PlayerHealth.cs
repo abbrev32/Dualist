@@ -100,8 +100,8 @@ public class PlayerHealth : NetworkBehaviour
         currentHealth = maxHealth;
         isDead = false;
 
-        Transform startPos = NetworkManager.singleton.GetStartPosition();
-        Vector3 spawnPosition = startPos != null ? startPos.position : Vector3.zero;
+        //Transform startPos = NetworkManager.singleton.GetStartPosition();
+        Vector3 spawnPosition = spawnPoint.position;
 
         RpcRespawn(spawnPosition);
     }
