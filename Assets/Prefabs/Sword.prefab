@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6785154428083007818}
   - component: {fileID: 526963206342118659}
   - component: {fileID: 7708016276271207630}
-  - component: {fileID: 8669662264127869932}
+  - component: {fileID: 1793108480214457284}
   m_Layer: 0
   m_Name: Sword
   m_TagString: Sword
@@ -266,7 +266,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &8669662264127869932
+--- !u!114 &1793108480214457284
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -275,11 +275,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 5345179262797343846}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 53fbe11cc8378b44f848adf230e5741e, type: 3}
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SwordMouseRotate
-  swordSwingSound: {fileID: 8300000, guid: ee12e24b674b32c4c80ac2741393be96, type: 3}
-  rotationSpeed: 5
-  swordPivot: {fileID: 0}
-  swordSwingThreshold: 0.5
-  soundCooldown: 0.2
+  m_EditorClassIdentifier: Mirror::Mirror.NetworkIdentity
+  sceneId: 0
+  _assetId: 3300701814
+  serverOnly: 0
+  visibility: 0
+  hasSpawned: 0
