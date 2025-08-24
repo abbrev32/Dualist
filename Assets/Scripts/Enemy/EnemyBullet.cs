@@ -5,6 +5,7 @@ public class EnemyBullet : MonoBehaviour
     [Header("Bullet Settings")]
     public float force = 10f;
     public int damage = 1;
+    public float yOffset = 0.5f; // Adjust this value to aim higher
 
     private Rigidbody2D rb;
     private Transform target;
@@ -22,10 +23,13 @@ public class EnemyBullet : MonoBehaviour
 
         if (target != null)
         {
-            Vector3 direction = (target.position - transform.position).normalized;
+            // Add y-axis offset to target position
+            Vector3 adjustedTargetPos = target.position + new Vector3(0, yOffset, 0);
+
+            Vector3 direction = (adjustedTargetPos - transform.position).normalized;
             rb.linearVelocity = direction * force;
 
-            // Calculate rotation to point toward target
+            // Calculate rotation to point toward adjusted target
             float rot = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
             transform.rotation = Quaternion.Euler(0, 0, rot);
         }
