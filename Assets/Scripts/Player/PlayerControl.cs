@@ -67,7 +67,7 @@ public class PlayerController : NetworkBehaviour
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 velocityY = jumpHeight;
-                CmdSwing("jump"); // <-- Use command for jump
+                CmdJump(); // CHANGED
                 PlayJumpSound();
             }
         }
@@ -77,7 +77,7 @@ public class PlayerController : NetworkBehaviour
             {
                 velocityY = jumpHeight;
                 extJumps--;
-                CmdSwing("jump"); // <-- Use command for jump
+                CmdJump(); // CHANGED
                 PlayJumpSound();
             }
         }
@@ -85,6 +85,7 @@ public class PlayerController : NetworkBehaviour
         float finalVelocityX = moveX * movementSpeed;
         isRunning = Mathf.Abs(moveX) > 0.01f;
         isjumping = !IsOnGround();
+        
         // Dash
         if (!isDashing)
         {
@@ -109,7 +110,7 @@ public class PlayerController : NetworkBehaviour
             {
                 float dashDirection = (moveX != 0) ? moveX : transform.localScale.x > 0 ? 1 : -1;
                 finalVelocityX += dashSpeed * dashDirection;
-                CmdSwing("dash"); // <-- Use command for dash
+                CmdDash(); // CHANGED
             }
         }
 
@@ -130,22 +131,38 @@ public class PlayerController : NetworkBehaviour
             netAnimator.animator.SetBool("run", isRunning);
             netAnimator.animator.SetBool("grounded", IsOnGround());
         }
-        // Swing sword
+        
+        // Swing sword - REFACTORED
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            if (isRunning)
-                CmdSwing("run swing");
             if (isjumping)
                 CmdSwing("jump swing");
-            if (!isRunning && IsOnGround())
+            else if (isRunning)
+                CmdSwing("run swing");
+            else if (IsOnGround())
                 CmdSwing("idle swing");
         }
     }
+    
+    // ADDED: Command for jumping
+    [Command]
+    private void CmdJump()
+    {
+        netAnimator.SetTrigger("jump");
+    }
+
+    // ADDED: Command for dashing
+    [Command]
+    private void CmdDash()
+    {
+        netAnimator.SetTrigger("dash");
+    }
+
     [Command]
     private void CmdSwing(string triggerName)
     {
         if (netAnimator != null)
-            netAnimator.SetTrigger(triggerName); // Server triggers, NetworkAnimator syncs it
+            netAnimator.SetTrigger(triggerName);
     }
 
 
