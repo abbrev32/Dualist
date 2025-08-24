@@ -28,6 +28,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ghost Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 3831856357126718768, guid: b26e0e2d2b1fbb944842d626e6774813, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 6483624322621918002, guid: b26e0e2d2b1fbb944842d626e6774813, type: 3}
       propertyPath: m_Sprite
       value: 
