@@ -475,6 +475,10 @@ PrefabInstance:
       propertyPath: _assetId
       value: 1414172803
       objectReference: {fileID: 0}
+    - target: {fileID: 4264009186362053474, guid: 8383edf248eb99c48b6ca6bee47f5d60, type: 3}
+      propertyPath: _assetId
+      value: 1414172803
+      objectReference: {fileID: 0}
     - target: {fileID: 5345179262797343846, guid: 8383edf248eb99c48b6ca6bee47f5d60, type: 3}
       propertyPath: m_Name
       value: Sword (1)
@@ -558,6 +562,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 3001057963342904314}
     m_Modifications:
     - target: {fileID: 2781697842296038033, guid: 8383edf248eb99c48b6ca6bee47f5d60, type: 3}
+      propertyPath: _assetId
+      value: 1414172803
+      objectReference: {fileID: 0}
+    - target: {fileID: 4264009186362053474, guid: 8383edf248eb99c48b6ca6bee47f5d60, type: 3}
       propertyPath: _assetId
       value: 1414172803
       objectReference: {fileID: 0}

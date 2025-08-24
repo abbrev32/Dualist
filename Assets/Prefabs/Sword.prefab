@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 7708016276271207630}
   - component: {fileID: 8669662264127869932}
   - component: {fileID: 1118526678314819409}
-  - component: {fileID: 2781697842296038033}
+  - component: {fileID: 4264009186362053474}
   m_Layer: 0
   m_Name: Sword
   m_TagString: Sword
@@ -319,7 +319,7 @@ MonoBehaviour:
   rotationSensitivity: 0.01
   positionPrecision: 0.01
   scalePrecision: 0.01
---- !u!114 &2781697842296038033
+--- !u!114 &4264009186362053474
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

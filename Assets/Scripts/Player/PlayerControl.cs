@@ -129,19 +129,21 @@ public class PlayerController : NetworkBehaviour
         // Swing sword
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            if (netAnimator != null)
-            {
-                if (isRunning)
-                    netAnimator.SetTrigger("run swing");
-                if (isjumping)
-                    netAnimator.SetTrigger("jump swing");
-                if (!isRunning && IsOnGround())
-                    netAnimator.SetTrigger("idle swing");
-
-
-            }
+            if (isRunning)
+                CmdSwing("run swing");
+            if (isjumping)
+                CmdSwing("jump swing");
+            if (!isRunning && IsOnGround())
+                CmdSwing("idle swing");
         }
     }
+    [Command]
+    private void CmdSwing(string triggerName)
+    {
+        if (netAnimator != null)
+            netAnimator.SetTrigger(triggerName); // Server triggers, NetworkAnimator syncs it
+    }
+
 
     [Command]
     private void CmdSetFlip(bool faceRight)
