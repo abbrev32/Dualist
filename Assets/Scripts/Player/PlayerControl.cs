@@ -2,7 +2,7 @@ using UnityEngine;
 using Mirror;
 
 [RequireComponent(typeof(Rigidbody2D))]
-[RequireComponent(typeof(NetworkTransform))]
+[RequireComponent(typeof(NetworkTransform2D))]
 [RequireComponent(typeof(NetworkAnimator))]
 public class PlayerController : NetworkBehaviour
 {
@@ -66,7 +66,6 @@ public class PlayerController : NetworkBehaviour
         float moveX = Input.GetAxis("Horizontal");
         bool jumpPressed = Input.GetKeyDown(KeyCode.Space);
 
-        // Jump + double jump
         if (IsOnGround())
         {
             extJumps = 1;
@@ -78,7 +77,6 @@ public class PlayerController : NetworkBehaviour
             LocalJump();
         }
 
-        // Flip
         if (moveX != 0)
         {
             bool newFlipRight = moveX > 0;
@@ -86,7 +84,6 @@ public class PlayerController : NetworkBehaviour
                 CmdSetFlip(newFlipRight);
         }
 
-        // Apply horizontal movement
         if (!isDashing)
         {
             Vector2 velocity = playerBody.velocity;
@@ -131,3 +128,60 @@ public class PlayerController : NetworkBehaviour
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             bool isRunning = Mathf.Abs(Input.GetAxis("Horizontal")) > 0.01f;
+            bool isJumping = !IsOnGround();
+
+            if (netAnimator != null)
+            {
+                if (isRunning) netAnimator.SetTrigger("run swing");
+                else if (isJumping) netAnimator.SetTrigger("jump swing");
+                else netAnimator.SetTrigger("idle swing");
+            }
+        }
+    }
+
+    private void UpdateAnimatorStates()
+    {
+        float moveX = Input.GetAxis("Horizontal");
+        bool isRunning = Mathf.Abs(moveX) > 0.01f;
+        bool grounded = IsOnGround();
+
+        if (netAnimator != null)
+        {
+            netAnimator.animator.SetBool("run", isRunning);
+            netAnimator.animator.SetBool("grounded", grounded);
+        }
+    }
+
+    private void LocalJump()
+    {
+        Vector2 velocity = playerBody.velocity;
+        velocity.y = jumpHeight;
+        playerBody.velocity = velocity;
+
+        netAnimator.SetTrigger("jump");
+        if (audioSource != null && jumpSound != null) audioSource.PlayOneShot(jumpSound);
+    }
+
+    [Command]
+    private void CmdSetFlip(bool faceRight)
+    {
+        flipRight = faceRight;
+    }
+
+    private void OnFlipChanged(bool oldValue, bool newValue)
+    {
+        Vector3 scale = transform.localScale;
+        scale.x = newValue ? -Mathf.Abs(scale.x) : Mathf.Abs(scale.x);
+        transform.localScale = scale;
+    }
+
+    private bool IsOnGround()
+    {
+        Vector2 position = transform.position;
+        Vector2 direction = Vector2.down;
+        float length = 0.8f;
+        LayerMask groundLayer = LayerMask.GetMask("Platform");
+        RaycastHit2D hit = Physics2D.Raycast(position, direction, length, groundLayer);
+        return hit.collider != null;
+    }
+}
