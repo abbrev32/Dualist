@@ -1,32 +1,38 @@
 using UnityEngine;
 using Mirror;
-using System.Linq;
 
 public class Ghost : NetworkBehaviour
 {
     [Header("Movement Settings")]
     public float speed = 3f;
 
-    private Transform target; // Light player to follow
+    private Transform target; // Nearest player
 
     [ServerCallback]
     void Update()
     {
         if (!isServer) return;
 
-        // If target not found yet, search every frame until found
-        if (target == null)
-        {
-            GameObject lightPlayer = GameObject.FindGameObjectsWithTag("Player")
-                .FirstOrDefault(p => p.GetComponent<PlayerFaction>()?.faction == PlayerFaction.Faction.Light);
+        // Always look for nearest player
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        float nearestDistance = Mathf.Infinity;
+        Transform nearest = null;
 
-            if (lightPlayer != null)
-                target = lightPlayer.transform;
+        foreach (GameObject p in players)
+        {
+            float dist = Vector2.Distance(transform.position, p.transform.position);
+            if (dist < nearestDistance)
+            {
+                nearestDistance = dist;
+                nearest = p.transform;
+            }
         }
 
-        if (target == null) return; // still not found → do nothing
+        target = nearest;
 
-        // Move towards the Light player
+        if (target == null) return;
+
+        // Move towards nearest player
         Vector2 direction = ((Vector2)target.position - (Vector2)transform.position).normalized;
         transform.position += (Vector3)(direction * speed * Time.deltaTime);
     }
@@ -34,26 +40,22 @@ public class Ghost : NetworkBehaviour
     [ServerCallback]
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        // Player touch
+        // Player touch → deal damage
         if (collision.CompareTag("Player"))
         {
-            PlayerFaction pf = collision.GetComponent<PlayerFaction>();
-            if (pf != null && pf.faction == PlayerFaction.Faction.Light)
+            PlayerHealth playerHealth = collision.GetComponent<PlayerHealth>();
+            if (playerHealth != null)
             {
-                PlayerHealth playerHealth = collision.GetComponent<PlayerHealth>();
-                if (playerHealth != null)
-                {
-                    playerHealth.CmdTakeDamage(2); // deal 2 damage
-                }
-
-                NetworkServer.Destroy(gameObject); // Ghost disappears
+                playerHealth.CmdTakeDamage(2); // deal 2 damage
             }
+
+            NetworkServer.Destroy(gameObject); // Ghost disappears
         }
 
-        // Sword touch
-        if (collision.CompareTag("Sword"))
+        // Sword/Knife touch → ghost dies
+        if (collision.CompareTag("Sword") || collision.CompareTag("Knife"))
         {
-            NetworkServer.Destroy(gameObject); // Ghost killed instantly
+            NetworkServer.Destroy(gameObject);
         }
     }
 }
