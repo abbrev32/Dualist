@@ -42,7 +42,7 @@ public class TurretSpawner : NetworkBehaviour
         // Remove destroyed objects
         spawnedObjects.RemoveAll(obj => obj == null);
 
-        Debug.Log("Remaining objects: " + RemainingCount);
+        //Debug.Log("Remaining objects: " + RemainingCount);
     }
 
     // Public property so other scripts can read the count
