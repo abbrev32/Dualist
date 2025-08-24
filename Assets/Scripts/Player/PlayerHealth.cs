@@ -10,7 +10,7 @@ public class PlayerHealth : NetworkBehaviour
 {
     public float maxHealth = 10;
     private Animator anim;
-    private NetworkAnimator netAnimator;
+    public NetworkAnimator netAnimator;
 
     [SyncVar(hook = nameof(OnHealthChange))]
     public float currentHealth = 1;
@@ -131,48 +131,42 @@ public class PlayerHealth : NetworkBehaviour
 
     private IEnumerator HandleDeathSequence2()
     {
-        if (!isDead)
-        { 
-            isDead = true;
-            // Play the death sound
-            if (audioSource != null && deathSound != null)
-            {
-                audioSource.PlayOneShot(deathSound);
-            }
-
-            //death animation
-            netAnimator.animator.SetTrigger("death");
-
-            // Wait for a few seconds before showing the game over screen
-            yield return new WaitForSeconds(1f);
-
-            Time.timeScale = 0;
-            // Show the game over screen
-            //todo
-            FindAnyObjectByType<GameManager>().ShowTheEnd();
+        isDead = true;
+        // Play the death sound
+        if (audioSource != null && deathSound != null)
+        {
+            audioSource.PlayOneShot(deathSound);
         }
+
+        //death animation
+        netAnimator.animator.SetTrigger("death");
+
+        // Wait for a few seconds before showing the game over screen
+        yield return new WaitForSeconds(1f);
+
+        Time.timeScale = 0;
+        // Show the game over screen
+        //todo
+        FindAnyObjectByType<GameManager>().ShowTheEnd();
     }    
     private IEnumerator HandleDeathSequence()
-    {
-        if (!isDead)
-        {    
-            isDead = true;
-            if (audioSource != null && deathSound != null)
-            {
-                audioSource.PlayOneShot(deathSound);
-            }
-
-            //death animation
-            netAnimator.animator.SetTrigger("death");
-
-            // Wait for a few seconds before showing the game over screen
-            yield return new WaitForSeconds(1f);
-
-            Time.timeScale = 0;
-            // Show the game over screen
-            FindAnyObjectByType<GameManager>().ShowGameOverScreen();
+    {   
+        isDead = true;
+        if (audioSource != null && deathSound != null)
+        {
+            audioSource.PlayOneShot(deathSound);
         }
-        // Play the death sound
+
+        //death animation
+        netAnimator.animator.SetTrigger("death");
+
+        // Wait for a few seconds before showing the game over screen
+        yield return new WaitForSeconds(1f);
+
+        Time.timeScale = 0;
+        // Show the game over screen
+        FindAnyObjectByType<GameManager>().ShowGameOverScreen();
+      // Play the death sound
     }
 
     [Server]
