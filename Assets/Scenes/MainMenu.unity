@@ -3095,7 +3095,7 @@ MonoBehaviour:
   readyButton: {fileID: 357113321}
   discovery: {fileID: 1209407727}
   serverListPanel: {fileID: 1836182410}
-  serverListUI: {fileID: 0}
+  serverListUI: {fileID: 1774717199}
   serverListParent: {fileID: 1836182411}
   serverButtonPrefab: {fileID: 4049820671841945018, guid: fbdb23efe80899748b301b5d0feeacf1, type: 3}
 --- !u!1 &1742967307
@@ -3967,7 +3967,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2069947748
 RectTransform:
   m_ObjectHideFlags: 0
