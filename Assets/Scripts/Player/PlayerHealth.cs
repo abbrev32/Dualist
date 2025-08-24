@@ -79,7 +79,10 @@ public class PlayerHealth : NetworkBehaviour
 
 
         if (currentHealth <= 0)
+
         {
+            //death animation
+            netAnimator.animator.SetTrigger("death");
             if (!EntityChecker.nextLevel)
             {
                 RpcOnPlayerDeath();
@@ -140,8 +143,7 @@ public class PlayerHealth : NetworkBehaviour
                 audioSource.PlayOneShot(deathSound);
             }
 
-            //death animation
-            netAnimator.animator.SetTrigger("death");
+       
 
             // Wait for a few seconds before showing the game over screen
             yield return new WaitForSeconds(1f);
@@ -162,8 +164,7 @@ public class PlayerHealth : NetworkBehaviour
                 audioSource.PlayOneShot(deathSound);
             }
 
-            //death animation
-            netAnimator.animator.SetTrigger("death");
+         
 
             // Wait for a few seconds before showing the game over screen
             yield return new WaitForSeconds(1f);
