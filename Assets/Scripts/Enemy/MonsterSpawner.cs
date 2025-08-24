@@ -15,7 +15,7 @@ public class MonsterSpawner : NetworkBehaviour
 
     [Header("Delays")]
     public float monsterSpawnDelay = 0.5f; // between monsters
-    public float ghostSpawnDelay   = 3f;   // between ghosts
+    public float ghostSpawnDelay = 3f;   // between ghosts
 
     [Header("Spawn variation")]
     public Vector2 monsterSpeedRange = new Vector2(2f, 5f);
@@ -25,7 +25,19 @@ public class MonsterSpawner : NetworkBehaviour
     [SyncVar] public int maxHealth = 3;
     [SyncVar] private int currentHealth;
 
+    private Animator anim;
+    private NetworkAnimator netAnimator;
+
     private readonly List<GameObject> currentMonsters = new List<GameObject>();
+
+    public bool portaldeath = false; // flag to indicate if the portal is dead
+
+    // --- Unity lifecycle ---
+    private void Awake()
+    {
+        anim = GetComponent<Animator>();
+        netAnimator = GetComponent<NetworkAnimator>();
+    }
 
     public override void OnStartServer()
     {
@@ -33,11 +45,11 @@ public class MonsterSpawner : NetworkBehaviour
         SpawnWave();
     }
 
-    void Update()
+    private void Update()
     {
         if (!isServer) return;
 
-        // cleanup
+        // cleanup null entries
         currentMonsters.RemoveAll(m => m == null);
 
         // auto next wave when all dead
@@ -45,56 +57,71 @@ public class MonsterSpawner : NetworkBehaviour
             SpawnWave();
     }
 
+    // --- Damage ---
     [Server]
     public void TakeDamage(int amount)
     {
+        if (currentHealth <= 0) return;
+
+        netAnimator?.SetTrigger("Damage");
         currentHealth -= amount;
+
         if (currentHealth <= 0)
         {
-            // despawn all from this portal
-            foreach (var m in currentMonsters)
-                if (m != null) NetworkServer.Destroy(m);
-
-            currentMonsters.Clear();
-            NetworkServer.Destroy(gameObject); // destroy portal
+            KillSpawner();
+            portaldeath = true; // flag to indicate the portal is dead
         }
     }
 
     [Server]
-    void SpawnWave()
+    private void KillSpawner()
+    {
+        // despawn all monsters from this portal
+        foreach (var m in currentMonsters)
+            if (m != null) NetworkServer.Destroy(m);
+
+        currentMonsters.Clear();
+        NetworkServer.Destroy(gameObject); // destroy portal itself
+    }
+
+    // --- Spawning ---
+    [Server]
+    private void SpawnWave()
     {
         StartCoroutine(SpawnWaveRoutine());
     }
 
     [Server]
-    IEnumerator SpawnWaveRoutine()
+    private IEnumerator SpawnWaveRoutine()
     {
         // spawn monsters first (short delay)
         for (int i = 0; i < monstersPerWave; i++)
         {
-            SpawnOne(monsterPrefab, trySetMonsterSpeed:true);
+            SpawnOne(monsterPrefab, trySetMonsterSpeed: true);
             yield return new WaitForSeconds(monsterSpawnDelay);
         }
 
         // then ghosts (3s delay each)
         for (int i = 0; i < ghostsPerWave; i++)
         {
-            SpawnOne(ghostPrefab, trySetMonsterSpeed:false); // ghosts handle their own movement
+            SpawnOne(ghostPrefab, trySetMonsterSpeed: false); // ghosts handle their own movement
             yield return new WaitForSeconds(ghostSpawnDelay);
         }
     }
 
     [Server]
-    void SpawnOne(GameObject prefab, bool trySetMonsterSpeed)
+    private void SpawnOne(GameObject prefab, bool trySetMonsterSpeed)
     {
         Vector3 pos = transform.position;
         pos.y += Random.Range(-positionOffsetY, positionOffsetY);
 
         GameObject go = Instantiate(prefab, pos, Quaternion.identity);
 
-        // only set speed on normal monsters that have MonsterMovement
+        // only set speed on normal monsters
         if (trySetMonsterSpeed && go.TryGetComponent<MonsterMovement>(out var mm))
+        {
             mm.speed = Random.Range(monsterSpeedRange.x, monsterSpeedRange.y);
+        }
 
         NetworkServer.Spawn(go);
         currentMonsters.Add(go);

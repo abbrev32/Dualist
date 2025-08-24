@@ -126,7 +126,6 @@ public class PlayerController : NetworkBehaviour
             netAnimator.animator.SetBool("run", isRunning);
             netAnimator.animator.SetBool("grounded", IsOnGround());
         }
-
         // Swing sword
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
@@ -136,7 +135,7 @@ public class PlayerController : NetworkBehaviour
                     netAnimator.SetTrigger("run swing");
                 if (isjumping)
                     netAnimator.SetTrigger("jump swing");
-                if(!isRunning && IsOnGround())
+                if (!isRunning && IsOnGround())
                     netAnimator.SetTrigger("idle swing");
 
 

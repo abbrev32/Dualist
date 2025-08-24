@@ -73,6 +73,7 @@ public class PlayerHealth : NetworkBehaviour
         // Apply damage first
         currentHealth -= damage;
 
+
         if (currentHealth <= 0)
         {
             RpcOnPlayerDeath();
@@ -154,6 +155,7 @@ public class PlayerHealth : NetworkBehaviour
     public float flashDuration = 0.2f;
 
     private Color originalColor;
+    internal bool pvp;
 
     void Start()
     {
