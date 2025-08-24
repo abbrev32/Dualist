@@ -51,14 +51,14 @@ public class PlayerHealth : NetworkBehaviour
         OnHealthChange(0, currentHealth);
     }
 
-    void Update()
-    {
-        if (!isLocalPlayer) return;
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            CmdTakeDamage(1);
-        }
-    }
+    // void Update()
+    // {
+    //     if (!isLocalPlayer) return;
+    //     if (Input.GetKeyDown(KeyCode.R))
+    //     {
+    //         CmdTakeDamage(1);
+    //     }
+    // }
 
     [Command]
     private void CmdSetHealth(float health)
@@ -82,7 +82,7 @@ public class PlayerHealth : NetworkBehaviour
 
         if (currentHealth <= 0)
         {
-            netAnimator.animator.SetTrigger("death");
+            //netAnimator.animator.SetTrigger("death");
             if (!EntityChecker.nextLevel)
             {
                 RpcOnPlayerDeath();

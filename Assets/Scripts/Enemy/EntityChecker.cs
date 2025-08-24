@@ -15,13 +15,8 @@ public class EntityChecker : NetworkBehaviour
         // Manual override with O key (for testing)
         if (!nextLevel)
         {
-            
-            if (Input.GetKeyDown(KeyCode.O))
-            {
-                RpcLevelClear();
-            }
             // Auto check: all turrets destroyed + portal dead
-            else if (turretSpawner != null && monsterSpawner != null)
+            if (turretSpawner != null && monsterSpawner != null)
             {
                 if (turretSpawner.RemainingCount == 0 && monsterSpawner.portaldeath)
                 {
