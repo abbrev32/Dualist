@@ -5132,6 +5132,7 @@ GameObject:
   - component: {fileID: 1546330369}
   - component: {fileID: 1546330368}
   - component: {fileID: 1546330371}
+  - component: {fileID: 1546330372}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -5211,6 +5212,29 @@ MonoBehaviour:
   turretSpawner: {fileID: 8434476414102704688}
   monsterSpawner: {fileID: 989631341}
   gameManager: {fileID: 1546330369}
+--- !u!114 &1546330372
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1546330366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6a7705fecff3b84d82c7c93d518862e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  maxHealth: 10
+  currentHealth: 1
+  isDead: 0
+  spawnPoint: {fileID: 4908736327452825590, guid: cafcbedf715843c48b6c73cbe2a4f73f, type: 3}
+  deathSound: {fileID: 0}
+  playerSprite: {fileID: 0}
+  flashColor: {r: 1, g: 0, b: 0, a: 0.5}
+  flashDuration: 0.2
 --- !u!1001 &1602332620
 PrefabInstance:
   m_ObjectHideFlags: 0

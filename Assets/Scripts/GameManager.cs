@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.Rendering;
 
+[RequireComponent(typeof(PlayerHealth))]
 public class GameManager : NetworkBehaviour
 {
     public GameObject levelClearUI;
@@ -33,10 +34,11 @@ public class GameManager : NetworkBehaviour
     public void OnNextLevel()
     {
         Time.timeScale = 1.0f;
-        GameObject player = GameObject.Find("RealPlayer");
-        player.GetComponent<PlayerHealth>().ServerRespawn();
-        SwordScript.pvp = true;
         levelClearUI.SetActive(false);
+        GameObject player = GameObject.Find("RealPlayer(Clone)");
+        player.GetComponent<PlayerHealth>().ServerRespawn();
+        //GetComponent<PlayerHealth>().ServerRespawn();
+        SwordScript.pvp = true;
     }
     public void ShowGameOverScreen()
     {
