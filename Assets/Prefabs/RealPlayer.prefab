@@ -204,6 +204,7 @@ MonoBehaviour:
   dashSound: {fileID: 8300000, guid: 28dcb57505ae7a941a261510763c1b6b, type: 3}
   isRunning: 0
   isjumping: 0
+  onGround: 1
 --- !u!114 &6566882048528832175
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -565,7 +566,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 3001057963342904314}
+    m_TransformParent: {fileID: 677385242644088262}
     m_Modifications:
     - target: {fileID: 1793108480214457284, guid: 8383edf248eb99c48b6ca6bee47f5d60, type: 3}
       propertyPath: _assetId
@@ -597,11 +598,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7118429413231760118, guid: 8383edf248eb99c48b6ca6bee47f5d60, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.99652344
+      value: 0.99652326
       objectReference: {fileID: 0}
     - target: {fileID: 7118429413231760118, guid: 8383edf248eb99c48b6ca6bee47f5d60, type: 3}
       propertyPath: m_LocalScale.y
-      value: 5.870482
+      value: 5.8704815
       objectReference: {fileID: 0}
     - target: {fileID: 7118429413231760118, guid: 8383edf248eb99c48b6ca6bee47f5d60, type: 3}
       propertyPath: m_LocalScale.z
@@ -609,11 +610,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7118429413231760118, guid: 8383edf248eb99c48b6ca6bee47f5d60, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.79
+      value: 3.5578156
       objectReference: {fileID: 0}
     - target: {fileID: 7118429413231760118, guid: 8383edf248eb99c48b6ca6bee47f5d60, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.3
+      value: -0.021502523
       objectReference: {fileID: 0}
     - target: {fileID: 7118429413231760118, guid: 8383edf248eb99c48b6ca6bee47f5d60, type: 3}
       propertyPath: m_LocalPosition.z
@@ -621,19 +622,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7118429413231760118, guid: 8383edf248eb99c48b6ca6bee47f5d60, type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.6872
+      value: 0.7021441
       objectReference: {fileID: 0}
     - target: {fileID: 7118429413231760118, guid: 8383edf248eb99c48b6ca6bee47f5d60, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -1.5107357e-10
+      value: 1.1623068e-10
       objectReference: {fileID: 0}
     - target: {fileID: 7118429413231760118, guid: 8383edf248eb99c48b6ca6bee47f5d60, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -1.2155506e-10
+      value: -1.5520725e-10
       objectReference: {fileID: 0}
     - target: {fileID: 7118429413231760118, guid: 8383edf248eb99c48b6ca6bee47f5d60, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.72646827
+      value: -0.712035
       objectReference: {fileID: 0}
     - target: {fileID: 7118429413231760118, guid: 8383edf248eb99c48b6ca6bee47f5d60, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1066,7 +1067,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: -3351975109116233218, guid: 53c103aad56a66748800fcdd65bc9407, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 8194313261091473346, guid: 53c103aad56a66748800fcdd65bc9407, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3676438530045716428}
     - targetCorrespondingSourceObject: {fileID: 5984597831827656758, guid: 53c103aad56a66748800fcdd65bc9407, type: 3}
@@ -1080,9 +1081,9 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 6611734147303067329}
   m_SourcePrefab: {fileID: 4843985084834002234, guid: 53c103aad56a66748800fcdd65bc9407, type: 3}
---- !u!4 &3001057963342904314 stripped
+--- !u!4 &677385242644088262 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: -3351975109116233218, guid: 53c103aad56a66748800fcdd65bc9407, type: 3}
+  m_CorrespondingSourceObject: {fileID: 8194313261091473346, guid: 53c103aad56a66748800fcdd65bc9407, type: 3}
   m_PrefabInstance: {fileID: 8709541893161468420}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &3157887769069277746 stripped
