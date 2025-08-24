@@ -32,11 +32,11 @@ public class PlayerController : NetworkBehaviour
     public bool isRunning = false;
     [SyncVar]
     public bool isjumping = false;
+
     private void Awake()
     {
         anim = GetComponent<Animator>();
         netAnimator = GetComponent<NetworkAnimator>();
-
         audioSource = GetComponent<AudioSource>();
         if (audioSource == null)
             audioSource = gameObject.AddComponent<AudioSource>();
@@ -57,82 +57,85 @@ public class PlayerController : NetworkBehaviour
     {
         if (!isLocalPlayer) return;
 
+        // --- Input and State Calculation ---
         float moveX = Input.GetAxis("Horizontal");
-        float velocityY = playerBody.linearVelocity.y;
-
-        // Jump + double jump
-        if (IsOnGround())
-        {
-            extJumps = 1;
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                velocityY = jumpHeight;
-                CmdJump(); // CHANGED
-                PlayJumpSound();
-            }
-        }
-        else if (!IsOnGround() && extJumps > 0)
-        {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                velocityY = jumpHeight;
-                extJumps--;
-                CmdJump(); // CHANGED
-                PlayJumpSound();
-            }
-        }
-
-        float finalVelocityX = moveX * movementSpeed;
         isRunning = Mathf.Abs(moveX) > 0.01f;
         isjumping = !IsOnGround();
         
-        // Dash
-        if (!isDashing)
-        {
-            dashCoolDownTimer += Time.deltaTime;
-            if (dashCoolDownTimer > dashCoolDown && Input.GetKeyDown(KeyCode.LeftShift))
-            {
-                isDashing = true;
-                if (audioSource != null && dashSound != null)
-                    audioSource.PlayOneShot(dashSound);
-            }
-        }
-        else
-        {
-            dashTimer += Time.deltaTime;
-            if (dashTimer > dashTime)
-            {
-                isDashing = false;
-                dashCoolDownTimer = 0f;
-                dashTimer = 0f;
-            }
-            else
-            {
-                float dashDirection = (moveX != 0) ? moveX : transform.localScale.x > 0 ? 1 : -1;
-                finalVelocityX += dashSpeed * dashDirection;
-                CmdDash(); // CHANGED
-            }
-        }
-
-        // Apply movement
-        playerBody.linearVelocity = new Vector2(finalVelocityX, velocityY);
-
-        // Flip
-        if (moveX != 0)
-        {
-            bool newFlipRight = moveX > 0;
-            if (flipRight != newFlipRight)
-                CmdSetFlip(newFlipRight);
-        }
-
-        // Animator states
+        // --- Animator Booleans (works locally) ---
         if (netAnimator != null)
         {
             netAnimator.animator.SetBool("run", isRunning);
             netAnimator.animator.SetBool("grounded", IsOnGround());
         }
-        
-        // Swing sword - REFACTORED
+
+        // --- Handle Actions by sending Commands to Server ---
+        HandleJumping();
+        HandleDashing(moveX);
+        HandleSwinging();
+        HandleFlipping(moveX);
+
+        // --- Physics (still controlled locally) ---
+        // Note: For a server-authoritative game, you'd also send inputs to the server.
+        // But for this animation issue, keeping physics client-side is fine.
+        float finalVelocityX = CalculateFinalVelocityX(moveX);
+        playerBody.linearVelocity = new Vector2(finalVelocityX, playerBody.linearVelocity.y);
+    }
+    
+    // Extracted logic into separate methods for clarity
+    #region Action Handlers
+
+    private void HandleJumping()
+    {
+        float velocityY = playerBody.linearVelocity.y;
+        bool jumpPressed = Input.GetKeyDown(KeyCode.Space);
+
+        if (IsOnGround())
+        {
+            extJumps = 1;
+            if (jumpPressed)
+            {
+                playerBody.linearVelocity = new Vector2(playerBody.linearVelocity.x, jumpHeight);
+                CmdJump();
+                PlayJumpSound();
+            }
+        }
+        else if (extJumps > 0 && jumpPressed)
+        {
+            extJumps--;
+            playerBody.linearVelocity = new Vector2(playerBody.linearVelocity.x, jumpHeight);
+            CmdJump();
+            PlayJumpSound();
+        }
+    }
+
+    private void HandleDashing(float moveX)
+    {
+        if (isDashing) return;
+
+        dashCoolDownTimer += Time.deltaTime;
+        if (dashCoolDownTimer > dashCoolDown && Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            CmdDash();
+            if (audioSource != null && dashSound != null)
+                audioSource.PlayOneShot(dashSound);
+        }
+    }
+
+    private float CalculateFinalVelocityX(float moveX)
+    {
+        // This is a temporary state for dashing, we don't need a SyncVar
+        if (dashTimer > 0)
+        {
+            dashTimer -= Time.deltaTime;
+            float dashDirection = (moveX != 0) ? Mathf.Sign(moveX) : (transform.localScale.x > 0 ? 1 : -1);
+            return (moveX * movementSpeed) + (dashSpeed * dashDirection);
+        }
+        return moveX * movementSpeed;
+    }
+
+    private void HandleSwinging()
+    {
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             if (isjumping)
@@ -143,41 +146,85 @@ public class PlayerController : NetworkBehaviour
                 CmdSwing("idle swing");
         }
     }
-    
-    // ADDED: Command for jumping
+
+    private void HandleFlipping(float moveX)
+    {
+        if (moveX != 0)
+        {
+            bool newFlipRight = moveX > 0;
+            if (flipRight != newFlipRight)
+                CmdSetFlip(newFlipRight);
+        }
+    }
+
+    #endregion
+
+
+    // --- Commands: Client -> Server ---
+
     [Command]
     private void CmdJump()
     {
-        netAnimator.SetTrigger("jump");
+        RpcJump(); // Server tells all clients to execute the RPC
     }
 
-    // ADDED: Command for dashing
     [Command]
     private void CmdDash()
     {
-        netAnimator.SetTrigger("dash");
+        RpcDash(); // Server tells all clients to execute the RPC
     }
 
     [Command]
     private void CmdSwing(string triggerName)
     {
-        if (netAnimator != null)
-            netAnimator.SetTrigger(triggerName);
+        RpcSwing(triggerName); // Server tells all clients to execute the RPC
     }
-
 
     [Command]
     private void CmdSetFlip(bool faceRight)
     {
-        flipRight = faceRight;
+        flipRight = faceRight; // SyncVar handles replication
     }
+
+    
+    // --- ClientRPCs: Server -> All Clients ---
+    
+    [ClientRpc]
+    private void RpcJump()
+    {
+        // This code now runs on EVERY client
+        netAnimator.SetTrigger("jump");
+    }
+
+    [ClientRpc]
+    private void RpcDash()
+    {
+        // This code now runs on EVERY client
+        // We also start the dash timer on all clients to keep physics consistent
+        dashTimer = dashTime; 
+        dashCoolDownTimer = 0f;
+        netAnimator.SetTrigger("dash");
+    }
+
+    [ClientRpc]
+    private void RpcSwing(string triggerName)
+    {
+        // This code now runs on EVERY client
+        netAnimator.SetTrigger(triggerName);
+    }
+
+
+    // --- SyncVar Hook ---
 
     private void OnFlipChanged(bool oldValue, bool newValue)
     {
         Vector3 scale = transform.localScale;
-        scale.x = newValue ? -Mathf.Abs(scale.x) : Mathf.Abs(scale.x);
+        // Flipped the logic here to be more intuitive: positive scale.x should mean facing right.
+        scale.x = newValue ? Mathf.Abs(scale.x) : -Mathf.Abs(scale.x);
         transform.localScale = scale;
     }
+
+    // --- Helpers ---
 
     private void PlayJumpSound()
     {
@@ -187,13 +234,7 @@ public class PlayerController : NetworkBehaviour
 
     private bool IsOnGround()
     {
-        Vector2 position = transform.position;
-        Vector2 direction = Vector2.down;
-        float length = 0.8f;
-
-        LayerMask groundLayer = LayerMask.GetMask("Platform");
-        RaycastHit2D hit = Physics2D.Raycast(position, direction, length, groundLayer);
-
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 0.8f, LayerMask.GetMask("Platform"));
         return hit.collider != null;
     }
 }
