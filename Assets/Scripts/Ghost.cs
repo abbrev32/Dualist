@@ -15,11 +15,11 @@ public class GhostDark : NetworkBehaviour
         // If target not found yet, search for it
         if (target == null)
         {
-            GameObject darkPlayer = GameObject.FindGameObjectsWithTag("Player")
-                .FirstOrDefault(p => p.GetComponent<PlayerFaction>()?.faction == PlayerFaction.Faction.Dark);
+            GameObject lightPlayer = GameObject.FindGameObjectsWithTag("Player")
+                .FirstOrDefault(p => p.GetComponent<PlayerFaction>()?.faction == PlayerFaction.Faction.Light);
 
-            if (darkPlayer != null)
-                target = darkPlayer.transform;
+            if (lightPlayer != null)
+                target = lightPlayer.transform;
         }
 
         if (!isServer || target == null) return;
