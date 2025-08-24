@@ -253,7 +253,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: -10
   m_Sprite: {fileID: -7443756053782179069, guid: e8767479bb1b95f429d76d26cc2fa12e, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -3259,6 +3259,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5964450518668494532, guid: 6abc5e42500bda945a37b98d66f14802, type: 3}
       insertIndex: -1
       addedObject: {fileID: 989631343}
+    - targetCorrespondingSourceObject: {fileID: 5964450518668494532, guid: 6abc5e42500bda945a37b98d66f14802, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 989631345}
   m_SourcePrefab: {fileID: 100100000, guid: 6abc5e42500bda945a37b98d66f14802, type: 3}
 --- !u!1 &989631338 stripped
 GameObject:
@@ -3311,6 +3314,7 @@ MonoBehaviour:
   monsterSpeedRange: {x: 2, y: 5}
   positionOffsetY: 1.5
   maxHealth: 5
+  portaldeath: 0
 --- !u!82 &989631342
 AudioSource:
   m_ObjectHideFlags: 0
@@ -3462,6 +3466,23 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.56, y: 1}
   m_Direction: 0
+--- !u!114 &989631345
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 989631338}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 523cfa3bc5e623743b5bf431f31eaa8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HostClientColor
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  hostColor: {r: 1, g: 1, b: 1, a: 1}
+  clientColor: {r: 0, g: 0, b: 0, a: 1}
 --- !u!1 &1113888119
 GameObject:
   m_ObjectHideFlags: 0
@@ -4718,7 +4739,7 @@ Transform:
   m_GameObject: {fileID: 1456328656}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 9.23, y: -0.235, z: 0}
+  m_LocalPosition: {x: 9.46, y: -0.235, z: 0}
   m_LocalScale: {x: 1.1395043, y: 0.5619004, z: 0.8143484}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5187,6 +5208,9 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
+  turretSpawner: {fileID: 8434476414102704688}
+  monsterSpawner: {fileID: 989631341}
+  gameManager: {fileID: 1546330369}
 --- !u!1001 &1602332620
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6764,8 +6788,33 @@ PrefabInstance:
     - {fileID: 4935523600331736322, guid: e8b88a10fb14e014a9f2508b9e62ec3b, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5517878593112398639, guid: e8b88a10fb14e014a9f2508b9e62ec3b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5470892473905392933}
   m_SourcePrefab: {fileID: 100100000, guid: e8b88a10fb14e014a9f2508b9e62ec3b, type: 3}
+--- !u!1 &5470892473905392932 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5517878593112398639, guid: e8b88a10fb14e014a9f2508b9e62ec3b, type: 3}
+  m_PrefabInstance: {fileID: 5470892473905392931}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5470892473905392933
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5470892473905392932}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 523cfa3bc5e623743b5bf431f31eaa8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HostClientColor
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  hostColor: {r: 1, g: 1, b: 1, a: 1}
+  clientColor: {r: 0, g: 0, b: 0, a: 1}
 --- !u!1001 &8434476414102704687
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6843,6 +6892,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b06d8932609ca8e4f9f85d411b1b18a0, type: 3}
+--- !u!114 &8434476414102704688 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 594511434744787629, guid: b06d8932609ca8e4f9f85d411b1b18a0, type: 3}
+  m_PrefabInstance: {fileID: 8434476414102704687}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f16bfd4dcb2564e42b2345e8a344a955, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TurretSpawner
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
