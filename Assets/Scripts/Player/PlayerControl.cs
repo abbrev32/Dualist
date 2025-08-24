@@ -28,6 +28,10 @@ public class PlayerController : NetworkBehaviour
     private float dashTimer = 0f;
     private readonly float dashTime = 0.25f;
 
+    [SyncVar]
+    public bool isRunning = false;
+    [SyncVar]
+    public bool isjumping = false;
     private void Awake()
     {
         anim = GetComponent<Animator>();
@@ -79,8 +83,8 @@ public class PlayerController : NetworkBehaviour
         }
 
         float finalVelocityX = moveX * movementSpeed;
-        bool isRunning = Mathf.Abs(moveX) > 0.01f;
-        bool isjumping = !IsOnGround();
+        isRunning = Mathf.Abs(moveX) > 0.01f;
+        isjumping = !IsOnGround();
         // Dash
         if (!isDashing)
         {
@@ -129,19 +133,21 @@ public class PlayerController : NetworkBehaviour
         // Swing sword
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            if (netAnimator != null)
-            {
-                if (isRunning)
-                    netAnimator.SetTrigger("run swing");
-                if (isjumping)
-                    netAnimator.SetTrigger("jump swing");
-                if (!isRunning && IsOnGround())
-                    netAnimator.SetTrigger("idle swing");
-
-
-            }
+            if (isRunning)
+                CmdSwing("run swing");
+            if (isjumping)
+                CmdSwing("jump swing");
+            if (!isRunning && IsOnGround())
+                CmdSwing("idle swing");
         }
     }
+    [Command]
+    private void CmdSwing(string triggerName)
+    {
+        if (netAnimator != null)
+            netAnimator.SetTrigger(triggerName); // Server triggers, NetworkAnimator syncs it
+    }
+
 
     [Command]
     private void CmdSetFlip(bool faceRight)

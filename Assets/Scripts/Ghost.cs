@@ -1,30 +1,30 @@
 using UnityEngine;
 using Mirror;
-using System.Linq;
+using System.Linq; // Needed for FirstOrDefault
 
-public class GhostDark : NetworkBehaviour
+public class Ghost : NetworkBehaviour
 {
     [Header("Movement Settings")]
     public float speed = 3f;
 
-    private Transform target; // Dark player to follow
+    private Transform target; // Light player to follow
+
+    public override void OnStartServer()
+    {
+        // Find the Light player once at server start
+        GameObject lightPlayer = GameObject.FindGameObjectsWithTag("Player")
+            .FirstOrDefault(p => p.GetComponent<PlayerFaction>()?.faction == PlayerFaction.Faction.Light);
+
+        if (lightPlayer != null)
+            target = lightPlayer.transform;
+    }
 
     [ServerCallback]
     void Update()
     {
-        // If target not found yet, search for it
-        if (target == null)
-        {
-            GameObject lightPlayer = GameObject.FindGameObjectsWithTag("Player")
-                .FirstOrDefault(p => p.GetComponent<PlayerFaction>()?.faction == PlayerFaction.Faction.Light);
-
-            if (lightPlayer != null)
-                target = lightPlayer.transform;
-        }
-
         if (!isServer || target == null) return;
 
-        // Move towards the Dark player
+        // Move towards the Light player
         Vector2 direction = ((Vector2)target.position - (Vector2)transform.position).normalized;
         transform.position += (Vector3)(direction * speed * Time.deltaTime);
     }
@@ -36,7 +36,7 @@ public class GhostDark : NetworkBehaviour
         if (collision.CompareTag("Player"))
         {
             PlayerFaction pf = collision.GetComponent<PlayerFaction>();
-            if (pf != null && pf.faction == PlayerFaction.Faction.Dark)
+            if (pf != null && pf.faction == PlayerFaction.Faction.Light)
             {
                 PlayerHealth playerHealth = collision.GetComponent<PlayerHealth>();
                 if (playerHealth != null)

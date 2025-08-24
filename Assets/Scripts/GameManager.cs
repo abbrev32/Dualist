@@ -108,10 +108,10 @@ public class GameManager : NetworkBehaviour
         }
 
         // Explicitly destroy the room manager singleton if you want a full reset
-        if (NetworkManager.singleton != null)
-        {
-            Destroy(NetworkManager.singleton.gameObject);
-        }
+        // if (NetworkManager.singleton != null)
+        // {
+        //     Destroy(NetworkManager.singleton.gameObject);
+        // }
 
         // Now load the main menu
         SceneManager.LoadScene("MainMenu");
