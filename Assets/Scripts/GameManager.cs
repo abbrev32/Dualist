@@ -31,20 +31,32 @@ public class GameManager : NetworkBehaviour
             waitText.gameObject.SetActive(true);
         }
     }
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            RpcOnPause();
+        }
+    }
+    [ClientRpc]
+    public void RpcOnPause()
+    {
+        Time.timeScale = 0f;
+    }
     //TODO HERE
     public void OnNextLevel()
     {
         Time.timeScale = 1.0f;
-        RpcHideOverlay();
+        RpcHideOverlay(levelClearUI);
         GameObject player = GameObject.Find("RealPlayer(Clone)");
         player.GetComponent<PlayerHealth>().ServerRespawn();
         //GetComponent<PlayerHealth>().ServerRespawn();
         SwordScript.pvp = true;
     }
     [ClientRpc]
-    public void RpcHideOverlay()
+    public void RpcHideOverlay(GameObject panelUI)
     {
-        levelClearUI.SetActive(false);
+        panelUI.SetActive(false);
     }
     public void ShowGameOverScreen()
     {

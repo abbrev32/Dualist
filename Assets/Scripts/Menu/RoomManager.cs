@@ -4,7 +4,6 @@ using Mirror;
 public class RoomManager : NetworkRoomManager
 {
     public Transform spawnPoint;
-
     public override void OnRoomServerPlayersReady()
     {
         if (allPlayersReady)

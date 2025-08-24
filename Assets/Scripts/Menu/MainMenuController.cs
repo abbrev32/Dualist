@@ -1,5 +1,6 @@
 using Mirror;
 using Mirror.Discovery;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEditor;
@@ -28,22 +29,21 @@ public class MainMenuController : MonoBehaviour
     [Header("LAN Discovery")]
     public LANDiscovery discovery;
     public GameObject serverListPanel;
+    public GameObject serverListUI;
     public Transform serverListParent; // A vertical layout group
     public GameObject serverButtonPrefab;
     private HashSet<string> discoveredServers = new HashSet<string>();
 
     private void Awake()
     {
+        // var existing = FindAnyObjectByType<NetworkRoomManager>();
+        // if (existing != null && existing != roomManager)
+        // {
+        //     Destroy(existing.gameObject); // remove leftover
+        // }
         roomManager = FindAnyObjectByType<NetworkRoomManager>();
-        //if (roomManager == null)
-        //{
-        //    Debug.Log("Cannot find Room Manager");
-        //}
-        //else
-        //{
-        //    Debug.Log("Found!");
-        //}
     }
+
     void Start()
     {
         discovery.OnServerFoundEvent += OnServerFound;
@@ -68,6 +68,45 @@ public class MainMenuController : MonoBehaviour
         }
     }
 
+    public void OnCancel()
+    {
+        // Just return to the main menu UI
+        lobbyPanel.SetActive(false);
+        serverListUI.SetActive(false);
+        menuPanel.SetActive(true);
+    }
+
+    public void OnExitRoom()
+    {
+        if (roomManager != null)
+        {
+            if (NetworkServer.active && NetworkClient.isConnected)
+            {
+                roomManager.StopHost();
+            }
+            else if (NetworkClient.isConnected)
+            {
+                roomManager.StopClient();
+            }
+            else if (NetworkServer.active)
+            {
+                roomManager.StopServer();
+            }
+            Destroy(NetworkRoomManager.singleton.gameObject);
+        }
+
+        discoveredServers.Clear();
+
+        // Make sure LANDiscovery can be used again later
+        discovery.StopDiscovery();
+        discovery.enabled = true;
+
+        // Back to menu
+        lobbyPanel.SetActive(false);
+        serverListUI.SetActive(false);
+        menuPanel.SetActive(true);
+    }
+
     public void FindLANGames()
     {
         // clear old list
@@ -75,7 +114,7 @@ public class MainMenuController : MonoBehaviour
 
         Debug.Log("Searching for games...");
         menuPanel.SetActive(false);
-        serverListPanel.SetActive(true);
+        serverListUI.SetActive(true);
         discovery.StartDiscovery();
     }
 
@@ -124,7 +163,7 @@ public class MainMenuController : MonoBehaviour
     private void SetLobbyActive()
     {
         menuPanel.SetActive(false);
-        serverListPanel.SetActive(false);
+        serverListUI.SetActive(false);
         lobbyPanel.SetActive(true);
         playerOneName.text = "Waiting for Player...";
         playerTwoName.text = "Waiting for Player...";
