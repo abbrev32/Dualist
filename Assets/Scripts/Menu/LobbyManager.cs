@@ -44,8 +44,8 @@ public class LobbyManager : MonoBehaviour
 
     public void UpdatePlayerListUI()
     {
-        playerOneName.text = "Waiting for Player...";
-        playerTwoName.text = "Waiting for Player...";
+        playerOneName.text = "Waiting...";
+        playerTwoName.text = "Waiting...";
         playerOneStatus.color = Color.gray;
         playerTwoStatus.color = Color.gray;
 
@@ -81,7 +81,7 @@ public class LobbyManager : MonoBehaviour
         }
         else
         {
-            playerTwoName.text = "Waiting for Player...";
+            playerTwoName.text = "Waiting...";
             playerTwoStatus.color = Color.yellow;
         }
 

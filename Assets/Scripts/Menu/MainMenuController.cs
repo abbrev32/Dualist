@@ -172,8 +172,8 @@ public class MainMenuController : MonoBehaviour
         menuPanel.SetActive(false);
         serverListUI.SetActive(false);
         lobbyPanel.SetActive(true);
-        playerOneName.text = "Waiting for Player...";
-        playerTwoName.text = "Waiting for Player...";
+        playerOneName.text = "Waiting...";
+        playerTwoName.text = "Waiting...";
         UpdatePlayerListUI();
     }
 
