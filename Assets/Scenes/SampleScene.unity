@@ -2853,7 +2853,7 @@ MonoBehaviour:
   audioSource: {fileID: 0}
   switchActivationSound: {fileID: 8300000, guid: f58b89ea4f81e41fcb5c5bec6d134986, type: 3}
   switchActivationMusicTracks:
-  - {fileID: 8300000, guid: 125675aef854dd14f9371dfe62d8bc8e, type: 3}
+  - {fileID: 8300000, guid: 24104fa1535b67f48a4957ecb18bf96e, type: 3}
   turretPrefab1: {fileID: 5703171395439219910, guid: 115fa202581455f4ba74ed9bad29af34, type: 3}
   turretPrefab2: {fileID: 559164485504519838, guid: 12ebd590e7437df469415093962a53b0, type: 3}
   turretSpawnPoint1: {fileID: 1210953533}
@@ -2886,7 +2886,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: 125675aef854dd14f9371dfe62d8bc8e, type: 3}
+  m_Resource: {fileID: 8300000, guid: 24104fa1535b67f48a4957ecb18bf96e, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.488
   m_Pitch: 1
@@ -3514,7 +3514,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79b3a1b0aefce8b4c84c1f3394d8fd29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  backgroundClip: {fileID: 8300000, guid: 7774e7ee3d35c6046951e92b4e417108, type: 3}
+  backgroundClip: {fileID: 8300000, guid: 34c4bd3f475856a428ae1c56e21e5b78, type: 3}
   volume: 0.334
 --- !u!82 &1113888121
 AudioSource:
@@ -3527,9 +3527,9 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: 7774e7ee3d35c6046951e92b4e417108, type: 3}
+  m_Resource: {fileID: 8300000, guid: 34c4bd3f475856a428ae1c56e21e5b78, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.26
   m_Pitch: 1
   Loop: 0
   Mute: 0
