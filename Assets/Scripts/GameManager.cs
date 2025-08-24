@@ -26,16 +26,16 @@ public class GameManager : NetworkBehaviour
     }
     public void LevelClear()
     {
-        levelClearUI.SetActive(true);
-        Time.timeScale = 0;
-        if (isServer)
-        {
-            nextButton.gameObject.SetActive(true);
-        }
-        else
-        {
-            waitText.gameObject.SetActive(true);
-        }
+         levelClearUI.SetActive(true);
+         Time.timeScale = 0;
+        // if (isServer)
+        // {
+        //     nextButton.gameObject.SetActive(true);
+        // }
+        // else
+        // {
+        //     waitText.gameObject.SetActive(true);
+        // }
     }
     void Update()
     {
