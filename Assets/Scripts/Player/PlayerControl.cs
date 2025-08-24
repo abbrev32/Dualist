@@ -28,11 +28,6 @@ public class PlayerController : NetworkBehaviour
     private float dashTimer = 0f;
     private readonly float dashTime = 0.25f;
 
-    //for unnecessary damaging
-    [SyncVar]
-    public bool canDamage = false;
-    private bool butdash = false;  
-
     private void Awake()
     {
         anim = GetComponent<Animator>();
@@ -95,7 +90,6 @@ public class PlayerController : NetworkBehaviour
                 isDashing = true;
                 if (audioSource != null && dashSound != null)
                     audioSource.PlayOneShot(dashSound);
-
             }
         }
         else
@@ -109,13 +103,9 @@ public class PlayerController : NetworkBehaviour
             }
             else
             {
-
                 float dashDirection = (moveX != 0) ? moveX : transform.localScale.x > 0 ? 1 : -1;
                 finalVelocityX += dashSpeed * dashDirection;
                 netAnimator.SetTrigger("dash");
-
-
-
             }
         }
 
@@ -136,11 +126,9 @@ public class PlayerController : NetworkBehaviour
             netAnimator.animator.SetBool("run", isRunning);
             netAnimator.animator.SetBool("grounded", IsOnGround());
         }
-
         // Swing sword
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-           
             if (netAnimator != null)
             {
                 if (isRunning)
@@ -153,12 +141,7 @@ public class PlayerController : NetworkBehaviour
 
             }
         }
-       
-     
     }
-
-
-    
 
     [Command]
     private void CmdSetFlip(bool faceRight)
