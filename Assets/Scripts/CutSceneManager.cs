@@ -5,16 +5,17 @@ public class CutSceneManager : NetworkBehaviour
 {
 
     public GameObject cutscenePanel;
+    public GameObject cutscenePanelFirst;
     public Button nextButton;
     void Start()
     {
         Time.timeScale = 0f;
-        cutscenePanel.SetActive(true);
+        cutscenePanelFirst.SetActive(true);
     }
 
     void Update()
     {
-        if (cutscenePanel.activeInHierarchy)
+        if (cutscenePanel.activeInHierarchy || cutscenePanelFirst.activeInHierarchy)
         {
             Time.timeScale = 0f;
         }
@@ -29,6 +30,16 @@ public class CutSceneManager : NetworkBehaviour
     //         nextButton.gameObject.SetActive(true);
     //     }
     // }
+    public void OnFirstNext()
+    {
+        RpcOnFirstNext();
+    }
+    [ClientRpc]
+    private void RpcOnFirstNext()
+    {
+        cutscenePanelFirst.SetActive(false);
+        cutscenePanel.SetActive(true);
+    }
     public void OnNext()
     {
         RpcOnNext();
