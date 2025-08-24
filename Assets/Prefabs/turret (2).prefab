@@ -49,6 +49,7 @@ GameObject:
   - component: {fileID: 6611178367963162610}
   - component: {fileID: 1019786704434713488}
   - component: {fileID: 8963040777440555521}
+  - component: {fileID: 25979916912144018}
   m_Layer: 0
   m_Name: turret (2)
   m_TagString: Turret
@@ -209,8 +210,8 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   fullHealthSprite: {fileID: 0}
-  halfHealthSprite: {fileID: 0}
-  lowHealthSprite: {fileID: 0}
+  halfHealthSprite: {fileID: -6797084958794290194, guid: 7b5bd9b53db49584094344b7947188cc, type: 3}
+  lowHealthSprite: {fileID: -38364086514268546, guid: cd025355b2337aa4086e168acb34532f, type: 3}
   maxHealth: 3
   currentHealth: 3
   audioSource: {fileID: 8963040777440555521}
@@ -461,3 +462,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &25979916912144018
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 559164485504519838}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 523cfa3bc5e623743b5bf431f31eaa8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HostClientColor
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  hostColor: {r: 1, g: 1, b: 1, a: 1}
+  clientColor: {r: 0, g: 0, b: 0, a: 1}

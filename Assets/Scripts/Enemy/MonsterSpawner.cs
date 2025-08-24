@@ -30,10 +30,9 @@ public class MonsterSpawner : NetworkBehaviour
 
     private readonly List<GameObject> currentMonsters = new List<GameObject>();
 
-    // Damage cooldown
-    private float lastDamageTime = -Mathf.Infinity;
-    public float damageCooldown = 1.5f;
+    public bool portaldeath = false; // flag to indicate if the portal is dead
 
+    // --- Unity lifecycle ---
     private void Awake()
     {
         anim = GetComponent<Animator>();
@@ -62,10 +61,6 @@ public class MonsterSpawner : NetworkBehaviour
     [Server]
     public void TakeDamage(int amount)
     {
-        // cooldown check
-        if (Time.time - lastDamageTime < damageCooldown) return;
-        lastDamageTime = Time.time;
-
         if (currentHealth <= 0) return;
 
         netAnimator?.SetTrigger("Damage");
@@ -74,6 +69,7 @@ public class MonsterSpawner : NetworkBehaviour
         if (currentHealth <= 0)
         {
             KillSpawner();
+            portaldeath = true; // flag to indicate the portal is dead
         }
     }
 

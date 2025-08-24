@@ -113,7 +113,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -5242420189378514996, guid: 8e13ee62313f64046a41849721eafe6a, type: 3}
-  m_Color: {r: 0.735849, g: 0.12634388, b: 0.12634388, a: 1}
+  m_Color: {r: 0.735849, g: 0.12634388, b: 0.12634388, a: 0}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -137,3 +137,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyShooting
   bullet: {fileID: 2654002216940096876, guid: c1392f405b31e994ab73218a766c0eb3, type: 3}
   bulletPos: {fileID: 2887972766436719871}
+  shootingInterval: 2
+  targetPlayerNumber: 1

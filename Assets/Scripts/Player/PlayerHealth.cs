@@ -73,6 +73,7 @@ public class PlayerHealth : NetworkBehaviour
         // Apply damage first
         currentHealth -= damage;
 
+
         if (currentHealth <= 0)
         {
             RpcOnPlayerDeath();
