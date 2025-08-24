@@ -16,8 +16,14 @@ public class GameManager : NetworkBehaviour
     public Button retryButton;
     public Button quitButton;
 
+    public GameObject theEndUI;
     public NetworkRoomManager roomManager;
 
+    public void ShowTheEnd()
+    {
+        Time.timeScale = 0f;
+        theEndUI.SetActive(true);
+    }
     public void LevelClear()
     {
         levelClearUI.SetActive(true);

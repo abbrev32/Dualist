@@ -76,10 +76,22 @@ public class PlayerHealth : NetworkBehaviour
 
         if (currentHealth <= 0)
         {
-            RpcOnPlayerDeath();
-            isDead = true;
+            if (!EntityChecker.nextLevel)
+            {
+                RpcOnPlayerDeath();
+                isDead = true;
+            }
+            else
+            {
+                RpcTheEnd();
+            }
             //StartCoroutine(ServerDestroyAfterDelay());
         }
+    }
+    [ClientRpc]
+    private void RpcTheEnd()
+    {
+        StartCoroutine(HandleDeathSequence2());
     }
 
     [Server]
@@ -88,8 +100,8 @@ public class PlayerHealth : NetworkBehaviour
         currentHealth = maxHealth;
         isDead = false;
 
-        Transform startPos = NetworkManager.singleton.GetStartPosition();
-        Vector3 spawnPosition = startPos != null ? startPos.position : Vector3.zero;
+        //Transform startPos = NetworkManager.singleton.GetStartPosition();
+        Vector3 spawnPosition = spawnPoint.position;
 
         RpcRespawn(spawnPosition);
     }
@@ -114,6 +126,21 @@ public class PlayerHealth : NetworkBehaviour
         StartCoroutine(HandleDeathSequence());
     }
 
+    private IEnumerator HandleDeathSequence2()
+    {
+        // Play the death sound
+        if (audioSource != null && deathSound != null)
+        {
+            audioSource.PlayOneShot(deathSound);
+        }
+
+        // Wait for a few seconds before showing the game over screen
+        yield return new WaitForSeconds(3f);
+
+        // Show the game over screen
+        //todo
+        FindAnyObjectByType<GameManager>().ShowTheEnd();
+    }    
     private IEnumerator HandleDeathSequence()
     {
         // Play the death sound
