@@ -30,6 +30,8 @@ public class MonsterSpawner : NetworkBehaviour
 
     private readonly List<GameObject> currentMonsters = new List<GameObject>();
 
+    public bool portaldeath = false; // flag to indicate if the portal is dead
+
     // --- Unity lifecycle ---
     private void Awake()
     {
@@ -67,6 +69,7 @@ public class MonsterSpawner : NetworkBehaviour
         if (currentHealth <= 0)
         {
             KillSpawner();
+            portaldeath = true; // flag to indicate the portal is dead
         }
     }
 
