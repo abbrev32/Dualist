@@ -32,6 +32,8 @@ public class PlayerController : NetworkBehaviour
     public bool isRunning = false;
     [SyncVar]
     public bool isjumping = false;
+    [SyncVar]
+    public bool onGround = true;
     private void Awake()
     {
         anim = GetComponent<Animator>();
@@ -116,6 +118,7 @@ public class PlayerController : NetworkBehaviour
         // Apply movement
         playerBody.linearVelocity = new Vector2(finalVelocityX, velocityY);
 
+        onGround = IsOnGround();
         // Flip
         if (moveX != 0)
         {
@@ -128,18 +131,26 @@ public class PlayerController : NetworkBehaviour
         if (netAnimator != null)
         {
             netAnimator.animator.SetBool("run", isRunning);
-            netAnimator.animator.SetBool("grounded", IsOnGround());
+            netAnimator.animator.SetBool("grounded", onGround);
         }
         // Swing sword
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            if (isRunning)
-                CmdSwing("run swing");
+            // Only pick one swing trigger per click
             if (isjumping)
+            {
                 CmdSwing("jump swing");
-            if (!isRunning && IsOnGround())
+            }
+            else if (isRunning)
+            {
+                CmdSwing("run swing");
+            }
+            else // grounded and not running
+            {
                 CmdSwing("idle swing");
+            }
         }
+
     }
     [Command]
     private void CmdSwing(string triggerName)
