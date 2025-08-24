@@ -35,11 +35,16 @@ public class GameManager : NetworkBehaviour
     public void OnNextLevel()
     {
         Time.timeScale = 1.0f;
-        levelClearUI.SetActive(false);
+        RpcHideOverlay();
         GameObject player = GameObject.Find("RealPlayer(Clone)");
         player.GetComponent<PlayerHealth>().ServerRespawn();
         //GetComponent<PlayerHealth>().ServerRespawn();
         SwordScript.pvp = true;
+    }
+    [ClientRpc]
+    public void RpcHideOverlay()
+    {
+        levelClearUI.SetActive(false);
     }
     public void ShowGameOverScreen()
     {

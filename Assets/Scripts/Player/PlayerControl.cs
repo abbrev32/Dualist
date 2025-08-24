@@ -139,16 +139,19 @@ public class PlayerController : NetworkBehaviour
             // Only pick one swing trigger per click
             if (isjumping)
             {
+                Debug.Log("JUMP SWING");
                 // CmdSwing("jump swing");
                 netAnimator.animator.SetTrigger("jump swing");
             }
             else if (isRunning)
             {
+                Debug.Log("RUN SWING");
                 // CmdSwing("run swing");
                 netAnimator.animator.SetTrigger("run swing");
             }
             else // grounded and not running
             {
+                Debug.Log("IDLE SWING");
                 // CmdSwing("idle swing");
                 netAnimator.animator.SetTrigger("idle swing");
             }
