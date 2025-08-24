@@ -14,6 +14,9 @@ public class PlayerHealth : NetworkBehaviour
 =======
     private Animator anim;
     private NetworkAnimator netAnimator;
+<<<<<<< HEAD
+>>>>>>> parent of 009641d (a)
+=======
 >>>>>>> parent of 009641d (a)
 
     [SyncVar(hook = nameof(OnHealthChange))]
@@ -158,6 +161,7 @@ public class PlayerHealth : NetworkBehaviour
             FindAnyObjectByType<GameManager>().ShowTheEnd();
         }
 <<<<<<< HEAD
+<<<<<<< HEAD
 
       
 
@@ -168,6 +172,8 @@ public class PlayerHealth : NetworkBehaviour
         // Show the game over screen
         //todo
         FindAnyObjectByType<GameManager>().ShowTheEnd();
+=======
+>>>>>>> parent of 009641d (a)
 =======
 >>>>>>> parent of 009641d (a)
     }    
@@ -192,6 +198,7 @@ public class PlayerHealth : NetworkBehaviour
             FindAnyObjectByType<GameManager>().ShowGameOverScreen();
         }
 <<<<<<< HEAD
+<<<<<<< HEAD
 
        
 
@@ -202,6 +209,9 @@ public class PlayerHealth : NetworkBehaviour
         // Show the game over screen
         FindAnyObjectByType<GameManager>().ShowGameOverScreen();
       // Play the death sound
+=======
+        // Play the death sound
+>>>>>>> parent of 009641d (a)
 =======
         // Play the death sound
 >>>>>>> parent of 009641d (a)
