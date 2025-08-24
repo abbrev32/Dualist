@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6785154428083007818}
   - component: {fileID: 526963206342118659}
   - component: {fileID: 7708016276271207630}
-  - component: {fileID: 1793108480214457284}
+  - component: {fileID: -1102423617995840031}
   m_Layer: 0
   m_Name: Sword
   m_TagString: Sword
@@ -266,7 +266,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &1793108480214457284
+--- !u!114 &-1102423617995840031
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

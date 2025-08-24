@@ -9,8 +9,7 @@ using System.Security.Cryptography.X509Certificates;
 public class PlayerHealth : NetworkBehaviour
 {
     public float maxHealth = 10;
-    private Animator anim;
-    public NetworkAnimator netAnimator;
+    
 
     [SyncVar(hook = nameof(OnHealthChange))]
     public float currentHealth = 1;
@@ -80,6 +79,8 @@ public class PlayerHealth : NetworkBehaviour
 
         if (currentHealth <= 0)
         {
+          
+
             if (!EntityChecker.nextLevel)
             {
                 RpcOnPlayerDeath();
@@ -138,8 +139,7 @@ public class PlayerHealth : NetworkBehaviour
             audioSource.PlayOneShot(deathSound);
         }
 
-        //death animation
-        netAnimator.animator.SetTrigger("death");
+      
 
         // Wait for a few seconds before showing the game over screen
         yield return new WaitForSeconds(1f);
@@ -157,8 +157,7 @@ public class PlayerHealth : NetworkBehaviour
             audioSource.PlayOneShot(deathSound);
         }
 
-        //death animation
-        netAnimator.animator.SetTrigger("death");
+       
 
         // Wait for a few seconds before showing the game over screen
         yield return new WaitForSeconds(1f);

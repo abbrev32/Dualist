@@ -221,7 +221,6 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   maxHealth: 20
-  netAnimator: {fileID: 8362537955189495041}
   currentHealth: 1
   isDead: 0
   spawnPoint: {fileID: 4908736327452825590, guid: cafcbedf715843c48b6c73cbe2a4f73f, type: 3}
@@ -475,6 +474,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3157887769069277746}
     m_Modifications:
+    - target: {fileID: -1102423617995840031, guid: 8383edf248eb99c48b6ca6bee47f5d60, type: 3}
+      propertyPath: _assetId
+      value: 1414172803
+      objectReference: {fileID: 0}
     - target: {fileID: 1793108480214457284, guid: 8383edf248eb99c48b6ca6bee47f5d60, type: 3}
       propertyPath: _assetId
       value: 1414172803
@@ -569,6 +572,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 677385242644088262}
     m_Modifications:
+    - target: {fileID: -1102423617995840031, guid: 8383edf248eb99c48b6ca6bee47f5d60, type: 3}
+      propertyPath: _assetId
+      value: 1414172803
+      objectReference: {fileID: 0}
     - target: {fileID: 1793108480214457284, guid: 8383edf248eb99c48b6ca6bee47f5d60, type: 3}
       propertyPath: _assetId
       value: 1414172803
