@@ -69,7 +69,7 @@ public class PlayerController : NetworkBehaviour
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 velocityY = jumpHeight;
-                netAnimator.SetTrigger("jump");
+                netAnimator.animator.SetTrigger("jump");
                 PlayJumpSound();
             }
         }
@@ -79,7 +79,7 @@ public class PlayerController : NetworkBehaviour
             {
                 velocityY = jumpHeight;
                 extJumps--;
-                netAnimator.SetTrigger("jump");
+                netAnimator.animator.SetTrigger("jump");
                 PlayJumpSound();
             }
         }
@@ -111,7 +111,7 @@ public class PlayerController : NetworkBehaviour
             {
                 float dashDirection = (moveX != 0) ? moveX : transform.localScale.x > 0 ? 1 : -1;
                 finalVelocityX += dashSpeed * dashDirection;
-                netAnimator.SetTrigger("dash");
+                netAnimator.animator.SetTrigger("dash");
             }
         }
 
