@@ -53,8 +53,9 @@ public class Ghost : NetworkBehaviour
         }
 
         // Sword/Knife touch → ghost dies
-        if (collision.CompareTag("Sword") || collision.CompareTag("Knife"))
+        if (collision.CompareTag("Sword"))
         {
+            Debug.Log($"Ghost destroyed by {collision.tag} ({collision.name})");
             NetworkServer.Destroy(gameObject);
         }
     }
