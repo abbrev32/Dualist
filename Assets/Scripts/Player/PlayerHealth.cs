@@ -70,6 +70,7 @@ public class PlayerHealth : NetworkBehaviour
     [Server]
     public void TakeDamage(float damage)
     {
+        if (isDead) return;
         // Apply damage first
         currentHealth -= damage;
 
@@ -79,7 +80,6 @@ public class PlayerHealth : NetworkBehaviour
             if (!EntityChecker.nextLevel)
             {
                 RpcOnPlayerDeath();
-                isDead = true;
             }
             else
             {
@@ -128,32 +128,42 @@ public class PlayerHealth : NetworkBehaviour
 
     private IEnumerator HandleDeathSequence2()
     {
-        // Play the death sound
-        if (audioSource != null && deathSound != null)
-        {
-            audioSource.PlayOneShot(deathSound);
+        if (!isDead)
+        { 
+            isDead = true;
+            // Play the death sound
+            if (audioSource != null && deathSound != null)
+            {
+                audioSource.PlayOneShot(deathSound);
+            }
+
+            // Wait for a few seconds before showing the game over screen
+            yield return new WaitForSeconds(1f);
+
+            Time.timeScale = 0;
+            // Show the game over screen
+            //todo
+            FindAnyObjectByType<GameManager>().ShowTheEnd();
         }
-
-        // Wait for a few seconds before showing the game over screen
-        yield return new WaitForSeconds(3f);
-
-        // Show the game over screen
-        //todo
-        FindAnyObjectByType<GameManager>().ShowTheEnd();
     }    
     private IEnumerator HandleDeathSequence()
     {
-        // Play the death sound
-        if (audioSource != null && deathSound != null)
-        {
-            audioSource.PlayOneShot(deathSound);
+        if (!isDead)
+        {    
+            isDead = true;
+            if (audioSource != null && deathSound != null)
+            {
+                audioSource.PlayOneShot(deathSound);
+            }
+
+            // Wait for a few seconds before showing the game over screen
+            yield return new WaitForSeconds(1f);
+
+            Time.timeScale = 0;
+            // Show the game over screen
+            FindAnyObjectByType<GameManager>().ShowGameOverScreen();
         }
-
-        // Wait for a few seconds before showing the game over screen
-        yield return new WaitForSeconds(3f);
-
-        // Show the game over screen
-        FindAnyObjectByType<GameManager>().ShowGameOverScreen();
+        // Play the death sound
     }
 
     [Server]

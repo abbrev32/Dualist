@@ -34,6 +34,13 @@ public class MainMenuController : MonoBehaviour
     public GameObject serverButtonPrefab;
     private HashSet<string> discoveredServers = new HashSet<string>();
 
+
+    public TMP_Text tutorialText;
+
+    public void OnTutorial()
+    {
+        tutorialText.gameObject.SetActive(!tutorialText.IsActive());
+    }
     private void Awake()
     {
         // var existing = FindAnyObjectByType<NetworkRoomManager>();

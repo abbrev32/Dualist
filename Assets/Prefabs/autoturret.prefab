@@ -137,5 +137,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyShooting
   bullet: {fileID: 2654002216940096876, guid: c1392f405b31e994ab73218a766c0eb3, type: 3}
   bulletPos: {fileID: 2887972766436719871}
-  shootingInterval: 2
+  shootingInterval: 3.5
   targetPlayerNumber: 1
