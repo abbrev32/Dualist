@@ -208,6 +208,7 @@ MonoBehaviour:
   currentHealth: 3
   audioSource: {fileID: -7524688557414716448}
   destroySound: {fileID: 8300000, guid: 8261e605ee8eb514986e304cc100c3bb, type: 3}
+  damageCooldown: 1.5
 --- !u!82 &5813498230674531159
 AudioSource:
   m_ObjectHideFlags: 0
@@ -347,7 +348,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: 8261e605ee8eb514986e304cc100c3bb, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.191
   m_Pitch: 1
   Loop: 0
   Mute: 0

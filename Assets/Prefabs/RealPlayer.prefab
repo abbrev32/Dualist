@@ -202,6 +202,8 @@ MonoBehaviour:
   jumpHeight: 12
   jumpSound: {fileID: 0}
   dashSound: {fileID: 8300000, guid: 28dcb57505ae7a941a261510763c1b6b, type: 3}
+  isRunning: 0
+  isjumping: 0
 --- !u!114 &6566882048528832175
 MonoBehaviour:
   m_ObjectHideFlags: 0

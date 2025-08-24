@@ -4,6 +4,7 @@ using Mirror;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.Rendering;
+using System.Collections;
 
 [RequireComponent(typeof(PlayerHealth))]
 public class GameManager : NetworkBehaviour
@@ -91,30 +92,45 @@ public class GameManager : NetworkBehaviour
 
     public void OnQuitButton()
     {
+        // Instead of running the logic directly, start the shutdown coroutine.
+        StartCoroutine(ShutdownAndReturnToMenu());
+    }
+
+    private IEnumerator ShutdownAndReturnToMenu()
+    {
         Time.timeScale = 1f;
 
-        // Properly shut down networking first
-        if (NetworkServer.active && NetworkClient.isConnected)
+        if (NetworkManager.singleton != null)
         {
-            NetworkManager.singleton.StopHost();
-        }
-        else if (NetworkClient.isConnected)
-        {
-            NetworkManager.singleton.StopClient();
-        }
-        else if (NetworkServer.active)
-        {
-            NetworkManager.singleton.StopServer();
+            // First, stop the host/client/server.
+            if (NetworkServer.active && NetworkClient.isConnected)
+            {
+                NetworkManager.singleton.StopHost();
+            }
+            else if (NetworkClient.isConnected)
+            {
+                NetworkManager.singleton.StopClient();
+            }
+            else if (NetworkServer.active)
+            {
+                NetworkManager.singleton.StopServer();
+            }
+
+            // Wait a very short moment to allow network processes to stop.
+            yield return new WaitForSeconds(0.1f);
+
+            // Now, destroy the manager's GameObject.
+            Destroy(NetworkManager.singleton.gameObject);
+
+            // **This is the crucial step:** Wait until the end of the frame.
+            // This ensures the Destroy() command has been fully executed
+            // before we try to load the next scene.
+            yield return new WaitForEndOfFrame();
         }
 
-        // Explicitly destroy the room manager singleton if you want a full reset
-        // if (NetworkManager.singleton != null)
-        // {
-        //     Destroy(NetworkManager.singleton.gameObject);
-        // }
-
-        // Now load the main menu
+        // Finally, load the main menu scene.
         SceneManager.LoadScene("MainMenu");
     }
+
 
 }
