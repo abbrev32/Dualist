@@ -57,6 +57,11 @@ public class MainMenuController : MonoBehaviour
     {
         if (roomManager != null)
         {
+            // Defensively stop discovery before using it.
+            // This resets its internal state and prevents errors if it was
+            // left in an active state from a previous session.
+            discovery.StopDiscovery();
+
             roomManager.StartHost();
             discovery.AdvertiseServer();
             SetLobbyActive();
