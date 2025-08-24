@@ -26,8 +26,8 @@ public class GameManager : NetworkBehaviour
     }
     public void LevelClear()
     {
-         levelClearUI.SetActive(true);
-         Time.timeScale = 0;
+        levelClearUI.SetActive(true);
+        Time.timeScale = 0;
         // if (isServer)
         // {
         //     nextButton.gameObject.SetActive(true);
@@ -43,11 +43,15 @@ public class GameManager : NetworkBehaviour
         {
             RpcOnPause();
         }
+        if (levelClearUI.activeInHierarchy)
+        {
+            Time.timeScale = 0f;
+        }
     }
     [ClientRpc]
     public void RpcOnPause()
     {
-        Time.timeScale = 0f;
+        Time.timeScale = (Time.timeScale == 1f) ? 0f : 1f;
     }
     //TODO HERE
     public void OnNextLevel()
@@ -92,7 +96,6 @@ public class GameManager : NetworkBehaviour
     {
         // 1. Make sure only the server can run this.
         if (!isServer) return;
-
         // 2. Respawn all players (this logic is server-authoritative and correct).
         PlayerHealth[] players = FindObjectsOfType<PlayerHealth>();
         foreach (PlayerHealth player in players)

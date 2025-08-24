@@ -12,6 +12,14 @@ public class CutSceneManager : NetworkBehaviour
         cutscenePanel.SetActive(true);
     }
 
+    void Update()
+    {
+        if (cutscenePanel.activeInHierarchy)
+        {
+            Time.timeScale = 0f;
+        }
+    }
+
     // Update is called once per frame
     // void Update()
     // {
