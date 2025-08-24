@@ -3,6 +3,7 @@ using UnityEngine.SceneManagement;
 using Mirror;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.Rendering;
 
 public class GameManager : NetworkBehaviour
 {
@@ -32,6 +33,9 @@ public class GameManager : NetworkBehaviour
     public void OnNextLevel()
     {
         Time.timeScale = 1.0f;
+        GameObject player = GameObject.Find("RealPlayer");
+        player.GetComponent<PlayerHealth>().ServerRespawn();
+        SwordScript.pvp = true;
         levelClearUI.SetActive(false);
     }
     public void ShowGameOverScreen()
