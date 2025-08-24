@@ -155,6 +155,7 @@ public class PlayerHealth : NetworkBehaviour
     public float flashDuration = 0.2f;
 
     private Color originalColor;
+    internal bool pvp;
 
     void Start()
     {
