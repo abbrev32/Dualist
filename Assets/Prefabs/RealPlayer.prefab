@@ -221,6 +221,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   maxHealth: 20
+  netAnimator: {fileID: 8362537955189495041}
   currentHealth: 1
   isDead: 0
   spawnPoint: {fileID: 4908736327452825590, guid: cafcbedf715843c48b6c73cbe2a4f73f, type: 3}
