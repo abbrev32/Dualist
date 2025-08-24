@@ -151,18 +151,18 @@ public class PlayerController : NetworkBehaviour
     {
         if (!isDashing)
         {
-            Vector2 velocity = playerBody.velocity;
+            Vector2 velocity = playerBody.linearVelocity;
             velocity.x = velocityX;
-            playerBody.velocity = velocity;
+            playerBody.linearVelocity = velocity;
         }
     }
 
     [Command]
     private void CmdJump()
     {
-        Vector2 velocity = playerBody.velocity;
+        Vector2 velocity = playerBody.linearVelocity;
         velocity.y = jumpHeight;
-        playerBody.velocity = velocity;
+        playerBody.linearVelocity = velocity;
 
         if (netAnimator != null) netAnimator.SetTrigger("jump");
         PlayJumpSound();
@@ -171,9 +171,9 @@ public class PlayerController : NetworkBehaviour
     [Command]
     private void CmdDash(float direction)
     {
-        Vector2 velocity = playerBody.velocity;
+        Vector2 velocity = playerBody.linearVelocity;
         velocity.x = direction * dashSpeed;
-        playerBody.velocity = velocity;
+        playerBody.linearVelocity = velocity;
 
         if (netAnimator != null) netAnimator.SetTrigger("dash");
     }
