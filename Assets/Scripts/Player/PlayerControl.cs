@@ -28,6 +28,8 @@ public class PlayerController : NetworkBehaviour
     private float dashTimer = 0f;
     private readonly float dashTime = 0.25f;
 
+    [SyncVar]
+    public bool isRunning = false;
     private void Awake()
     {
         anim = GetComponent<Animator>();
@@ -79,7 +81,7 @@ public class PlayerController : NetworkBehaviour
         }
 
         float finalVelocityX = moveX * movementSpeed;
-        bool isRunning = Mathf.Abs(moveX) > 0.01f;
+        isRunning = Mathf.Abs(moveX) > 0.01f;
         bool isjumping = !IsOnGround();
         // Dash
         if (!isDashing)
