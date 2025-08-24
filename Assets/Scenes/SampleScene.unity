@@ -119,75 +119,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1001 &30403440
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4414625503378716744, guid: 4ae894e8cdfec9be896cc3b488a5adae, type: 3}
-      propertyPath: m_Name
-      value: Ghost Variant
-      objectReference: {fileID: 0}
-    - target: {fileID: 6093668290166256974, guid: 4ae894e8cdfec9be896cc3b488a5adae, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.035084493
-      objectReference: {fileID: 0}
-    - target: {fileID: 6093668290166256974, guid: 4ae894e8cdfec9be896cc3b488a5adae, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.036870472
-      objectReference: {fileID: 0}
-    - target: {fileID: 6093668290166256974, guid: 4ae894e8cdfec9be896cc3b488a5adae, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 5.10061
-      objectReference: {fileID: 0}
-    - target: {fileID: 6093668290166256974, guid: 4ae894e8cdfec9be896cc3b488a5adae, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 1.27755
-      objectReference: {fileID: 0}
-    - target: {fileID: 6093668290166256974, guid: 4ae894e8cdfec9be896cc3b488a5adae, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6093668290166256974, guid: 4ae894e8cdfec9be896cc3b488a5adae, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6093668290166256974, guid: 4ae894e8cdfec9be896cc3b488a5adae, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6093668290166256974, guid: 4ae894e8cdfec9be896cc3b488a5adae, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6093668290166256974, guid: 4ae894e8cdfec9be896cc3b488a5adae, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6093668290166256974, guid: 4ae894e8cdfec9be896cc3b488a5adae, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6093668290166256974, guid: 4ae894e8cdfec9be896cc3b488a5adae, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6093668290166256974, guid: 4ae894e8cdfec9be896cc3b488a5adae, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8174745069141077824, guid: 4ae894e8cdfec9be896cc3b488a5adae, type: 3}
-      propertyPath: sceneId
-      value: 4019307185
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 4ae894e8cdfec9be896cc3b488a5adae, type: 3}
 --- !u!1 &52753905
 GameObject:
   m_ObjectHideFlags: 0
@@ -2854,10 +2785,6 @@ MonoBehaviour:
   switchActivationSound: {fileID: 8300000, guid: f58b89ea4f81e41fcb5c5bec6d134986, type: 3}
   switchActivationMusicTracks:
   - {fileID: 8300000, guid: 125675aef854dd14f9371dfe62d8bc8e, type: 3}
-  turretPrefab1: {fileID: 5703171395439219910, guid: 115fa202581455f4ba74ed9bad29af34, type: 3}
-  turretPrefab2: {fileID: 559164485504519838, guid: 12ebd590e7437df469415093962a53b0, type: 3}
-  turretSpawnPoint1: {fileID: 1210953533}
-  turretSpawnPoint2: {fileID: 820896431}
 --- !u!114 &854090003
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3260,9 +3187,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5964450518668494532, guid: 6abc5e42500bda945a37b98d66f14802, type: 3}
       insertIndex: -1
       addedObject: {fileID: 989631343}
-    - targetCorrespondingSourceObject: {fileID: 5964450518668494532, guid: 6abc5e42500bda945a37b98d66f14802, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 989631345}
   m_SourcePrefab: {fileID: 100100000, guid: 6abc5e42500bda945a37b98d66f14802, type: 3}
 --- !u!1 &989631338 stripped
 GameObject:
@@ -3308,14 +3232,14 @@ MonoBehaviour:
   syncInterval: 0
   monsterPrefab: {fileID: 3831856357126718768, guid: b26e0e2d2b1fbb944842d626e6774813, type: 3}
   ghostPrefab: {fileID: 4414625503378716744, guid: 4ae894e8cdfec9be896cc3b488a5adae, type: 3}
-  monstersPerWave: 6
-  ghostsPerWave: 4
+  monstersPerWave: 4
+  ghostsPerWave: 3
   monsterSpawnDelay: 0.5
   ghostSpawnDelay: 3
   monsterSpeedRange: {x: 2, y: 5}
   positionOffsetY: 1.5
   maxHealth: 5
-  portaldeath: 0
+  portaldeath: 1
 --- !u!82 &989631342
 AudioSource:
   m_ObjectHideFlags: 0
@@ -3467,23 +3391,6 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.56, y: 1}
   m_Direction: 0
---- !u!114 &989631345
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 989631338}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 523cfa3bc5e623743b5bf431f31eaa8f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::HostClientColor
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0
-  hostColor: {r: 1, g: 1, b: 1, a: 1}
-  clientColor: {r: 0, g: 0, b: 0, a: 1}
 --- !u!1 &1113888119
 GameObject:
   m_ObjectHideFlags: 0
@@ -6825,7 +6732,6 @@ SceneRoots:
   - {fileID: 1546330370}
   - {fileID: 2115300923}
   - {fileID: 686614011}
-  - {fileID: 30403440}
   - {fileID: 475461567}
   - {fileID: 1507812526}
   - {fileID: 1210953533}
